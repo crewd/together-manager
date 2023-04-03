@@ -52,7 +52,7 @@ function MainPage() {
           <p className="text-3xl font-bold text-center">매장 목록</p>
         </div>
         {dummyStore.length > 0 ? (
-          <div className="grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 grid-cols-1 justify-center place-items-center w-full max-w-[1024px] m-auto md:gap-4 sm:gap-2 gap-4 py-[36px]">
+          <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 justify-center place-items-center w-full max-w-[1024px] m-auto md:gap-4 sm:gap-2 gap-4 py-[36px]">
             {dummyStore.map((data: Store, index) => (
               <ItemCard data={data} key={data.name + index} />
             ))}
