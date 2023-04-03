@@ -1,14 +1,36 @@
 import { faArrowRightFromBracket } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import ItemCard from '../components/item-card';
+import { Store } from '../types/store.type';
 
 function MainPage() {
-  const dummyStore = [
+  const dummyStore: Store[] = [
     {
-      name: '순대국밥',
-      address: '무슨시 무슨구 무슨동 123-45',
+      name: 'store_name',
+      address: 'store_address',
+      members: 2,
+    },
+    {
+      name: 'store_name',
+      address: 'store_address',
+      members: 2,
+    },
+    {
+      name: 'store_name',
+      address: 'store_address',
+      members: 2,
+    },
+    {
+      name: 'store_name',
+      address: 'store_address',
+      members: 2,
+    },
+    {
+      name: 'store_name',
+      address: 'store_address',
+      members: 2,
     },
   ];
-
   const user = {
     name: '홍길동',
     role: 'manager',
@@ -29,13 +51,22 @@ function MainPage() {
         <div>
           <p className="text-3xl font-bold text-center">매장 목록</p>
         </div>
-        <div className="grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 grid-cols-1 justify-center place-items-center w-full max-w-[1024px] m-auto gap-4 py-[36px]">
-          <div className="col-span-4 w-[300px] h-[200px] border border-gray-700 border-dashed rounded-xl flex justify-center items-center">
-            <p className="text-2xl text-center text-gray-500">
-              매장을 추가해 주세요
-            </p>
+        {dummyStore.length > 0 ? (
+          <div className="grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 grid-cols-1 justify-center place-items-center w-full max-w-[1024px] m-auto md:gap-4 sm:gap-2 gap-4 py-[36px]">
+            {dummyStore.map((data: Store, index) => (
+              <ItemCard data={data} key={data.name + index} />
+            ))}
           </div>
-        </div>
+        ) : (
+          <div className="flex justify-center py-[36px]">
+            <div className="w-[250px] h-[180px] border border-gray-700 border-dashed rounded-xl flex justify-center items-center">
+              <p className="text-2xl text-center text-gray-500">
+                매장을 추가해 주세요
+              </p>
+            </div>
+          </div>
+        )}
+
         <div className="flex justify-center">
           <button className="bg-blue-500 w-[120px] h-[50px] rounded-md text-xl text-white shadow-md hover:bg-blue-700 hover:scale-105">
             매장 추가

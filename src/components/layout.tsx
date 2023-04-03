@@ -6,6 +6,7 @@ import {
   faXmark,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Link } from 'react-router-dom';
 
 function Layout({ children }: { children?: React.ReactNode }) {
   const [menu, setMenu] = useState(false);
@@ -26,9 +27,12 @@ function Layout({ children }: { children?: React.ReactNode }) {
     <div className="bg-white">
       <header className="w-full fixed top-0 bg-white border-b shadow-sm h-[64px]">
         <div className="lg:px-[32px] px-[16px] w-full flex justify-between">
-          <h2 className="text-2xl font-bold leading-[64px] hidden lg:block">
+          <Link
+            className="text-2xl font-bold leading-[64px] hidden lg:block"
+            to="/"
+          >
             투게더
-          </h2>
+          </Link>
           <button className="lg:hidden" onClick={onClickMenu}>
             <FontAwesomeIcon className="w-[20px] h-[20px]" icon={faBars} />
           </button>
