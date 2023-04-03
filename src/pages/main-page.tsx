@@ -37,29 +37,29 @@ function MainPage() {
   };
   return (
     <div>
-      <header className="px-[16px] lg:px-[32px] flex justify-between border-b">
+      <header className="flex justify-between border-b px-[16px] lg:px-[32px]">
         <h2 className="text-2xl font-bold leading-[64px]">투게더</h2>
-        <button className="leading-[64px] font-semibold flex items-center">
+        <button className="flex items-center font-semibold leading-[64px]">
           <FontAwesomeIcon
-            className="w-[20px] h-[20px] align-middle"
+            className="h-[20px] w-[20px] align-middle"
             icon={faArrowRightFromBracket}
           />
-          <span className="pl-[8px] hidden md:inline-block">로그아웃</span>
+          <span className="hidden pl-[8px] md:inline-block">로그아웃</span>
         </button>
       </header>
-      <main className="w-full m-auto py-[36px] px-[16px] flex justify-center flex-col">
+      <main className="m-auto flex w-full flex-col justify-center px-[16px] py-[36px]">
         <div>
           <p className="text-3xl font-bold text-center">매장 목록</p>
         </div>
         {dummyStore.length > 0 ? (
-          <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 justify-center place-items-center w-full max-w-[1024px] m-auto md:gap-4 sm:gap-2 gap-4 py-[36px]">
+          <div className="m-auto grid w-full max-w-[1024px] grid-cols-1 place-items-center justify-center gap-6 py-[36px] md:grid-cols-2 md:gap-4 lg:grid-cols-3">
             {dummyStore.map((data: Store, index) => (
               <ItemCard data={data} key={data.name + index} />
             ))}
           </div>
         ) : (
           <div className="flex justify-center py-[36px]">
-            <div className="w-[250px] h-[180px] border border-gray-700 border-dashed rounded-xl flex justify-center items-center">
+            <div className="flex h-[180px] w-[250px] items-center justify-center rounded-xl border border-dashed border-gray-700">
               <p className="text-2xl text-center text-gray-500">
                 매장을 추가해 주세요
               </p>
@@ -68,7 +68,7 @@ function MainPage() {
         )}
 
         <div className="flex justify-center">
-          <button className="bg-blue-500 w-[120px] h-[50px] rounded-md text-xl text-white shadow-md hover:bg-blue-700 hover:scale-105">
+          <button className="h-[50px] w-[120px] rounded-md bg-blue-500 text-xl text-white shadow-md hover:scale-105 hover:bg-blue-700">
             매장 추가
           </button>
         </div>
