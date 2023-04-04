@@ -5,40 +5,25 @@ import { Store } from '../types/store.type';
 import AddStore from '../components/add-store';
 import { useEffect, useState } from 'react';
 import ModalPortal from '../components/modal-portal';
+import { useSelector } from 'react-redux';
+import { RootState } from '../store';
+import { useDispatch } from 'react-redux';
+import { AddStoreAction, addStore } from '../store/modules/add-store';
+import { ThunkDispatch } from 'redux-thunk';
 
 function MainPage() {
-  const dummyStore: Store[] = [
-    {
-      name: 'store_name',
-      address: 'store_address',
-      members: 2,
-    },
-    {
-      name: 'store_name',
-      address: 'store_address',
-      members: 2,
-    },
-    {
-      name: 'store_name',
-      address: 'store_address',
-      members: 2,
-    },
-    {
-      name: 'store_name',
-      address: 'store_address',
-      members: 2,
-    },
-    {
-      name: 'store_name',
-      address: 'store_address',
-      members: 2,
-    },
-  ];
+  const [modalOpened, setModalOpened] = useState(false);
+
+  const dummyStore: Store[] = useSelector(
+    (state: RootState) => state.store.stores,
+  );
+
+  console.log(dummyStore);
+
   const user = {
     name: '홍길동',
     role: 'manager',
   };
-  const [modalOpened, setModalOpened] = useState(false);
 
   const onOpen = () => {
     setModalOpened(true);
@@ -75,7 +60,7 @@ function MainPage() {
         {dummyStore.length > 0 ? (
           <div className="m-auto grid w-full max-w-[1024px] grid-cols-1 place-items-center justify-center gap-6 py-[36px] md:grid-cols-2 md:gap-4 lg:grid-cols-3">
             {dummyStore.map((data: Store, index) => (
-              <ItemCard data={data} key={data.name + index} />
+              <ItemCard data={data} key={data.storeName + index} />
             ))}
           </div>
         ) : (

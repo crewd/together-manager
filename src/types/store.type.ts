@@ -1,5 +1,17 @@
 export type Store = {
-  name: string;
+  storeName: string;
   address: string;
-  members: number;
+  members?: number;
+};
+
+export type StoreState = {
+  stores: Store[];
+  isLoading: boolean;
+  error: string | null;
+};
+
+export type StoreForm = {
+  storeName: string;
+  address: string;
+  detailAddress: string;
 };
