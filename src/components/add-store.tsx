@@ -1,16 +1,15 @@
 import { ErrorMessage } from '@hookform/error-message';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import DaumPostcode, { Address } from 'react-daum-postcode';
-import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
-import { Store, StoreForm } from '../types/store.type';
+import { SubmitHandler, useForm } from 'react-hook-form';
+import { StoreForm } from '../types/store.type';
 import { useDispatch } from 'react-redux';
 import { ThunkDispatch } from 'redux-thunk';
 import { RootState } from '../store';
-import { AddStoreAction, addStore } from '../store/modules/add-store';
+import { AddStoreAction, addStore } from '../store/modules/store/store';
 
 function AddStore({ onClose }: { onClose: () => void }) {
   const {
-    control,
     register,
     formState: { errors },
     handleSubmit,
@@ -23,27 +22,27 @@ function AddStore({ onClose }: { onClose: () => void }) {
   const dispatch =
     useDispatch<ThunkDispatch<RootState, null, AddStoreAction>>();
 
-  const addStoreDispatch: SubmitHandler<StoreForm> = (data) => {
-    console.log(data);
-    const fullAddress = `${data.address} ${data.detailAddress}`;
-    dispatch(addStore(data.storeName, fullAddress));
-    onClose();
-  };
+  const addStoreDispatch: SubmitHandler<StoreForm> = useCallback(
+    (data) => {
+      const fullAddress = `${data.address} ${data.detailAddress}`;
+      dispatch(addStore(data.storeName, fullAddress));
+      onClose();
+    },
+    [dispatch, onClose],
+  );
 
   useEffect(() => {
     setValue('address', address);
   }, [address, setValue]);
 
-  const onOpenAddress = () => {
+  const onOpenAddress = useCallback(() => {
     setAddressOpened(true);
-  };
+  }, []);
 
-  const getAddress = (data: Address) => {
+  const getAddress = useCallback((data: Address) => {
     setAddress(data.address);
     setAddressOpened(false);
-  };
-
-  console.log(address);
+  }, []);
 
   return (
     <div className="fixed left-0 top-0 flex h-screen w-screen items-center justify-center">

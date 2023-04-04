@@ -5,11 +5,10 @@ import { Store } from '../types/store.type';
 import AddStore from '../components/add-store';
 import { useEffect, useState } from 'react';
 import ModalPortal from '../components/modal-portal';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../store';
-import { useDispatch } from 'react-redux';
-import { AddStoreAction, addStore } from '../store/modules/add-store';
 import { ThunkDispatch } from 'redux-thunk';
+import { DeleteStoreAction, deleteStore } from '../store/modules/store/store';
 
 function MainPage() {
   const [modalOpened, setModalOpened] = useState(false);
@@ -18,12 +17,8 @@ function MainPage() {
     (state: RootState) => state.store.stores,
   );
 
-  console.log(dummyStore);
-
-  const user = {
-    name: '홍길동',
-    role: 'manager',
-  };
+  const dispatch =
+    useDispatch<ThunkDispatch<RootState, null, DeleteStoreAction>>();
 
   const onOpen = () => {
     setModalOpened(true);
@@ -31,6 +26,10 @@ function MainPage() {
 
   const onClose = () => {
     setModalOpened(false);
+  };
+
+  const deleteStoreDispatch = (storeName: string) => {
+    dispatch(deleteStore(storeName));
   };
 
   useEffect(() => {
@@ -58,14 +57,23 @@ function MainPage() {
           <p className="text-center text-3xl font-bold">매장 목록</p>
         </div>
         {dummyStore.length > 0 ? (
-          <div className="m-auto grid w-full max-w-[1024px] grid-cols-1 place-items-center justify-center gap-6 py-[36px] md:grid-cols-2 md:gap-4 lg:grid-cols-3">
+          <div
+            className={`m-auto grid w-full max-w-[1024px] grid-cols-1 place-items-center justify-center gap-6 py-[36px] md:grid-cols-2 md:gap-4 lg:grid-cols-3 ${
+              dummyStore.length <= 2 && 'lg:grid-cols-2'
+            }`}
+          >
             {dummyStore.map((data: Store, index) => (
-              <ItemCard data={data} key={data.storeName + index} />
+              <ItemCard
+                data={data}
+                key={data.storeName + index}
+                length={dummyStore.length}
+                onDelete={deleteStoreDispatch}
+              />
             ))}
           </div>
         ) : (
           <div className="flex justify-center py-[36px]">
-            <div className="flex h-[180px] w-[250px] items-center justify-center rounded-xl border border-dashed border-gray-700">
+            <div className="flex h-[180px] w-[320px] items-center justify-center rounded-xl border border-dashed border-gray-700">
               <p className="text-center text-2xl text-gray-500">
                 매장을 추가해 주세요
               </p>

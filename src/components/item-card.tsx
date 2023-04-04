@@ -2,14 +2,31 @@ import { faUsers } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Store } from '../types/store.type';
 
-function ItemCard({ data }: { data: Store }) {
+function ItemCard({
+  data,
+  length,
+  onDelete,
+}: {
+  data: Store;
+  length: number;
+  onDelete: (storeName: string) => void;
+}) {
   return (
-    <div className="flex h-[180px] w-[320px] cursor-pointer flex-col justify-center rounded-xl border p-[16px] shadow-sm hover:shadow-md">
+    <div
+      className={`flex h-[180px] w-[320px] cursor-pointer flex-col justify-center rounded-xl border p-[16px] shadow-sm hover:shadow-md ${
+        length <= 1 && 'col-span-2'
+      }`}
+    >
       <div className="flex justify-between">
         <p className="py-[10px] text-2xl font-bold">{data.storeName}</p>
         <div className="flex w-[70px] justify-between">
           <button className="hover:font-bold hover:text-blue-500">수정</button>
-          <button className="hover:font-bold hover:text-red-500">삭제</button>
+          <button
+            className="hover:font-bold hover:text-red-500"
+            onClick={() => onDelete(data.storeName)}
+          >
+            삭제
+          </button>
         </div>
       </div>
       <p className="py-[10px]">{data.address}</p>

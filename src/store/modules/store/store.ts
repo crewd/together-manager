@@ -1,11 +1,15 @@
 import { ThunkAction } from 'redux-thunk';
-import { Action, Reducer } from 'redux';
-import { Store, StoreState } from '../../types/store.type';
-import { RootState } from '..';
+import { Reducer } from 'redux';
+import { Store, StoreState } from '../../../types/store.type';
+import { RootState } from '../..';
 
-const ADD_STORE_REQUEST = 'REQUEST_ADD_STORE';
+const ADD_STORE_REQUEST = 'ADD_STORE_REQUEST';
 const ADD_STORE_SUCCESS = 'ADD_STORE_SUCCESS';
 const ADD_STORE_FAILURE = 'ADD_STORE_FAILURE';
+
+const DELETE_STORE_REQUEST = 'DELETE_STORE_REQUEST';
+const DELETE_STORE_SUCCESS = 'DELETE_STORE_SUCCESS';
+const DELETE_STORE_FAILURE = 'DELETE_STORE_FAILURE';
 
 export const addStoreRequest = () => ({
   type: ADD_STORE_REQUEST,
@@ -25,10 +29,33 @@ export const addStoreFailure = (error: string) => ({
   },
 });
 
+export const deleteStoreRequest = () => ({
+  type: DELETE_STORE_REQUEST,
+});
+
+export const deleteStoreSuccess = (storeName: string) => ({
+  type: DELETE_STORE_SUCCESS,
+  payload: {
+    storeName,
+  },
+});
+
+export const deleteStoreFailure = (error: string) => ({
+  type: DELETE_STORE_FAILURE,
+  payload: {
+    error,
+  },
+});
+
 export type AddStoreAction =
   | ReturnType<typeof addStoreRequest>
   | ReturnType<typeof addStoreSuccess>
   | ReturnType<typeof addStoreFailure>;
+
+export type DeleteStoreAction =
+  | ReturnType<typeof deleteStoreRequest>
+  | ReturnType<typeof deleteStoreSuccess>
+  | ReturnType<typeof deleteStoreFailure>;
 
 export const addStore = (
   storeName: string,
@@ -48,6 +75,20 @@ export const addStore = (
   };
 };
 
+export const deleteStore = (
+  storeName: string,
+): ThunkAction<void, RootState, null, DeleteStoreAction> => {
+  return (dispatch) => {
+    dispatch(deleteStoreRequest());
+    try {
+      // store를 삭제하는 비즈니스 로직 구현
+      dispatch(deleteStoreSuccess(storeName));
+    } catch (error: any) {
+      dispatch(deleteStoreFailure(error.message));
+    }
+  };
+};
+
 const initialState: StoreState = {
   stores: [],
   isLoading: false,
@@ -60,6 +101,7 @@ export const storeReducer: Reducer<StoreState> = (
 ) => {
   switch (action.type) {
     case ADD_STORE_REQUEST:
+    case DELETE_STORE_REQUEST:
       return {
         ...state,
         isLoading: true,
@@ -72,7 +114,18 @@ export const storeReducer: Reducer<StoreState> = (
         isLoading: false,
         error: null,
       };
+    case DELETE_STORE_SUCCESS:
+      const storeList = state.stores.filter(
+        (store) => store.storeName !== action.payload.storeName,
+      );
+      return {
+        ...state,
+        stores: storeList,
+        isLoading: false,
+        error: null,
+      };
     case ADD_STORE_FAILURE:
+    case DELETE_STORE_FAILURE:
       return {
         ...state,
         isLoading: false,
