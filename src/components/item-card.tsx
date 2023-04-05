@@ -14,7 +14,7 @@ function ItemCard({
   return (
     <div
       className={`flex h-[180px] w-[320px] cursor-pointer flex-col justify-center rounded-xl border p-[16px] shadow-sm hover:shadow-md ${
-        length <= 1 && 'col-span-2'
+        length <= 1 && 'col-span-3'
       }`}
     >
       <div className="flex justify-between">

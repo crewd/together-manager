@@ -29,7 +29,9 @@ function MainPage() {
   };
 
   const deleteStoreDispatch = (storeName: string) => {
-    dispatch(deleteStore(storeName));
+    if (window.confirm('매장을 삭제하시겠습니까?')) {
+      return dispatch(deleteStore(storeName));
+    }
   };
 
   useEffect(() => {
@@ -58,9 +60,11 @@ function MainPage() {
         </div>
         {dummyStore.length > 0 ? (
           <div
-            className={`m-auto grid w-full max-w-[1024px] grid-cols-1 place-items-center justify-center gap-6 py-[36px] md:grid-cols-2 md:gap-4 lg:grid-cols-3 ${
-              dummyStore.length <= 2 && 'lg:grid-cols-2'
-            }`}
+            className={`m-auto grid max-w-[1024px] grid-cols-1 place-items-center justify-center py-[36px] md:grid-cols-2 md:gap-4 ${
+              dummyStore.length <= 2
+                ? 'gap-0 lg:grid-cols-2'
+                : 'gap-6 lg:grid-cols-3'
+            } `}
           >
             {dummyStore.map((data: Store, index) => (
               <ItemCard
