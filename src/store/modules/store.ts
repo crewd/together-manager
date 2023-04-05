@@ -1,7 +1,7 @@
 import { ThunkAction } from 'redux-thunk';
 import { Reducer } from 'redux';
-import { Store, StoreState } from '../../../types/store.type';
-import { RootState } from '../..';
+import { Store, StoreState } from '../../types/store.type';
+import { RootState } from '..';
 
 const ADD_STORE_REQUEST = 'ADD_STORE_REQUEST';
 const ADD_STORE_SUCCESS = 'ADD_STORE_SUCCESS';
@@ -11,56 +11,88 @@ const DELETE_STORE_REQUEST = 'DELETE_STORE_REQUEST';
 const DELETE_STORE_SUCCESS = 'DELETE_STORE_SUCCESS';
 const DELETE_STORE_FAILURE = 'DELETE_STORE_FAILURE';
 
-export const addStoreRequest = () => ({
+interface AddStoreRequestAction {
+  type: typeof ADD_STORE_REQUEST;
+}
+
+interface AddStoreSuccessAction {
+  type: typeof ADD_STORE_SUCCESS;
+  payload: Store;
+}
+
+interface AddStoreFailureAction {
+  type: typeof ADD_STORE_FAILURE;
+  payload: {
+    error: string;
+  };
+}
+
+interface DeleteStoreRequestAction {
+  type: typeof DELETE_STORE_REQUEST;
+}
+
+interface DeleteStoreSuccessAction {
+  type: typeof DELETE_STORE_SUCCESS;
+  payload: {
+    storeName: string;
+  };
+}
+
+interface DeleteStoreFailureAction {
+  type: typeof DELETE_STORE_FAILURE;
+  payload: {
+    error: string;
+  };
+}
+
+export type StoreActionTypes =
+  | AddStoreRequestAction
+  | AddStoreSuccessAction
+  | AddStoreFailureAction
+  | DeleteStoreRequestAction
+  | DeleteStoreSuccessAction
+  | DeleteStoreFailureAction;
+
+export const addStoreRequest = (): StoreActionTypes => ({
   type: ADD_STORE_REQUEST,
 });
 
-export const addStoreSuccess = (store: Store) => ({
+export const addStoreSuccess = (store: Store): StoreActionTypes => ({
   type: ADD_STORE_SUCCESS,
   payload: {
-    store,
+    ...store,
   },
 });
 
-export const addStoreFailure = (error: string) => ({
+export const addStoreFailure = (error: string): StoreActionTypes => ({
   type: ADD_STORE_FAILURE,
   payload: {
     error,
   },
 });
 
-export const deleteStoreRequest = () => ({
+export const deleteStoreRequest = (): StoreActionTypes => ({
   type: DELETE_STORE_REQUEST,
 });
 
-export const deleteStoreSuccess = (storeName: string) => ({
+export const deleteStoreSuccess = (storeName: string): StoreActionTypes => ({
   type: DELETE_STORE_SUCCESS,
   payload: {
     storeName,
   },
 });
 
-export const deleteStoreFailure = (error: string) => ({
+export const deleteStoreFailure = (error: string): StoreActionTypes => ({
   type: DELETE_STORE_FAILURE,
   payload: {
     error,
   },
 });
 
-export type AddStoreAction =
-  | ReturnType<typeof addStoreRequest>
-  | ReturnType<typeof addStoreSuccess>
-  | ReturnType<typeof addStoreFailure>;
-
-export type DeleteStoreAction =
-  | ReturnType<typeof deleteStoreRequest>
-  | ReturnType<typeof deleteStoreSuccess>
-  | ReturnType<typeof deleteStoreFailure>;
-
 export const addStore = (
   storeName: string,
   address: string,
-): ThunkAction<void, RootState, null, AddStoreAction> => {
+): ThunkAction<void, RootState, null, StoreActionTypes> => {
   return (dispatch) => {
     dispatch(addStoreRequest());
     try {
@@ -77,7 +109,7 @@ export const addStore = (
 
 export const deleteStore = (
   storeName: string,
-): ThunkAction<void, RootState, null, DeleteStoreAction> => {
+): ThunkAction<void, RootState, null, StoreActionTypes> => {
   return (dispatch) => {
     dispatch(deleteStoreRequest());
     try {
@@ -97,7 +129,7 @@ const initialState: StoreState = {
 
 export const storeReducer: Reducer<StoreState> = (
   state = initialState,
-  action,
+  action: StoreActionTypes,
 ) => {
   switch (action.type) {
     case ADD_STORE_REQUEST:
@@ -110,7 +142,7 @@ export const storeReducer: Reducer<StoreState> = (
     case ADD_STORE_SUCCESS:
       return {
         ...state,
-        stores: [action.payload.store, ...state.stores],
+        stores: [action.payload, ...state.stores],
         isLoading: false,
         error: null,
       };

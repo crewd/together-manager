@@ -8,7 +8,7 @@ import ModalPortal from '../components/modal-portal';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../store';
 import { ThunkDispatch } from 'redux-thunk';
-import { DeleteStoreAction, deleteStore } from '../store/modules/store/store';
+import { StoreActionTypes, deleteStore } from '../store/modules/store';
 
 function MainPage() {
   const [modalOpened, setModalOpened] = useState(false);
@@ -18,7 +18,7 @@ function MainPage() {
   );
 
   const dispatch =
-    useDispatch<ThunkDispatch<RootState, null, DeleteStoreAction>>();
+    useDispatch<ThunkDispatch<RootState, null, StoreActionTypes>>();
 
   const onOpen = () => {
     setModalOpened(true);

@@ -6,7 +6,7 @@ import { StoreForm } from '../types/store.type';
 import { useDispatch } from 'react-redux';
 import { ThunkDispatch } from 'redux-thunk';
 import { RootState } from '../store';
-import { AddStoreAction, addStore } from '../store/modules/store/store';
+import { StoreActionTypes, addStore } from '../store/modules/store';
 
 function AddStore({ onClose }: { onClose: () => void }) {
   const {
@@ -20,7 +20,7 @@ function AddStore({ onClose }: { onClose: () => void }) {
   const [address, setAddress] = useState('');
 
   const dispatch =
-    useDispatch<ThunkDispatch<RootState, null, AddStoreAction>>();
+    useDispatch<ThunkDispatch<RootState, null, StoreActionTypes>>();
 
   const addStoreDispatch: SubmitHandler<StoreForm> = useCallback(
     (data) => {

@@ -1,6 +1,10 @@
 import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
-import { LoginData } from '../types/auth.type';
+import { LoginData, User } from '../types/auth.type';
+import { ThunkDispatch } from 'redux-thunk';
+import { RootState } from '../store';
+import { AuthActionTypes, login } from '../store/modules/auth';
+import { useDispatch, useSelector } from 'react-redux';
 
 function Login() {
   const {
@@ -8,9 +12,22 @@ function Login() {
     formState: { errors },
     handleSubmit,
   } = useForm<LoginData>();
+
+  const dispatch =
+    useDispatch<ThunkDispatch<RootState, null, AuthActionTypes>>();
+
+  const { token, userEmail, userName } = useSelector((state: RootState) => ({
+    token: state.auth.token,
+    userEmail: state.auth.userEmail,
+    userName: state.auth.userName,
+  }));
+
+  console.log(token, userEmail, userName);
+
   const onSubmit = (data: LoginData) => {
-    console.log(data);
+    dispatch(login(data));
   };
+
   return (
     <div className="flex h-screen w-full items-center justify-center bg-gray-200">
       <form
@@ -28,9 +45,9 @@ function Login() {
             type="text"
             placeholder="아이디"
             className={`h-[40px] w-full rounded-md border border-gray-300 px-[8px] outline-none focus:border-2 focus:border-blue-500 ${
-              errors.userId && 'border-red-500 focus:border-red-500'
+              errors.userEmail && 'border-red-500 focus:border-red-500'
             }`}
-            {...register('userId', {
+            {...register('userEmail', {
               required: '* 아이디를 입력해 주세요',
             })}
           />
