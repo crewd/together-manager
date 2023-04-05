@@ -1,20 +1,20 @@
 import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
+import { LoginData } from '../types/auth.type';
 
 function Login() {
   const {
     register,
     formState: { errors },
     handleSubmit,
-    setValue,
-  } = useForm();
-  const onSubmit = (data: any) => {
+  } = useForm<LoginData>();
+  const onSubmit = (data: LoginData) => {
     console.log(data);
   };
   return (
     <div className="flex h-screen w-full items-center justify-center bg-gray-200">
       <form
-        className="h-full w-full rounded-xl border bg-white p-[24px] shadow-md md:h-[400px] md:w-[360px]"
+        className="h-full w-full rounded-xl border bg-white p-[24px] shadow-md sm:h-[400px] sm:w-[360px]"
         onSubmit={handleSubmit(onSubmit)}
       >
         <div>
