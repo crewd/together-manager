@@ -28,14 +28,19 @@ function Login() {
   return (
     <div className="flex items-center justify-center w-full h-screen bg-gray-200">
       <form
-        className="h-full w-full rounded-xl border bg-white p-[24px] shadow-md sm:h-[400px] sm:w-[360px]"
+        className="flex h-full w-full flex-col justify-center rounded-xl border bg-white p-[24px] shadow-md sm:h-[400px] sm:w-[360px]"
         onSubmit={handleSubmit(onSubmit)}
       >
-        <div>
-          <p className="text-3xl font-bold text-center">투게더</p>
+        <div className="flex flex-col items-center justify-center">
+          <p className="text-2xl font-bold">투게더</p>
+          <p className="text-xl font-bold">사장님 로그인</p>
         </div>
         <div className="py-[24px]">
-          <p className="text-xl font-bold text-left">사장님 로그인</p>
+          <p>
+            <Link to="/" className="text-blue-500 hover:text-blue-600">
+              직원 사이트로 이동
+            </Link>
+          </p>
         </div>
         <div className="pb-[24px]">
           <input
@@ -61,18 +66,19 @@ function Login() {
             })}
           />
         </div>
-        <div className="flex flex-col gap-3 pt-[24px]">
+        <div className="flex flex-col pt-[24px]">
           <button
             type="submit"
-            className="h-[40px] w-full rounded-md bg-blue-500 text-white"
+            className="h-[40px] w-full rounded-md bg-blue-500 text-white hover:bg-blue-600"
           >
             로그인
           </button>
-          <Link to="/signup">
-            <button className="h-[40px] w-full rounded-md bg-indigo-500 text-white">
+          <p className="mt-4 text-center">
+            계정이 없으신가요?{' '}
+            <Link to="/signup" className="text-blue-500 hover:text-blue-600">
               회원가입
-            </button>
-          </Link>
+            </Link>
+          </p>
         </div>
       </form>
       {isLoading && (
