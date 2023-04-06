@@ -12,7 +12,5 @@ export type User = {
 export type AuthState = {
   isLoading: boolean;
   token: string | null;
-  userName: string | null;
-  userEmail: string | null;
   error: string | null;
 };

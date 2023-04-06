@@ -9,16 +9,33 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../store';
 import { ThunkDispatch } from 'redux-thunk';
 import { StoreActionTypes, deleteStore } from '../store/modules/store';
+import { AuthActionTypes, userLogout } from '../store/modules/auth';
+import Spinner from '../components/spinner';
 
 function MainPage() {
   const [modalOpened, setModalOpened] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const dummyStore: Store[] = useSelector(
     (state: RootState) => state.store.stores,
   );
 
-  const dispatch =
+  const { token } = useSelector((state: RootState) => ({
+    token: state.auth.token,
+  }));
+
+  console.log(token);
+
+  const storeDispatch =
     useDispatch<ThunkDispatch<RootState, null, StoreActionTypes>>();
+
+  const authDispatch =
+    useDispatch<ThunkDispatch<RootState, null, AuthActionTypes>>();
+
+  const logout = () => {
+    setIsLoading(true);
+    authDispatch(userLogout());
+  };
 
   const onOpen = () => {
     setModalOpened(true);
@@ -30,23 +47,26 @@ function MainPage() {
 
   const deleteStoreDispatch = (storeName: string) => {
     if (window.confirm('매장을 삭제하시겠습니까?')) {
-      return dispatch(deleteStore(storeName));
+      return storeDispatch(deleteStore(storeName));
     }
   };
 
   useEffect(() => {
-    if (modalOpened) {
+    if (modalOpened || isLoading) {
       document.body.style.overflow = 'hidden';
       return;
     }
     document.body.style.removeProperty('overflow');
-  }, [modalOpened]);
+  }, [modalOpened, isLoading]);
 
   return (
     <div>
       <header className="flex justify-between border-b px-[16px] lg:px-[32px]">
         <h2 className="text-2xl font-bold leading-[64px]">투게더</h2>
-        <button className="flex items-center font-semibold leading-[64px]">
+        <button
+          className="flex items-center font-semibold leading-[64px]"
+          onClick={logout}
+        >
           <FontAwesomeIcon
             className="h-[20px] w-[20px] align-middle"
             icon={faArrowRightFromBracket}
@@ -56,7 +76,7 @@ function MainPage() {
       </header>
       <main className="m-auto flex w-full flex-col justify-center px-[16px] py-[36px]">
         <div>
-          <p className="text-center text-3xl font-bold">매장 목록</p>
+          <p className="text-3xl font-bold text-center">매장 목록</p>
         </div>
         {dummyStore.length > 0 ? (
           <div
@@ -78,7 +98,7 @@ function MainPage() {
         ) : (
           <div className="flex justify-center py-[36px]">
             <div className="flex h-[180px] w-[320px] items-center justify-center rounded-xl border border-dashed border-gray-700">
-              <p className="text-center text-2xl text-gray-500">
+              <p className="text-2xl text-center text-gray-500">
                 매장을 추가해 주세요
               </p>
             </div>
@@ -97,6 +117,13 @@ function MainPage() {
       {modalOpened && (
         <ModalPortal>
           <AddStore onClose={onClose} />
+        </ModalPortal>
+      )}
+      {isLoading && (
+        <ModalPortal>
+          <div className="fixed top-0 left-0 z-50 flex items-center justify-center w-screen h-screen bg-transparent">
+            <Spinner />
+          </div>
         </ModalPortal>
       )}
     </div>

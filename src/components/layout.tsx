@@ -7,86 +7,114 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link } from 'react-router-dom';
+import RequireAuth from './requireAuth';
+import ModalPortal from './modal-portal';
+import Spinner from './spinner';
+import { useDispatch } from 'react-redux';
+import { ThunkDispatch } from 'redux-thunk';
+import { RootState } from '../store';
+import { AuthActionTypes, userLogout } from '../store/modules/auth';
 
 function Layout({ children }: { children?: React.ReactNode }) {
   const [menu, setMenu] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const authDispatch =
+    useDispatch<ThunkDispatch<RootState, null, AuthActionTypes>>();
+
+  const logout = () => {
+    setIsLoading(true);
+    authDispatch(userLogout());
+  };
 
   const onClickMenu = () => {
     setMenu(!menu);
   };
 
   useEffect(() => {
-    if (menu) {
+    if (menu || isLoading) {
       document.body.style.overflow = 'hidden';
       return;
     }
     document.body.style.removeProperty('overflow');
-  }, [menu]);
+  }, [menu, isLoading]);
 
   return (
-    <div className="bg-white">
-      <header className="w-full fixed top-0 bg-white border-b shadow-sm h-[64px]">
-        <div className="lg:px-[32px] px-[16px] w-full flex justify-between">
-          <Link
-            className="text-2xl font-bold leading-[64px] hidden lg:block"
-            to="/"
-          >
-            투게더
-          </Link>
-          <button className="lg:hidden" onClick={onClickMenu}>
-            <FontAwesomeIcon className="w-[20px] h-[20px]" icon={faBars} />
-          </button>
-          <p className="text-xl font-semibold leading-[64px]">가게 상호명</p>
-          <button className="leading-[64px] font-semibold flex items-center">
-            <FontAwesomeIcon
-              className="w-[20px] h-[20px] align-middle"
-              icon={faArrowRightFromBracket}
-            />
-            <span className="pl-[8px] hidden md:inline-block">로그아웃</span>
-          </button>
-        </div>
-      </header>
-      <aside
-        className={`h-screen py-[16px] w-[250px] border-r shadow-sm bg-white fixed lg:top-[64px] duration-500 z-50 lg:duration-0 transition-all lg:left-0 ${
-          menu ? 'left-0' : 'left-[-100%]'
-        }`}
-      >
-        <nav className="px-[16px]">
-          <div className="flex justify-between w-full lg:hidden p-[16px]">
-            <h2 className="text-2xl font-bold">투게더</h2>
-            <button className="w-[25px] h-[25px]" onClick={onClickMenu}>
+    <RequireAuth>
+      <div className="bg-white">
+        <header className="fixed top-0 h-[64px] w-full border-b bg-white shadow-sm">
+          <div className="flex w-full justify-between px-[16px] lg:px-[32px]">
+            <Link
+              className="hidden text-2xl font-bold leading-[64px] lg:block"
+              to="/"
+            >
+              투게더
+            </Link>
+            <button className="lg:hidden" onClick={onClickMenu}>
+              <FontAwesomeIcon className="h-[20px] w-[20px]" icon={faBars} />
+            </button>
+            <p className="text-xl font-semibold leading-[64px]">가게 상호명</p>
+            <button
+              className="flex items-center font-semibold leading-[64px]"
+              onClick={logout}
+            >
               <FontAwesomeIcon
-                className="w-[25px] h-[25px] align-middle"
-                icon={faXmark}
+                className="h-[20px] w-[20px] align-middle"
+                icon={faArrowRightFromBracket}
               />
+              <span className="hidden pl-[8px] md:inline-block">로그아웃</span>
             </button>
           </div>
-          <ul className="pt-5 lg:pt-0 flex flex-col gap-[12px]">
-            <li className="p-[8px] hover:bg-blue-500 rounded-md hover:text-white cursor-pointer">
-              메뉴1
-            </li>
-            <li className="p-[8px] hover:bg-blue-500 rounded-md hover:text-white cursor-pointer">
-              메뉴2
-            </li>
-            <li className="p-[8px] hover:bg-blue-500 rounded-md hover:text-white cursor-pointer">
-              메뉴3
-            </li>
-            <li className="p-[8px] hover:bg-blue-500 rounded-md hover:text-white cursor-pointer">
-              메뉴4
-            </li>
-          </ul>
-        </nav>
-      </aside>
-      <main className="bg-gray-50 h-[200vh] pt-[100px] lg:pl-[276px] px-[16px]">
-        {children || <Outlet />}
-      </main>
-      {menu && (
-        <div
-          className="fixed top-0 left-0 w-screen h-screen bg-gray-600/50 lg:hidden"
-          onClick={onClickMenu}
-        />
+        </header>
+        <aside
+          className={`fixed z-30 h-screen w-[250px] border-r bg-white py-[16px] shadow-sm transition-all duration-500 lg:left-0 lg:top-[64px] lg:duration-0 ${
+            menu ? 'left-0' : 'left-[-100%]'
+          }`}
+        >
+          <nav className="px-[16px]">
+            <div className="flex w-full justify-between p-[16px] lg:hidden">
+              <h2 className="text-2xl font-bold">투게더</h2>
+              <button className="h-[25px] w-[25px]" onClick={onClickMenu}>
+                <FontAwesomeIcon
+                  className="h-[25px] w-[25px] align-middle"
+                  icon={faXmark}
+                />
+              </button>
+            </div>
+            <ul className="flex flex-col gap-[12px] pt-5 lg:pt-0">
+              <li className="cursor-pointer rounded-md p-[8px] hover:bg-blue-500 hover:text-white">
+                메뉴1
+              </li>
+              <li className="cursor-pointer rounded-md p-[8px] hover:bg-blue-500 hover:text-white">
+                메뉴2
+              </li>
+              <li className="cursor-pointer rounded-md p-[8px] hover:bg-blue-500 hover:text-white">
+                메뉴3
+              </li>
+              <li className="cursor-pointer rounded-md p-[8px] hover:bg-blue-500 hover:text-white">
+                메뉴4
+              </li>
+            </ul>
+          </nav>
+        </aside>
+        <main className="h-[200vh] bg-gray-50 px-[16px] pt-[100px] lg:pl-[276px]">
+          {children || <Outlet />}
+        </main>
+        {menu && (
+          <div
+            className="fixed top-0 left-0 w-screen h-screen bg-gray-600/50 lg:hidden"
+            onClick={onClickMenu}
+          />
+        )}
+      </div>
+      {isLoading && (
+        <ModalPortal>
+          <div className="fixed top-0 left-0 z-50 flex items-center justify-center w-screen h-screen">
+            <Spinner />
+          </div>
+        </ModalPortal>
       )}
-    </div>
+    </RequireAuth>
   );
 }
 

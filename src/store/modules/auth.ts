@@ -1,10 +1,13 @@
 import { ThunkAction } from 'redux-thunk';
 import { RootState } from '..';
-import { AuthState, LoginData, User } from '../../types/auth.type';
+import { AuthState, LoginData } from '../../types/auth.type';
+import { getToken, removeToken, setToken } from '../../util/token-store';
 
 const LOGIN_REQUEST = 'LOGIN_REQUEST';
 const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 const LOGIN_FAILURE = 'LOGIN_FAILURE';
+
+const LOGOUT = 'LOGOUT';
 
 interface LoginRequestAction {
   type: typeof LOGIN_REQUEST;
@@ -14,8 +17,6 @@ interface LoginSuccessAction {
   type: typeof LOGIN_SUCCESS;
   payload: {
     token: string;
-    userName: string;
-    userEmail: string;
   };
 }
 
@@ -24,13 +25,25 @@ interface LoginFailureAction {
   error: string;
 }
 
+interface LogoutAction {
+  type: typeof LOGOUT;
+}
+
+export type AuthActionTypes =
+  | LoginRequestAction
+  | LoginSuccessAction
+  | LoginFailureAction
+  | LogoutAction;
+
 export const loginRequest = (): AuthActionTypes => ({
   type: LOGIN_REQUEST,
 });
 
-export const loginSuccess = (userData: User): AuthActionTypes => ({
+export const loginSuccess = (token: string): AuthActionTypes => ({
   type: LOGIN_SUCCESS,
-  payload: userData,
+  payload: {
+    token,
+  },
 });
 
 export const loginFailure = (error: string): AuthActionTypes => ({
@@ -38,32 +51,42 @@ export const loginFailure = (error: string): AuthActionTypes => ({
   error,
 });
 
-export type AuthActionTypes =
-  | LoginRequestAction
-  | LoginSuccessAction
-  | LoginFailureAction;
+export const logout = (): AuthActionTypes => ({
+  type: LOGOUT,
+});
 
 export const login =
   (loginData: LoginData): ThunkAction<void, RootState, null, AuthActionTypes> =>
   async (dispatch) => {
     try {
       dispatch(loginRequest());
-      const user: User = {
-        token: 'user_token',
-        userEmail: loginData.userEmail,
-        userName: '홍길동',
-      };
-      dispatch(loginSuccess(user));
+      const token = 'user_token';
+      setToken(token);
+      setTimeout(() => {
+        dispatch(loginSuccess(token));
+      }, 500); // 1초 지연
     } catch (error: any) {
       dispatch(loginFailure(error.message));
     }
   };
 
+export const userLogout = (): ThunkAction<
+  void,
+  RootState,
+  null,
+  AuthActionTypes
+> => {
+  return (dispatch) => {
+    setTimeout(() => {
+      removeToken();
+      dispatch({ type: 'LOGOUT' });
+    }, 500);
+  };
+};
+
 const initialState: AuthState = {
   isLoading: false,
-  token: null,
-  userName: null,
-  userEmail: null,
+  token: getToken(),
   error: null,
 };
 
@@ -83,14 +106,17 @@ export const authReducer = (
         ...state,
         isLoading: false,
         token: action.payload.token,
-        userName: action.payload.userName,
-        userEmail: action.payload.userEmail,
       };
     case LOGIN_FAILURE:
       return {
         ...state,
         isLoading: false,
         error: action.error,
+      };
+    case LOGOUT:
+      return {
+        ...state,
+        token: null,
       };
     default:
       return state;
