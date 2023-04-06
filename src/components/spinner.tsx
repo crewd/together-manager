@@ -1,8 +1,8 @@
 function Spinner() {
   return (
     <div
-      className="w-16 h-16 border-4 rounded-full spinner animate-spin border-t-blue-500"
-      style={{ animationDuration: '0.5s' }}
+      className="spinner h-[50px] w-[50px] animate-spin rounded-full border-4 border-blue-500 border-t-transparent"
+      style={{ animationDuration: '0.4s' }}
     ></div>
   );
 }

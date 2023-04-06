@@ -69,7 +69,7 @@ function Login() {
             로그인
           </button>
           <Link to="/signup">
-            <button className="h-[40px] w-full rounded-md bg-green-500 text-white">
+            <button className="h-[40px] w-full rounded-md bg-indigo-500 text-white">
               회원가입
             </button>
           </Link>
@@ -77,7 +77,7 @@ function Login() {
       </form>
       {isLoading && (
         <ModalPortal>
-          <div className="fixed top-0 left-0 z-50 flex items-center justify-center w-screen h-screen bg-transparent">
+          <div className="fixed top-0 left-0 z-50 flex items-center justify-center w-screen h-screen bg-white/40">
             <Spinner />
           </div>
         </ModalPortal>

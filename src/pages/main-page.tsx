@@ -121,7 +121,7 @@ function MainPage() {
       )}
       {isLoading && (
         <ModalPortal>
-          <div className="fixed top-0 left-0 z-50 flex items-center justify-center w-screen h-screen bg-transparent">
+          <div className="fixed top-0 left-0 z-50 flex items-center justify-center w-screen h-screen bg-white/50">
             <Spinner />
           </div>
         </ModalPortal>
