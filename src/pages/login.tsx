@@ -1,6 +1,6 @@
 import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
-import { LoginData, User } from '../types/auth.type';
+import { LoginData } from '../types/auth.type';
 import { ThunkDispatch } from 'redux-thunk';
 import { RootState } from '../store';
 import { AuthActionTypes, login } from '../store/modules/auth';
