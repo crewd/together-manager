@@ -34,9 +34,9 @@ function SignUp() {
   };
 
   return (
-    <div className="flex items-center justify-center w-full h-screen bg-gray-200">
+    <div className="flex items-center justify-center w-full min-h-screen bg-gray-200">
       <form
-        className="flex h-full w-full flex-col justify-center rounded-xl border bg-white p-[24px] shadow-md sm:h-auto sm:w-[360px]"
+        className="flex h-auto w-full flex-col rounded-xl border bg-white p-[24px] shadow-md sm:w-[360px]"
         onSubmit={handleSubmit(onSubmit)}
       >
         <div className="flex flex-col items-center justify-center">
