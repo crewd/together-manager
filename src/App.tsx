@@ -5,6 +5,7 @@ import MainPage from './pages/main-page';
 import Login from './pages/login';
 import RequireAuth from './components/requireAuth';
 import NoRequireAuth from './components/noRequireAuth';
+import SignUp from './pages/signup';
 
 function App() {
   return (
@@ -23,6 +24,14 @@ function App() {
           element={
             <NoRequireAuth>
               <Login />
+            </NoRequireAuth>
+          }
+        />
+        <Route
+          path="/signup"
+          element={
+            <NoRequireAuth>
+              <SignUp />
             </NoRequireAuth>
           }
         />

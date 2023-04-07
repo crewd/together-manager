@@ -107,7 +107,7 @@ function MainPage() {
 
         <div className="flex justify-center pt-[36px]">
           <button
-            className="h-[50px] w-[120px] rounded-md bg-blue-500 text-xl text-white shadow-md hover:scale-105 hover:bg-blue-700"
+            className="h-[50px] w-[120px] rounded-md bg-blue-500 text-xl text-white shadow-md hover:bg-blue-600"
             onClick={onOpen}
           >
             매장 추가

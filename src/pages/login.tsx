@@ -45,12 +45,13 @@ function Login() {
         <div className="pb-[24px]">
           <input
             type="text"
-            placeholder="아이디"
+            placeholder="이메일"
             className={`h-[40px] w-full rounded-md border border-gray-300 px-[8px] outline-none focus:border-2 focus:border-blue-500 ${
               errors.userEmail && 'border-red-500 focus:border-red-500'
             }`}
             {...register('userEmail', {
-              required: '* 아이디를 입력해 주세요',
+              required: true,
+              pattern: /^\S+@\S+$/i,
             })}
           />
         </div>
@@ -62,7 +63,7 @@ function Login() {
               errors.password && 'border-red-500 focus:border-red-500'
             }`}
             {...register('password', {
-              required: '* 비밀번호를 입력해 주세요',
+              required: true,
             })}
           />
         </div>
