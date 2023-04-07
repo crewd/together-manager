@@ -28,7 +28,7 @@ function Login() {
   return (
     <div className="flex items-center justify-center w-full h-screen bg-gray-200">
       <form
-        className="flex h-full w-full flex-col justify-center rounded-xl border bg-white p-[24px] shadow-md sm:h-[400px] sm:w-[360px]"
+        className="flex h-full w-full flex-col justify-center bg-white p-[24px] sm:h-auto sm:w-[360px] sm:rounded-xl sm:border sm:shadow-md"
         onSubmit={handleSubmit(onSubmit)}
       >
         <div className="flex flex-col items-center justify-center">
@@ -42,7 +42,13 @@ function Login() {
             </Link>
           </p>
         </div>
-        <div className="pb-[24px]">
+        <div className="pb-4">
+          <div className="flex justify-between">
+            <p className="pb-2">이메일</p>
+            {errors.userEmail && (
+              <p className="text-red-500">올바른 이메일을 입력해 주세요</p>
+            )}
+          </div>
           <input
             type="text"
             placeholder="이메일"
@@ -56,6 +62,12 @@ function Login() {
           />
         </div>
         <div>
+          <div className="flex justify-between">
+            <p className="pb-2">비밀번호</p>
+            {errors.password && (
+              <p className="text-red-500">비밀번호를 입력해 주세요</p>
+            )}
+          </div>
           <input
             type="password"
             placeholder="비밀번호"
@@ -67,7 +79,7 @@ function Login() {
             })}
           />
         </div>
-        <div className="flex flex-col pt-[24px]">
+        <div className="flex flex-col pt-8">
           <button
             type="submit"
             className="h-[40px] w-full rounded-md bg-blue-500 text-white hover:bg-blue-600"
