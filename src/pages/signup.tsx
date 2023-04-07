@@ -125,7 +125,7 @@ function SignUp() {
               {errors.contact && (
                 <p className="text-red-500">숫자만 입력해 주세요</p>
               )}
-            </div>{' '}
+            </div>
             <input
               type="text"
               placeholder="숫자만 입력해 주세요"
