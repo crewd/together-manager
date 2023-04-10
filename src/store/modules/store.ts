@@ -2,6 +2,7 @@ import { ThunkAction } from 'redux-thunk';
 import { Reducer } from 'redux';
 import { Store, StoreState } from '../../types/store.type';
 import { RootState } from '..';
+import { v4 } from 'uuid';
 
 const ADD_STORE_REQUEST = 'ADD_STORE_REQUEST';
 const ADD_STORE_SUCCESS = 'ADD_STORE_SUCCESS';
@@ -99,6 +100,7 @@ export const addStore = (
       const newStore = {
         storeName,
         address,
+        storeId: v4(),
       };
       dispatch(addStoreSuccess(newStore));
     } catch (error: any) {

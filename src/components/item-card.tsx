@@ -4,18 +4,14 @@ import { Store } from '../types/store.type';
 
 function ItemCard({
   data,
-  length,
   onDelete,
 }: {
   data: Store;
-  length: number;
   onDelete: (storeName: string) => void;
 }) {
   return (
     <div
-      className={`flex h-[180px] w-[320px] cursor-pointer flex-col justify-center rounded-xl border p-[16px] shadow-sm hover:shadow-md ${
-        length <= 1 && 'col-span-3'
-      }`}
+      className={`flex h-[180px] w-[320px] cursor-pointer flex-col justify-center rounded-xl border p-[16px] shadow-sm hover:shadow-md`}
     >
       <div className="flex justify-between">
         <p className="py-[10px] text-2xl font-bold">{data.storeName}</p>

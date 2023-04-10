@@ -11,6 +11,7 @@ import { ThunkDispatch } from 'redux-thunk';
 import { StoreActionTypes, deleteStore } from '../store/modules/store';
 import { AuthActionTypes, userLogout } from '../store/modules/auth';
 import Spinner from '../components/spinner';
+import { Link } from 'react-router-dom';
 
 function MainPage() {
   const [modalOpened, setModalOpened] = useState(false);
@@ -81,12 +82,16 @@ function MainPage() {
             } `}
           >
             {dummyStore.map((data: Store, index) => (
-              <ItemCard
-                data={data}
-                key={data.storeName + index}
-                length={dummyStore.length}
-                onDelete={deleteStoreDispatch}
-              />
+              <Link
+                to={`/store/${data.storeId}`}
+                className={`${dummyStore.length <= 1 && 'col-span-3'}`}
+              >
+                <ItemCard
+                  data={data}
+                  key={data.storeName + index}
+                  onDelete={deleteStoreDispatch}
+                />
+              </Link>
             ))}
           </div>
         ) : (

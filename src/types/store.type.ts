@@ -2,6 +2,7 @@ export type Store = {
   storeName: string;
   address: string;
   members?: number;
+  storeId: string;
 };
 
 export type StoreState = {

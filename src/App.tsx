@@ -6,6 +6,7 @@ import Login from './pages/login';
 import RequireAuth from './components/requireAuth';
 import NoRequireAuth from './components/noRequireAuth';
 import SignUp from './pages/signup';
+import DetailStore from './pages/detail-store';
 
 function App() {
   return (
@@ -36,7 +37,7 @@ function App() {
           }
         />
         <Route element={<Layout />}>
-          <Route path="/page" element={<div>123456</div>} />
+          <Route path="/store/:storeId" element={<DetailStore />} />
         </Route>
       </Routes>
     </BrowserRouter>
