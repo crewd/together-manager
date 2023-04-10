@@ -14,18 +14,11 @@ import Spinner from '../components/spinner';
 
 function MainPage() {
   const [modalOpened, setModalOpened] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const dummyStore: Store[] = useSelector(
     (state: RootState) => state.store.stores,
   );
-
-  const isLoading = useSelector((state: RootState) => state.auth.isLoading);
-
-  const { token } = useSelector((state: RootState) => ({
-    token: state.auth.token,
-  }));
-
-  console.log(token);
 
   const storeDispatch =
     useDispatch<ThunkDispatch<RootState, null, StoreActionTypes>>();
@@ -33,7 +26,8 @@ function MainPage() {
   const authDispatch =
     useDispatch<ThunkDispatch<RootState, null, AuthActionTypes>>();
 
-  const logout = () => {
+  const logout = async () => {
+    await setIsLoading(true);
     authDispatch(userLogout());
   };
 

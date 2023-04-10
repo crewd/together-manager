@@ -104,19 +104,14 @@ export const login =
     }
   };
 
-export const userLogout = (): ThunkAction<
-  void,
-  RootState,
-  null,
-  AuthActionTypes
-> => {
-  return (dispatch) => {
+export const userLogout =
+  (): ThunkAction<void, RootState, null, AuthActionTypes> =>
+  async (dispatch) => {
     setTimeout(() => {
+      dispatch(logout());
       removeToken();
-      dispatch(logout);
     }, 500);
   };
-};
 
 export const signup =
   (
