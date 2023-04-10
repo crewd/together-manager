@@ -1,16 +1,16 @@
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { ThunkDispatch } from 'redux-thunk';
 import { RootState } from '../store';
-import { AuthActionTypes } from '../store/modules/auth';
+import { AuthActionTypes, signup } from '../store/modules/auth';
 import { useNavigate } from 'react-router-dom';
 import ModalPortal from '../components/modal-portal';
 import Spinner from '../components/spinner';
 import { SignUpData, SignUpFormData } from '../types/auth.type';
 
 function SignUp() {
-  const [isLoading, setIsLoading] = useState(false);
+  const isLoading = useSelector((state: RootState) => state.auth.isLoading);
 
   const {
     register,
@@ -25,16 +25,26 @@ function SignUp() {
     navigate('/login');
   };
 
-  const dispatch =
+  const signUpDispatch =
     useDispatch<ThunkDispatch<RootState, null, AuthActionTypes>>();
 
-  const onSubmit = (data: SignUpData) => {
-    setIsLoading(true);
-    console.log(data);
+  const onSubmit = async (data: SignUpFormData) => {
+    const signUpData: SignUpData = {
+      userEmail: data.userEmail,
+      userName: data.userName,
+      password: data.password,
+      contact: data.contact,
+    };
+    try {
+      await signUpDispatch(signup(signUpData));
+    } catch (error) {
+      console.log(error);
+    }
+    navigate('/login');
   };
 
   return (
-    <div className="flex items-center justify-center w-full min-h-screen bg-gray-200">
+    <div className="flex min-h-screen w-full items-center justify-center bg-gray-200">
       <form
         className="flex h-auto w-full flex-col border bg-white p-[24px] sm:w-[360px] sm:rounded-xl sm:shadow-md"
         onSubmit={handleSubmit(onSubmit)}
@@ -157,7 +167,7 @@ function SignUp() {
       </form>
       {isLoading && (
         <ModalPortal>
-          <div className="fixed top-0 left-0 z-50 flex items-center justify-center w-screen h-screen bg-white/40">
+          <div className="fixed left-0 top-0 z-50 flex h-screen w-screen items-center justify-center bg-white/40">
             <Spinner />
           </div>
         </ModalPortal>

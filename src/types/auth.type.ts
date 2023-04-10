@@ -15,7 +15,6 @@ export type SignUpData = {
   userEmail: string;
   userName: string;
   password: string;
-  passwordCheck: string;
   contact: number;
 };
 

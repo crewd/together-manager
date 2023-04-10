@@ -14,11 +14,12 @@ import Spinner from '../components/spinner';
 
 function MainPage() {
   const [modalOpened, setModalOpened] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
 
   const dummyStore: Store[] = useSelector(
     (state: RootState) => state.store.stores,
   );
+
+  const isLoading = useSelector((state: RootState) => state.auth.isLoading);
 
   const { token } = useSelector((state: RootState) => ({
     token: state.auth.token,
@@ -33,7 +34,6 @@ function MainPage() {
     useDispatch<ThunkDispatch<RootState, null, AuthActionTypes>>();
 
   const logout = () => {
-    setIsLoading(true);
     authDispatch(userLogout());
   };
 
@@ -76,7 +76,7 @@ function MainPage() {
       </header>
       <main className="m-auto flex w-full flex-col justify-center px-[16px] py-[36px]">
         <div>
-          <p className="text-3xl font-bold text-center">매장 목록</p>
+          <p className="text-center text-3xl font-bold">매장 목록</p>
         </div>
         {dummyStore.length > 0 ? (
           <div
@@ -98,7 +98,7 @@ function MainPage() {
         ) : (
           <div className="flex justify-center py-[36px]">
             <div className="flex h-[180px] w-[320px] items-center justify-center rounded-xl border border-dashed border-gray-700">
-              <p className="text-2xl text-center text-gray-500">
+              <p className="text-center text-2xl text-gray-500">
                 매장을 추가해 주세요
               </p>
             </div>
@@ -121,7 +121,7 @@ function MainPage() {
       )}
       {isLoading && (
         <ModalPortal>
-          <div className="fixed top-0 left-0 z-50 flex items-center justify-center w-screen h-screen bg-white/50">
+          <div className="fixed left-0 top-0 z-50 flex h-screen w-screen items-center justify-center bg-white/50">
             <Spinner />
           </div>
         </ModalPortal>

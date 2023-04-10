@@ -1,7 +1,8 @@
 import { ThunkAction } from 'redux-thunk';
 import { RootState } from '..';
-import { AuthState, LoginData } from '../../types/auth.type';
+import { AuthState, LoginData, SignUpData } from '../../types/auth.type';
 import { getToken, removeToken, setToken } from '../../util/token-store';
+import { useNavigate } from 'react-router-dom';
 
 const LOGIN_REQUEST = 'LOGIN_REQUEST';
 const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
@@ -9,50 +10,83 @@ const LOGIN_FAILURE = 'LOGIN_FAILURE';
 
 const LOGOUT = 'LOGOUT';
 
-interface LoginRequestAction {
+const SIGNUP_REQUEST = 'SIGNUP_REQUEST';
+const SIGNUP_SUCCESS = 'SIGNUP_SUCCESS';
+const SIGNUP_FAILURE = 'SIGNUP_FAILURE';
+
+interface LoginRequestType {
   type: typeof LOGIN_REQUEST;
 }
 
-interface LoginSuccessAction {
+interface LoginSuccessType {
   type: typeof LOGIN_SUCCESS;
   payload: {
     token: string;
   };
 }
 
-interface LoginFailureAction {
+interface LoginFailureType {
   type: typeof LOGIN_FAILURE;
   error: string;
 }
 
-interface LogoutAction {
+interface LogoutType {
   type: typeof LOGOUT;
 }
 
-export type AuthActionTypes =
-  | LoginRequestAction
-  | LoginSuccessAction
-  | LoginFailureAction
-  | LogoutAction;
+interface SignUpRequestType {
+  type: typeof SIGNUP_REQUEST;
+}
 
-export const loginRequest = (): AuthActionTypes => ({
+interface SignUpSuccessType {
+  type: typeof SIGNUP_SUCCESS;
+}
+
+interface SignUpFailureType {
+  type: typeof SIGNUP_FAILURE;
+  error: string;
+}
+
+export type AuthActionTypes =
+  | LoginRequestType
+  | LoginSuccessType
+  | LoginFailureType
+  | LogoutType
+  | SignUpRequestType
+  | SignUpSuccessType
+  | SignUpFailureType;
+
+const loginRequest = (): AuthActionTypes => ({
   type: LOGIN_REQUEST,
 });
 
-export const loginSuccess = (token: string): AuthActionTypes => ({
+const loginSuccess = (token: string): AuthActionTypes => ({
   type: LOGIN_SUCCESS,
   payload: {
     token,
   },
 });
 
-export const loginFailure = (error: string): AuthActionTypes => ({
+const loginFailure = (error: string): AuthActionTypes => ({
   type: LOGIN_FAILURE,
   error,
 });
 
-export const logout = (): AuthActionTypes => ({
+const logout = (): AuthActionTypes => ({
   type: LOGOUT,
+});
+
+const signUpRequest = (): AuthActionTypes => ({
+  type: SIGNUP_REQUEST,
+});
+
+const signUpSuccess = (): AuthActionTypes => ({
+  type: SIGNUP_SUCCESS,
+});
+
+const signUpFailure = (error: string): AuthActionTypes => ({
+  type: SIGNUP_FAILURE,
+  error,
 });
 
 export const login =
@@ -79,10 +113,25 @@ export const userLogout = (): ThunkAction<
   return (dispatch) => {
     setTimeout(() => {
       removeToken();
-      dispatch({ type: 'LOGOUT' });
+      dispatch(logout);
     }, 500);
   };
 };
+
+export const signup =
+  (
+    signUpData: SignUpData,
+  ): ThunkAction<void, RootState, null, AuthActionTypes> =>
+  async (dispatch) => {
+    const navigate = useNavigate();
+    try {
+      dispatch(signUpRequest);
+      dispatch(signUpSuccess);
+      navigate('/login');
+    } catch (error: any) {
+      dispatch(signUpFailure(error));
+    }
+  };
 
 const initialState: AuthState = {
   isLoading: false,
@@ -117,6 +166,23 @@ export const authReducer = (
       return {
         ...state,
         token: null,
+      };
+    case SIGNUP_REQUEST:
+      return {
+        ...state,
+        isLoading: true,
+        error: null,
+      };
+    case SIGNUP_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+      };
+    case SIGNUP_FAILURE:
+      return {
+        ...state,
+        isLoading: false,
+        error: action.error,
       };
     default:
       return state;
