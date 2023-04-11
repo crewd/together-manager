@@ -9,7 +9,7 @@ function ItemCard({
   data: Store;
   onDelete: (storeName: string) => void;
 }) {
-  const eventHandler = (
+  const deleteStore = (
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
   ) => {
     event.preventDefault();
@@ -25,7 +25,7 @@ function ItemCard({
           <button className="hover:font-bold hover:text-blue-500">수정</button>
           <button
             className="hover:font-bold hover:text-red-500"
-            onClick={eventHandler}
+            onClick={deleteStore}
           >
             삭제
           </button>
