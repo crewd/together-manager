@@ -85,12 +85,9 @@ function MainPage() {
               <Link
                 to={`/store/${data.storeId}`}
                 className={`${dummyStore.length <= 1 && 'col-span-3'}`}
+                key={data.storeName + index}
               >
-                <ItemCard
-                  data={data}
-                  key={data.storeName + index}
-                  onDelete={deleteStoreDispatch}
-                />
+                <ItemCard data={data} onDelete={deleteStoreDispatch} />
               </Link>
             ))}
           </div>

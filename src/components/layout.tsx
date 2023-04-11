@@ -50,7 +50,7 @@ function Layout({ children }: { children?: React.ReactNode }) {
   return (
     <RequireAuth>
       <div className="bg-white">
-        <header className="fixed top-0 h-[64px] w-full border-b bg-white shadow-sm">
+        <header className="fixed top-0 z-30 h-[64px] w-full border-b bg-white shadow-sm">
           <div className="flex w-full justify-between px-[16px] lg:px-[32px]">
             <Link
               className="hidden text-2xl font-bold leading-[64px] lg:block"
@@ -77,7 +77,7 @@ function Layout({ children }: { children?: React.ReactNode }) {
           </div>
         </header>
         <aside
-          className={`fixed z-30 h-screen w-[250px] border-r bg-white py-[16px] shadow-sm transition-all duration-500 lg:left-0 lg:top-[64px] lg:duration-0 ${
+          className={`fixed z-50 h-screen w-[250px] border-r bg-white py-[16px] shadow-sm transition-all duration-500 lg:left-0 lg:top-[64px] lg:duration-0 ${
             menu ? 'left-0' : 'left-[-100%]'
           }`}
         >
@@ -93,26 +93,26 @@ function Layout({ children }: { children?: React.ReactNode }) {
             </div>
             <ul className="flex flex-col gap-[12px] pt-5 lg:pt-0">
               <li className="cursor-pointer rounded-md p-[8px] hover:bg-blue-500 hover:text-white">
-                메뉴1
+                매장관리
               </li>
               <li className="cursor-pointer rounded-md p-[8px] hover:bg-blue-500 hover:text-white">
-                메뉴2
+                공지사항
               </li>
               <li className="cursor-pointer rounded-md p-[8px] hover:bg-blue-500 hover:text-white">
-                메뉴3
+                직원관리
               </li>
               <li className="cursor-pointer rounded-md p-[8px] hover:bg-blue-500 hover:text-white">
-                메뉴4
+                일정
               </li>
             </ul>
           </nav>
         </aside>
-        <main className="h-[200vh] bg-gray-50 px-[16px] pt-[100px] lg:pl-[276px]">
+        <main className="min-h-screen bg-gray-50 px-[16px] pb-9 pt-[100px] lg:pl-[276px]">
           {children || <Outlet />}
         </main>
         {menu && (
           <div
-            className="fixed left-0 top-0 h-screen w-screen bg-gray-600/50 lg:hidden"
+            className="fixed left-0 top-0 z-40 h-screen w-screen bg-gray-600/50 lg:hidden"
             onClick={onClickMenu}
           />
         )}

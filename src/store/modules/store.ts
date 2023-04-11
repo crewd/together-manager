@@ -54,36 +54,36 @@ export type StoreActionTypes =
   | DeleteStoreSuccessAction
   | DeleteStoreFailureAction;
 
-export const addStoreRequest = (): StoreActionTypes => ({
+const addStoreRequest = (): StoreActionTypes => ({
   type: ADD_STORE_REQUEST,
 });
 
-export const addStoreSuccess = (store: Store): StoreActionTypes => ({
+const addStoreSuccess = (store: Store): StoreActionTypes => ({
   type: ADD_STORE_SUCCESS,
   payload: {
     ...store,
   },
 });
 
-export const addStoreFailure = (error: string): StoreActionTypes => ({
+const addStoreFailure = (error: string): StoreActionTypes => ({
   type: ADD_STORE_FAILURE,
   payload: {
     error,
   },
 });
 
-export const deleteStoreRequest = (): StoreActionTypes => ({
+const deleteStoreRequest = (): StoreActionTypes => ({
   type: DELETE_STORE_REQUEST,
 });
 
-export const deleteStoreSuccess = (storeName: string): StoreActionTypes => ({
+const deleteStoreSuccess = (storeName: string): StoreActionTypes => ({
   type: DELETE_STORE_SUCCESS,
   payload: {
     storeName,
   },
 });
 
-export const deleteStoreFailure = (error: string): StoreActionTypes => ({
+const deleteStoreFailure = (error: string): StoreActionTypes => ({
   type: DELETE_STORE_FAILURE,
   payload: {
     error,
