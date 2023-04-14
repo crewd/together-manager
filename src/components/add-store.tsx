@@ -25,7 +25,7 @@ function AddStore({ onClose }: { onClose: () => void }) {
   const addStoreDispatch: SubmitHandler<StoreForm> = useCallback(
     (data) => {
       const fullAddress = `${data.address} ${data.detailAddress}`;
-      const formData = {
+      const formData: Store = {
         storeName: data.storeName,
         address: fullAddress,
         startTime: data.startTime,
