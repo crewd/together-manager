@@ -1,6 +1,6 @@
-import { faUsers } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Store } from '../types/store.type';
+import { faClock } from '@fortawesome/free-regular-svg-icons';
 
 function ItemCard({
   data,
@@ -33,9 +33,9 @@ function ItemCard({
       </div>
       <p className="py-[10px]">{data.address}</p>
       <div className="flex py-[10px]">
-        <FontAwesomeIcon className="h-[25px] w-[25px]" icon={faUsers} />
-        <p className="pl-[6px]">
-          {data.startTime} ~ {data.endTime}
+        <FontAwesomeIcon className="h-[25px] w-[25px]" icon={faClock} />
+        <p className="pl-3">
+          {data.startTime} - {data.endTime}
         </p>
       </div>
     </div>

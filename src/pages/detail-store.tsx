@@ -1,8 +1,11 @@
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import FullCalendar from '@fullcalendar/react';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import moment from 'moment';
 import 'moment/locale/ko';
+import { useSelector } from 'react-redux';
+import { RootState } from '../store';
+import { Store } from '../types/store.type';
 
 function DetailStore() {
   const events = [
@@ -32,6 +35,14 @@ function DetailStore() {
       end: moment('2023-04-13 21:00').toDate(),
     },
   ];
+
+  const { storeId } = useParams();
+
+  const dummyStore: Store = useSelector(
+    (state: RootState) =>
+      state.store.stores.filter((data) => data.storeId === storeId)[0],
+  );
+
   return (
     <div className="flex justify-center w-full">
       <div className="w-full max-w-[1024px]">
@@ -71,7 +82,8 @@ function DetailStore() {
             locale={'ko'}
             events={events}
             allDayText=""
-            slotMinTime="09:00"
+            slotMinTime={dummyStore.startTime}
+            slotMaxTime={dummyStore.endTime}
             eventClassNames={'text-xl'}
             displayEventTime={false}
             headerToolbar={false}
