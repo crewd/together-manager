@@ -1,8 +1,9 @@
 export type Store = {
   storeName: string;
   address: string;
-  members?: number;
-  storeId: string;
+  storeId?: string;
+  startTime: string;
+  endTime: string;
 };
 
 export type StoreState = {
@@ -15,4 +16,6 @@ export type StoreForm = {
   storeName: string;
   address: string;
   detailAddress: string;
+  startTime: string;
+  endTime: string;
 };

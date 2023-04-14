@@ -2,7 +2,7 @@ import { ErrorMessage } from '@hookform/error-message';
 import { useCallback, useEffect, useState } from 'react';
 import DaumPostcode, { Address } from 'react-daum-postcode';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { StoreForm } from '../types/store.type';
+import { Store, StoreForm } from '../types/store.type';
 import { useDispatch } from 'react-redux';
 import { ThunkDispatch } from 'redux-thunk';
 import { RootState } from '../store';
@@ -25,7 +25,13 @@ function AddStore({ onClose }: { onClose: () => void }) {
   const addStoreDispatch: SubmitHandler<StoreForm> = useCallback(
     (data) => {
       const fullAddress = `${data.address} ${data.detailAddress}`;
-      dispatch(addStore(data.storeName, fullAddress));
+      const formData = {
+        storeName: data.storeName,
+        address: fullAddress,
+        startTime: data.startTime,
+        endTime: data.endTime,
+      };
+      dispatch(addStore(formData));
       onClose();
     },
     [dispatch, onClose],
@@ -45,9 +51,9 @@ function AddStore({ onClose }: { onClose: () => void }) {
   }, []);
 
   return (
-    <div className="fixed left-0 top-0 flex h-screen w-screen items-center justify-center">
+    <div className="fixed top-0 left-0 flex items-center justify-center w-screen h-screen">
       <div
-        className="fixed left-0 top-0 flex h-screen w-screen items-center justify-center bg-gray-600/50"
+        className="fixed top-0 left-0 flex items-center justify-center w-screen h-screen bg-gray-600/50"
         onClick={onClose}
       />
       <form
@@ -131,7 +137,7 @@ function AddStore({ onClose }: { onClose: () => void }) {
         {addressOpened && (
           <div>
             <DaumPostcode
-              className="absolute left-0 top-0"
+              className="absolute top-0 left-0"
               onComplete={getAddress}
             />
           </div>

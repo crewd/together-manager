@@ -90,17 +90,21 @@ const deleteStoreFailure = (error: string): StoreActionTypes => ({
   },
 });
 
-export const addStore = (
-  storeName: string,
-  address: string,
-): ThunkAction<void, RootState, null, StoreActionTypes> => {
+export const addStore = ({
+  storeName,
+  address,
+  startTime,
+  endTime,
+}: Store): ThunkAction<void, RootState, null, StoreActionTypes> => {
   return (dispatch) => {
     dispatch(addStoreRequest());
     try {
-      const newStore = {
+      const newStore: Store = {
         storeName,
         address,
         storeId: v4(),
+        startTime,
+        endTime,
       };
       dispatch(addStoreSuccess(newStore));
     } catch (error: any) {

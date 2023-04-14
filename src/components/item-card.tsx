@@ -35,8 +35,7 @@ function ItemCard({
       <div className="flex py-[10px]">
         <FontAwesomeIcon className="h-[25px] w-[25px]" icon={faUsers} />
         <p className="pl-[6px]">
-          직원 수:
-          <span className="pl-[10px] pr-[6px]">{data.members || 0}</span>명
+          {data.startTime} ~ {data.endTime}
         </p>
       </div>
     </div>
