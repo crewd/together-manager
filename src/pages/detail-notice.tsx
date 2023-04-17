@@ -1,7 +1,7 @@
 function DetailNotice() {
   return (
     <div className="container mx-auto max-w-[1024px] bg-gray-50 pb-10">
-      <div className="rounded-xl bg-white p-8 shadow-md">
+      <div className="rounded-md bg-white p-6 shadow-md">
         <h2 className="mb-4 text-2xl font-bold">제목</h2>
         <div className="mb-4 flex items-center text-gray-400">
           <p>2023/04/23</p>

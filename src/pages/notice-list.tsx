@@ -20,7 +20,7 @@ const NoticeList = () => {
           작성
         </button>
       </div>
-      <div className="rounded-md border bg-white shadow">
+      <div className="rounded-md bg-white shadow-md">
         {dummyNotice.map((notice) => (
           <Link
             to={`/store/${storeId}/notice/1`}
