@@ -44,32 +44,26 @@ function DetailStore() {
   );
 
   return (
-    <div className="flex justify-center w-full">
-      <div className="w-full max-w-[1024px]">
+    <div className="container mx-auto max-w-[1024px]">
+      <div className="w-full">
         <div>
           <p className="pb-4 text-2xl font-bold">📣 공지사항</p>
-          <div className="flex flex-col bg-white border rounded-md shadow">
-            <Link
-              to="/"
-              className="p-4 text-xl font-bold hover:underline hover:underline-offset-4"
-            >
+          <div className="flex flex-col rounded-md border bg-white shadow">
+            <Link to="/" className="p-4 text-xl font-bold hover:bg-gray-100">
               공지사항 1
             </Link>
           </div>
         </div>
         <div className="pt-[36px]">
           <p className="pb-4 text-2xl font-bold">📝 오늘의 인수인계</p>
-          <div className="flex flex-col bg-white border rounded-md shadow">
+          <div className="flex flex-col rounded-md border bg-white shadow">
             <Link
               to="/"
               className="p-4 text-xl font-bold text-gray-400 line-through"
             >
               인수인계 1
             </Link>
-            <Link
-              to="/"
-              className="p-4 text-xl font-bold hover:underline hover:underline-offset-4"
-            >
+            <Link to="/" className="p-4 text-xl font-bold hover:bg-gray-100">
               인수인계 2
             </Link>
           </div>

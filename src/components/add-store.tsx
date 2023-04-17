@@ -51,9 +51,9 @@ function AddStore({ onClose }: { onClose: () => void }) {
   }, []);
 
   return (
-    <div className="fixed top-0 left-0 flex items-center justify-center w-screen h-screen">
+    <div className="fixed left-0 top-0 flex h-screen w-screen items-center justify-center">
       <div
-        className="fixed top-0 left-0 flex items-center justify-center w-screen h-screen bg-gray-600/50"
+        className="fixed left-0 top-0 flex h-screen w-screen items-center justify-center bg-gray-600/50"
         onClick={onClose}
       />
       <form
@@ -171,6 +171,7 @@ function AddStore({ onClose }: { onClose: () => void }) {
         </div>
         <div className="flex w-full justify-center gap-6 pt-[24px]">
           <button
+            type="button"
             className="h-[40px] w-[100px] rounded-md border border-gray-400 bg-white shadow-md hover:border-blue-500 hover:text-blue-500"
             onClick={onClose}
           >
@@ -184,9 +185,9 @@ function AddStore({ onClose }: { onClose: () => void }) {
           </button>
         </div>
         {addressOpened && (
-          <div className="absolute top-0 left-0 w-full h-full bg-white md:rounded-xl">
+          <div className="absolute left-0 top-0 h-full w-full bg-white md:rounded-xl">
             <DaumPostcode onComplete={getAddress} />
-            <div className="absolute flex justify-center w-full bottom-16">
+            <div className="absolute bottom-16 flex w-full justify-center">
               <button
                 className="h-[40px] w-[100px] rounded-md border border-gray-400 bg-white shadow-md hover:border-blue-500 hover:text-blue-500"
                 onClick={onOpenAddress}

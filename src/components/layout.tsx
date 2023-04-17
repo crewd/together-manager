@@ -61,9 +61,12 @@ function Layout({ children }: { children?: React.ReactNode }) {
             <button className="lg:hidden" onClick={onClickMenu}>
               <FontAwesomeIcon className="h-[20px] w-[20px]" icon={faBars} />
             </button>
-            <p className="text-xl font-semibold leading-[64px]">
+            <Link
+              to={`store/${storeId}`}
+              className="text-xl font-semibold leading-[64px]"
+            >
               {dummyStore.storeName}
-            </p>
+            </Link>
             <button
               className="flex items-center font-semibold leading-[64px]"
               onClick={logout}
@@ -96,7 +99,9 @@ function Layout({ children }: { children?: React.ReactNode }) {
                 매장관리
               </li>
               <li className="cursor-pointer rounded-md p-[8px] hover:bg-blue-500 hover:text-white">
-                공지사항
+                <Link to={`store/${storeId}/notice`} className="block w-full">
+                  공지사항
+                </Link>
               </li>
               <li className="cursor-pointer rounded-md p-[8px] hover:bg-blue-500 hover:text-white">
                 직원관리
