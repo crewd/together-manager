@@ -49,7 +49,10 @@ function DetailStore() {
         <div>
           <p className="pb-4 text-2xl font-bold">📣 공지사항</p>
           <div className="flex flex-col rounded-md border bg-white shadow">
-            <Link to="/" className="p-4 text-xl font-bold hover:bg-gray-100">
+            <Link
+              to="/"
+              className="p-4 text-xl font-bold transition-colors duration-200 hover:bg-gray-100"
+            >
               공지사항 1
             </Link>
           </div>

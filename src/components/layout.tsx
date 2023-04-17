@@ -95,18 +95,18 @@ function Layout({ children }: { children?: React.ReactNode }) {
               </button>
             </div>
             <ul className="flex flex-col gap-[12px] pt-5 lg:pt-0">
-              <li className="cursor-pointer rounded-md p-[8px] hover:bg-blue-500 hover:text-white">
+              <li className="cursor-pointer rounded-md p-[8px] transition-colors duration-200 hover:bg-blue-500 hover:text-white">
                 매장관리
               </li>
-              <li className="cursor-pointer rounded-md p-[8px] hover:bg-blue-500 hover:text-white">
+              <li className="cursor-pointer rounded-md p-[8px] transition-colors duration-200 hover:bg-blue-500 hover:text-white">
                 <Link to={`store/${storeId}/notice`} className="block w-full">
                   공지사항
                 </Link>
               </li>
-              <li className="cursor-pointer rounded-md p-[8px] hover:bg-blue-500 hover:text-white">
+              <li className="cursor-pointer rounded-md p-[8px] transition-colors duration-200 hover:bg-blue-500 hover:text-white">
                 직원관리
               </li>
-              <li className="cursor-pointer rounded-md p-[8px] hover:bg-blue-500 hover:text-white">
+              <li className="cursor-pointer rounded-md p-[8px] transition-colors duration-200 hover:bg-blue-500 hover:text-white">
                 일정
               </li>
             </ul>

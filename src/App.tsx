@@ -8,6 +8,7 @@ import NoRequireAuth from './components/noRequireAuth';
 import SignUp from './pages/signup';
 import DetailStore from './pages/detail-store';
 import NoticeList from './pages/notice-list';
+import DetailNotice from './pages/detail-notice';
 
 function App() {
   return (
@@ -40,6 +41,10 @@ function App() {
         <Route element={<Layout />}>
           <Route path="/store/:storeId" element={<DetailStore />} />
           <Route path="/store/:storeId/notice" element={<NoticeList />} />
+          <Route
+            path="/store/:storeId/notice/:noticeId"
+            element={<DetailNotice />}
+          />
         </Route>
       </Routes>
     </BrowserRouter>
