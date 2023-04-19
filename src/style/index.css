@@ -7,3 +7,7 @@
     @apply font-sans;
   }
 }
+
+.ql-editor {
+  @apply text-base;
+}

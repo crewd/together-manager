@@ -15,10 +15,13 @@ const NoticeList = () => {
     <div className="container mx-auto max-w-[1024px]">
       <div className="flex items-center justify-between pb-6">
         <h2 className="text-2xl font-bold">공지사항</h2>
-        <button className="rounded-md border bg-white px-4 py-2 shadow">
+        <Link
+          to={`/store/${storeId}/notice/create`}
+          className="rounded-md border bg-white px-4 py-2 shadow"
+        >
           <FontAwesomeIcon className="mr-2" icon={faPenToSquare} />
           작성
-        </button>
+        </Link>
       </div>
       <div className="rounded-md bg-white shadow-md">
         {dummyNotice.map((notice) => (

@@ -9,6 +9,7 @@ import SignUp from './pages/signup';
 import DetailStore from './pages/detail-store';
 import NoticeList from './pages/notice-list';
 import DetailNotice from './pages/detail-notice';
+import CreateNoticePage from './pages/create-notice-page';
 
 function App() {
   return (
@@ -44,6 +45,10 @@ function App() {
           <Route
             path="/store/:storeId/notice/:noticeId"
             element={<DetailNotice />}
+          />
+          <Route
+            path="/store/:storeId/notice/create"
+            element={<CreateNoticePage />}
           />
         </Route>
       </Routes>
