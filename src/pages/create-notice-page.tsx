@@ -1,5 +1,4 @@
-import ReactQuill from 'react-quill';
-import 'react-quill/dist/quill.snow.css';
+import Editor from '../components/editor';
 
 function CreateNoticePage() {
   return (
@@ -11,9 +10,7 @@ function CreateNoticePage() {
           placeholder="제목"
           className="w-full border border-b-0 border-[#ccc] px-3 py-3 outline-none"
         />
-        <div className="w-full">
-          <ReactQuill theme="snow" />
-        </div>
+        <Editor />
       </div>
       <div className="mt-6 flex justify-end gap-4">
         <button className="rounded-md border bg-blue-500 px-8 py-2 text-white shadow transition-colors duration-200">
