@@ -2,7 +2,7 @@ import { useMemo } from 'react';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 
-function Editor() {
+function Editor({ onChageEditor }: { onChageEditor: (value: string) => void }) {
   const modules = useMemo(() => {
     return {
       toolbar: {
@@ -17,7 +17,7 @@ function Editor() {
       },
     };
   }, []);
-  return <ReactQuill theme="snow" modules={modules} />;
+  return <ReactQuill theme="snow" modules={modules} onChange={onChageEditor} />;
 }
 
 export default Editor;
