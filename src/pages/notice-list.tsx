@@ -23,7 +23,7 @@ const NoticeList = () => {
       <div className="rounded-md bg-white shadow-md">
         {notices.map((notice) => (
           <Link
-            to={`/store/${storeId}/notice/1`}
+            to={`/store/${storeId}/notice/${notice.noticeId}`}
             className="block cursor-pointer bg-white transition-colors duration-200 hover:bg-gray-100"
             key={notice.noticeId}
           >
