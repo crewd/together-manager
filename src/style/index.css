@@ -10,5 +10,6 @@
 
 .ql-editor {
   @apply text-base;
-  @apply h-[500px];
+  @apply bg-white;
+  @apply min-h-[500px];
 }
