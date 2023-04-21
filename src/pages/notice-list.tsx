@@ -20,19 +20,27 @@ const NoticeList = () => {
           작성
         </Link>
       </div>
-      <div className="rounded-md bg-white shadow-md">
-        {notices.map((notice) => (
-          <Link
-            to={`/store/${storeId}/notice/${notice.noticeId}`}
-            className="block cursor-pointer bg-white transition-colors duration-200 hover:bg-gray-100"
-            key={notice.noticeId}
-          >
-            <div className="border-b p-4">
-              <h3 className="text-xl font-semibold">{notice.title}</h3>
-              <p className="mt-1 text-gray-500">{notice.content}</p>
-            </div>
-          </Link>
-        ))}
+      <div className="bg-white shadow-md">
+        {notices.length >= 1 ? (
+          notices.map((notice) => (
+            <Link
+              to={`/store/${storeId}/notice/${notice.noticeId}`}
+              className="block cursor-pointer bg-white transition-colors duration-200 hover:bg-gray-100"
+              key={notice.noticeId}
+            >
+              <div className="border-b p-4">
+                <h3 className="text-xl font-semibold">{notice.title}</h3>
+                <p className="mt-1 text-gray-500">{notice.content}</p>
+              </div>
+            </Link>
+          ))
+        ) : (
+          <div className="border p-4">
+            <h3 className="text-xl font-semibold text-gray-500">
+              공지사항이 없습니다
+            </h3>
+          </div>
+        )}
       </div>
     </div>
   );
