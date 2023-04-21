@@ -1,7 +1,7 @@
 import { useRef, useState } from 'react';
 import Editor from '../components/editor';
 import { Notice } from '../types/notice.type';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { RootState } from '../store';
 import { ThunkDispatch } from 'redux-thunk';
 import { NoticeActionTypes, addNotice } from '../store/modules/notice';
@@ -16,8 +16,6 @@ function CreateNoticePage() {
   const { storeId } = useParams();
   const navigate = useNavigate();
 
-  const notices = useSelector((state: RootState) => state.notice.notices);
-
   const dispatch =
     useDispatch<ThunkDispatch<RootState, null, NoticeActionTypes>>();
 
@@ -25,7 +23,7 @@ function CreateNoticePage() {
     setTitle(event.target.value);
   };
 
-  const onChageEditor = (value: string) => {
+  const onChageEditor = () => {
     if (editorRef.current) {
       console.log(editorRef.current.getEditor().root.innerHTML);
     }
