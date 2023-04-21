@@ -2,7 +2,13 @@ import { useEffect, useMemo } from 'react';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 
-function Editor({ onChageEditor }: { onChageEditor: (value: string) => void }) {
+function Editor({
+  onChageEditor,
+  editorRef,
+}: {
+  onChageEditor: (value: string) => void;
+  editorRef: React.RefObject<ReactQuill>;
+}) {
   useEffect(() => {}, []);
   const modules = useMemo(() => {
     return {
@@ -20,7 +26,7 @@ function Editor({ onChageEditor }: { onChageEditor: (value: string) => void }) {
   }, []);
   return (
     <div>
-      <ReactQuill modules={modules} onChange={onChageEditor} />
+      <ReactQuill modules={modules} onChange={onChageEditor} ref={editorRef} />
     </div>
   );
 }

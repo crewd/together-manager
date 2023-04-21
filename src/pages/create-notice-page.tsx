@@ -1,29 +1,53 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import Editor from '../components/editor';
 import { Notice } from '../types/notice.type';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../store';
 import { ThunkDispatch } from 'redux-thunk';
 import { NoticeActionTypes, addNotice } from '../store/modules/notice';
+import ReactQuill from 'react-quill';
+import { useNavigate, useParams } from 'react-router-dom';
 
 function CreateNoticePage() {
-  const [content, setContent] = useState<string>();
+  const [title, setTitle] = useState<string>();
+
+  const editorRef = useRef<ReactQuill>(null);
+
+  const { storeId } = useParams();
+  const navigate = useNavigate();
 
   const notices = useSelector((state: RootState) => state.notice.notices);
 
   const dispatch =
     useDispatch<ThunkDispatch<RootState, null, NoticeActionTypes>>();
 
-  const onChageEditor = (value: string) => {
-    setContent(value);
+  const onChangeTitle = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setTitle(event.target.value);
   };
 
-  const onSubmitNotice = () => {
-    const dummyData: Notice = {
-      title: '공지사항 1',
-      content: '공지사항1 입니다.',
+  const onChageEditor = (value: string) => {
+    if (editorRef.current) {
+      console.log(editorRef.current.getEditor().root.innerHTML);
+    }
+  };
+
+  const onSubmitNotice = async () => {
+    if (!title) {
+      return alert('제목을 입력해 주세요');
+    }
+
+    if (
+      !editorRef.current?.getEditor().getText() ||
+      editorRef.current?.getEditor().root.innerHTML === '<p><br></p>'
+    ) {
+      return alert('내용을 입력해 주세요');
+    }
+    const noticeData: Notice = {
+      title: title,
+      content: editorRef.current?.getEditor().root.innerHTML,
     };
-    dispatch(addNotice(dummyData));
+    await dispatch(addNotice(noticeData));
+    navigate(`/store/${storeId}/notice`);
   };
 
   return (
@@ -34,8 +58,9 @@ function CreateNoticePage() {
           type="text"
           placeholder="제목"
           className="w-full border border-b-0 border-[#ccc] px-3 py-3 outline-none"
+          onChange={onChangeTitle}
         />
-        <Editor onChageEditor={onChageEditor} />
+        <Editor onChageEditor={onChageEditor} editorRef={editorRef} />
       </div>
       <div className="mt-6 flex justify-end gap-4">
         <button
