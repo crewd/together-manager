@@ -17,7 +17,7 @@ function DetailNotice() {
     useDispatch<ThunkDispatch<RootState, null, NoticeActionTypes>>();
 
   const removeNotice = (noticeId: string) => {
-    if (noticeId && window.confirm('매장을 삭제하시겠습니까?')) {
+    if (noticeId && window.confirm('공지사항을 삭제하시겠습니까?')) {
       noticeDispatch(deleteNotice(noticeId));
       return navigate(`/store/${storeId}/notice`);
     }
