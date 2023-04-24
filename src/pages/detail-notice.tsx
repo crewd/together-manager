@@ -1,12 +1,27 @@
 import { useSelector } from 'react-redux';
 import { RootState } from '../store';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { ThunkDispatch } from 'redux-thunk';
+import { NoticeActionTypes, deleteNotice } from '../store/modules/notice';
 
 function DetailNotice() {
-  const { noticeId } = useParams();
+  const { storeId, noticeId } = useParams();
+  const navigate = useNavigate();
+
   const notice = useSelector((state: RootState) =>
     state.notice.notices.filter((notice) => notice.noticeId === noticeId),
   )[0];
+
+  const noticeDispatch =
+    useDispatch<ThunkDispatch<RootState, null, NoticeActionTypes>>();
+
+  const removeNotice = (noticeId: string) => {
+    if (noticeId && window.confirm('매장을 삭제하시겠습니까?')) {
+      noticeDispatch(deleteNotice(noticeId));
+      return navigate(`/store/${storeId}/notice`);
+    }
+  };
 
   return (
     <div className="container mx-auto max-w-[1024px] bg-gray-50 pb-10">
@@ -24,7 +39,10 @@ function DetailNotice() {
         <button className="rounded-md border bg-white px-6 py-2 shadow transition-colors duration-200 hover:bg-blue-500 hover:text-white">
           수정
         </button>
-        <button className="rounded-md border bg-white px-6 py-2 shadow transition-colors duration-200 hover:bg-red-500 hover:text-white">
+        <button
+          className="rounded-md border bg-white px-6 py-2 shadow transition-colors duration-200 hover:bg-red-500 hover:text-white"
+          onClick={() => removeNotice(notice.noticeId)}
+        >
           삭제
         </button>
       </div>

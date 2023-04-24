@@ -119,7 +119,6 @@ export const deleteStore = (
   return (dispatch) => {
     dispatch(deleteStoreRequest());
     try {
-      // store를 삭제하는 비즈니스 로직 구현
       dispatch(deleteStoreSuccess(storeName));
     } catch (error: any) {
       dispatch(deleteStoreFailure(error.message));

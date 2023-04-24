@@ -8,7 +8,6 @@ import ModalPortal from '../components/modal-portal';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../store';
 import { ThunkDispatch } from 'redux-thunk';
-import { StoreActionTypes, deleteStore } from '../store/modules/store';
 import { AuthActionTypes, userLogout } from '../store/modules/auth';
 import Spinner from '../components/spinner';
 import { Link } from 'react-router-dom';
@@ -20,9 +19,6 @@ function MainPage() {
   const dummyStore: Store[] = useSelector(
     (state: RootState) => state.store.stores,
   );
-
-  const storeDispatch =
-    useDispatch<ThunkDispatch<RootState, null, StoreActionTypes>>();
 
   const authDispatch =
     useDispatch<ThunkDispatch<RootState, null, AuthActionTypes>>();
@@ -38,12 +34,6 @@ function MainPage() {
 
   const onClose = () => {
     setModalOpened(false);
-  };
-
-  const deleteStoreDispatch = (storeName: string) => {
-    if (window.confirm('매장을 삭제하시겠습니까?')) {
-      return storeDispatch(deleteStore(storeName));
-    }
   };
 
   useEffect(() => {
@@ -87,7 +77,7 @@ function MainPage() {
                 className={`${dummyStore.length <= 1 && 'col-span-3'}`}
                 key={data.storeName + index}
               >
-                <ItemCard data={data} onDelete={deleteStoreDispatch} />
+                <ItemCard data={data} />
               </Link>
             ))}
           </div>

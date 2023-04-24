@@ -1,6 +1,6 @@
 import { useRef, useState } from 'react';
 import Editor from '../components/editor';
-import { Notice } from '../types/notice.type';
+import { NoticeForm } from '../types/notice.type';
 import { useDispatch } from 'react-redux';
 import { RootState } from '../store';
 import { ThunkDispatch } from 'redux-thunk';
@@ -40,7 +40,7 @@ function CreateNoticePage() {
     ) {
       return alert('내용을 입력해 주세요');
     }
-    const noticeData: Notice = {
+    const noticeData: NoticeForm = {
       title: title,
       content: editorRef.current?.getEditor().root.innerHTML,
     };
