@@ -13,7 +13,7 @@ function DetailNotice() {
       <div className="rounded-md bg-white p-6 shadow-md">
         <h2 className="mb-4 text-2xl font-bold">{notice.title}</h2>
         <div className="mb-4 flex items-center text-gray-400">
-          {notice.noticeId}
+          {notice.createdAt}
         </div>
         <div
           className="mb-4 text-gray-600"

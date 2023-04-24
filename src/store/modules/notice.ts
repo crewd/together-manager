@@ -3,6 +3,7 @@ import { RootState } from '..';
 import { v4 } from 'uuid';
 import { Reducer } from 'redux';
 import { Notice, NoticeState } from '../../types/notice.type';
+import moment from 'moment';
 
 const ADD_NOTICE_REQUEST = 'ADD_NOTICE_REQUEST';
 const ADD_NOTICE_SUCCESS = 'ADD_NOTICE_SUCCESS';
@@ -55,6 +56,7 @@ export const addNotice = (
         title: notice.title,
         content: notice.content,
         noticeId: v4(),
+        createdAt: moment().format('YYYY-MM-DD HH:mm'),
       };
       dispatch(addNoticeSuccess(newNotice));
     } catch (error: any) {

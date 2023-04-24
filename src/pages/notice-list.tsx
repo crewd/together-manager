@@ -30,7 +30,7 @@ const NoticeList = () => {
             >
               <div className="border-b p-4">
                 <h3 className="text-xl font-semibold">{notice.title}</h3>
-                <p className="mt-1 text-gray-500">{notice.content}</p>
+                <p className="mt-1 text-gray-500">{notice.createdAt}</p>
               </div>
             </Link>
           ))
