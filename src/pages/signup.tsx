@@ -1,12 +1,15 @@
 import { useForm } from 'react-hook-form';
-import { useDispatch, useSelector } from 'react-redux';
-import { ThunkDispatch } from 'redux-thunk';
+import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import ModalPortal from '../components/modal-portal';
 import Spinner from '../components/spinner';
 import { SignUpData, SignUpFormData } from '../types/auth.type';
+import { RootState, useAppDispatch } from '../store/store';
+import { signUp } from '../store/modules/auth';
 
 function SignUp() {
+  const isLoading = useSelector((state: RootState) => state.auth.isLoading);
+
   const {
     register,
     formState: { errors },
@@ -20,6 +23,8 @@ function SignUp() {
     navigate('/login');
   };
 
+  const dispatch = useAppDispatch();
+
   const onSubmit = async (data: SignUpFormData) => {
     const signUpData: SignUpData = {
       userEmail: data.userEmail,
@@ -27,6 +32,11 @@ function SignUp() {
       password: data.password,
       contact: data.contact,
     };
+    try {
+      await dispatch(signUp(signUpData));
+    } catch (error) {
+      console.log(error);
+    }
     navigate('/login');
   };
 
@@ -152,13 +162,13 @@ function SignUp() {
           </button>
         </div>
       </form>
-      {/* {isLoading && (
+      {isLoading && (
         <ModalPortal>
-          <div className="fixed top-0 left-0 z-50 flex items-center justify-center w-screen h-screen bg-white/40">
+          <div className="fixed left-0 top-0 z-50 flex h-screen w-screen items-center justify-center bg-white/40">
             <Spinner />
           </div>
         </ModalPortal>
-      )} */}
+      )}
     </div>
   );
 }

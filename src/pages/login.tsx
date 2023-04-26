@@ -6,7 +6,7 @@ import ModalPortal from '../components/modal-portal';
 import Spinner from '../components/spinner';
 import { useSelector } from 'react-redux';
 import { RootState, useAppDispatch } from '../store/store';
-import { login } from '../store/modules/authSlice';
+import { login } from '../store/modules/auth';
 
 function Login() {
   const isLoading = useSelector((state: RootState) => state.auth.isLoading);

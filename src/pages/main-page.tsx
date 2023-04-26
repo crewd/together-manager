@@ -10,6 +10,7 @@ import { RootState, useAppDispatch } from '../store/store';
 import { ThunkDispatch } from 'redux-thunk';
 import Spinner from '../components/spinner';
 import { Link } from 'react-router-dom';
+import { logout } from '../store/modules/auth';
 
 function MainPage() {
   const [modalOpened, setModalOpened] = useState(false);
@@ -21,8 +22,9 @@ function MainPage() {
 
   const dispatch = useAppDispatch();
 
-  const logout = async () => {
-    await setIsLoading(true);
+  const onlogout = () => {
+    // await setIsLoading(true);
+    dispatch(logout());
   };
 
   const onOpen = () => {
@@ -47,7 +49,7 @@ function MainPage() {
         <h2 className="text-2xl font-bold leading-[64px]">투게더</h2>
         <button
           className="flex items-center font-semibold leading-[64px]"
-          onClick={logout}
+          onClick={onlogout}
         >
           <FontAwesomeIcon
             className="h-[20px] w-[20px] align-middle"
