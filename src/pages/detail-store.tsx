@@ -3,47 +3,11 @@ import FullCalendar from '@fullcalendar/react';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import moment from 'moment';
 import 'moment/locale/ko';
-import { useSelector } from 'react-redux';
-import { RootState } from '../store';
-import { Store } from '../types/store.type';
 
 function DetailStore() {
-  const events = [
-    {
-      title: '홍길동',
-      start: moment('2023-04-13 11:00').toDate(),
-      end: moment('2023-04-13 16:00').toDate(),
-    },
-    {
-      title: '홍길동',
-      start: moment('2023-04-13 11:00').toDate(),
-      end: moment('2023-04-13 16:00').toDate(),
-    },
-    {
-      title: '홍길동',
-      start: moment('2023-04-13 11:00').toDate(),
-      end: moment('2023-04-13 16:00').toDate(),
-    },
-    {
-      title: '홍길동',
-      start: moment('2023-04-13 11:00').toDate(),
-      end: moment('2023-04-13 16:00').toDate(),
-    },
-    {
-      title: '홍길동',
-      start: moment('2023-04-13 16:00').toDate(),
-      end: moment('2023-04-13 21:00').toDate(),
-    },
-  ];
+  const events = [];
 
   const { storeId } = useParams();
-
-  const dummyStore: Store = useSelector(
-    (state: RootState) =>
-      state.store.stores.filter((data) => data.storeId === storeId)[0],
-  );
-
-  const notices = useSelector((state: RootState) => state.notice.notices);
 
   return (
     <div className="container mx-auto max-w-[1024px]">
@@ -51,7 +15,7 @@ function DetailStore() {
         <div>
           <p className="pb-4 text-2xl font-bold">📣 공지사항</p>
           <div className="flex flex-col rounded-md border bg-white shadow">
-            {notices.length > 0 ? (
+            {/* {notices.length > 0 ? (
               notices.map((notice) => (
                 <Link
                   to="/"
@@ -67,7 +31,7 @@ function DetailStore() {
                   공지사항이 없습니다
                 </h3>
               </div>
-            )}
+            )} */}
           </div>
         </div>
         <div className="pt-[36px]">
@@ -86,7 +50,7 @@ function DetailStore() {
         </div>
         <div className="pt-9">
           <p className="pb-4 text-2xl font-bold">⏱ 오늘의 근무표</p>
-          <FullCalendar
+          {/* <FullCalendar
             plugins={[timeGridPlugin]}
             initialView="timeGridDay"
             locale={'ko'}
@@ -97,7 +61,7 @@ function DetailStore() {
             eventClassNames={'text-xl'}
             displayEventTime={false}
             headerToolbar={false}
-          />
+          /> */}
         </div>
       </div>
     </div>

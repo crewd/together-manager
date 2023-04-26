@@ -1,13 +1,12 @@
 import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
 import { LoginData } from '../types/auth.type';
-import { ThunkDispatch } from 'redux-thunk';
-import { RootState } from '../store';
-import { AuthActionTypes, login } from '../store/modules/auth';
 import { useDispatch } from 'react-redux';
 import ModalPortal from '../components/modal-portal';
 import Spinner from '../components/spinner';
 import { useSelector } from 'react-redux';
+import { RootState, useAppDispatch } from '../store/store';
+import { login } from '../store/modules/authSlice';
 
 function Login() {
   const isLoading = useSelector((state: RootState) => state.auth.isLoading);
@@ -18,8 +17,7 @@ function Login() {
     handleSubmit,
   } = useForm<LoginData>();
 
-  const dispatch =
-    useDispatch<ThunkDispatch<RootState, null, AuthActionTypes>>();
+  const dispatch = useAppDispatch();
 
   const onSubmit = (data: LoginData) => {
     dispatch(login(data));

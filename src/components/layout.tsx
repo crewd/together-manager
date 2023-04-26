@@ -10,11 +10,6 @@ import { Link, useParams } from 'react-router-dom';
 import RequireAuth from './requireAuth';
 import ModalPortal from './modal-portal';
 import Spinner from './spinner';
-import { useDispatch, useSelector } from 'react-redux';
-import { ThunkDispatch } from 'redux-thunk';
-import { RootState } from '../store';
-import { AuthActionTypes, userLogout } from '../store/modules/auth';
-import { Store } from '../types/store.type';
 
 function Layout({ children }: { children?: React.ReactNode }) {
   const [menu, setMenu] = useState(false);
@@ -22,17 +17,8 @@ function Layout({ children }: { children?: React.ReactNode }) {
 
   const { storeId } = useParams();
 
-  const dummyStore: Store = useSelector(
-    (state: RootState) =>
-      state.store.stores.filter((data) => data.storeId === storeId)[0],
-  );
-
-  const authDispatch =
-    useDispatch<ThunkDispatch<RootState, null, AuthActionTypes>>();
-
   const logout = () => {
     setIsLoading(true);
-    authDispatch(userLogout());
   };
 
   const onClickMenu = () => {
@@ -65,7 +51,7 @@ function Layout({ children }: { children?: React.ReactNode }) {
               to={`store/${storeId}`}
               className="text-xl font-semibold leading-[64px]"
             >
-              {dummyStore.storeName}
+              {/* {dummyStore.storeName} */}
             </Link>
             <button
               className="flex items-center font-semibold leading-[64px]"

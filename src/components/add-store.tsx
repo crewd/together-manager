@@ -5,8 +5,6 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { Store, StoreForm } from '../types/store.type';
 import { useDispatch } from 'react-redux';
 import { ThunkDispatch } from 'redux-thunk';
-import { RootState } from '../store';
-import { StoreActionTypes, addStore } from '../store/modules/store';
 
 function AddStore({ onClose }: { onClose: () => void }) {
   const {
@@ -18,24 +16,6 @@ function AddStore({ onClose }: { onClose: () => void }) {
 
   const [addressOpened, setAddressOpened] = useState(false);
   const [address, setAddress] = useState('');
-
-  const dispatch =
-    useDispatch<ThunkDispatch<RootState, null, StoreActionTypes>>();
-
-  const addStoreDispatch: SubmitHandler<StoreForm> = useCallback(
-    (data) => {
-      const fullAddress = `${data.address} ${data.detailAddress}`;
-      const formData: Store = {
-        storeName: data.storeName,
-        address: fullAddress,
-        startTime: data.startTime,
-        endTime: data.endTime,
-      };
-      dispatch(addStore(formData));
-      onClose();
-    },
-    [dispatch, onClose],
-  );
 
   useEffect(() => {
     setValue('address', address);
@@ -58,7 +38,7 @@ function AddStore({ onClose }: { onClose: () => void }) {
       />
       <form
         className="relative flex h-screen w-screen flex-col bg-white p-[24px] md:h-auto md:w-[400px] md:rounded-xl"
-        onSubmit={handleSubmit(addStoreDispatch)}
+        // onSubmit={handleSubmit()}
       >
         <p className="pb-[24px] text-center text-xl font-bold">매장 추가</p>
         <div className="flex flex-col">

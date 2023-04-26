@@ -2,9 +2,7 @@ import { useRef, useState } from 'react';
 import Editor from '../components/editor';
 import { NoticeForm } from '../types/notice.type';
 import { useDispatch } from 'react-redux';
-import { RootState } from '../store';
 import { ThunkDispatch } from 'redux-thunk';
-import { NoticeActionTypes, addNotice } from '../store/modules/notice';
 import ReactQuill from 'react-quill';
 import { useNavigate, useParams } from 'react-router-dom';
 
@@ -15,9 +13,6 @@ function CreateNoticePage() {
 
   const { storeId } = useParams();
   const navigate = useNavigate();
-
-  const dispatch =
-    useDispatch<ThunkDispatch<RootState, null, NoticeActionTypes>>();
 
   const onChangeTitle = (event: React.ChangeEvent<HTMLInputElement>) => {
     setTitle(event.target.value);
@@ -44,7 +39,6 @@ function CreateNoticePage() {
       title: title,
       content: editorRef.current?.getEditor().root.innerHTML,
     };
-    await dispatch(addNotice(noticeData));
     navigate(`/store/${storeId}/notice`);
   };
 

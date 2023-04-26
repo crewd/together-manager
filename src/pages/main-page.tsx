@@ -6,9 +6,8 @@ import AddStore from '../components/add-store';
 import { useEffect, useState } from 'react';
 import ModalPortal from '../components/modal-portal';
 import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '../store';
+import { RootState, useAppDispatch } from '../store/store';
 import { ThunkDispatch } from 'redux-thunk';
-import { AuthActionTypes, userLogout } from '../store/modules/auth';
 import Spinner from '../components/spinner';
 import { Link } from 'react-router-dom';
 
@@ -16,16 +15,14 @@ function MainPage() {
   const [modalOpened, setModalOpened] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
-  const dummyStore: Store[] = useSelector(
-    (state: RootState) => state.store.stores,
-  );
+  // const dummyStore: Store[] = useSelector(
+  //   (state: RootState) => state.store.stores,
+  // );
 
-  const authDispatch =
-    useDispatch<ThunkDispatch<RootState, null, AuthActionTypes>>();
+  const dispatch = useAppDispatch();
 
   const logout = async () => {
     await setIsLoading(true);
-    authDispatch(userLogout());
   };
 
   const onOpen = () => {
@@ -63,7 +60,7 @@ function MainPage() {
         <div>
           <p className="text-center text-3xl font-bold">매장 목록</p>
         </div>
-        {dummyStore.length > 0 ? (
+        {/* {dummyStore.length > 0 ? (
           <div
             className={`m-auto grid max-w-[1024px] grid-cols-1 place-items-center justify-center py-[36px] md:grid-cols-2 md:gap-4 ${
               dummyStore.length <= 2
@@ -84,12 +81,12 @@ function MainPage() {
         ) : (
           <div className="flex justify-center py-[36px]">
             <div className="flex h-[180px] w-[320px] items-center justify-center rounded-xl border border-dashed border-gray-700">
-              <p className="text-center text-2xl text-gray-500">
+              <p className="text-2xl text-center text-gray-500">
                 매장을 추가해 주세요
               </p>
             </div>
           </div>
-        )}
+        )} */}
 
         <div className="flex justify-center pt-[36px]">
           <button
