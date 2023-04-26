@@ -43,18 +43,31 @@ function DetailStore() {
       state.store.stores.filter((data) => data.storeId === storeId)[0],
   );
 
+  const notices = useSelector((state: RootState) => state.notice.notices);
+
   return (
     <div className="container mx-auto max-w-[1024px]">
       <div className="w-full">
         <div>
           <p className="pb-4 text-2xl font-bold">📣 공지사항</p>
           <div className="flex flex-col rounded-md border bg-white shadow">
-            <Link
-              to="/"
-              className="p-4 text-xl font-bold transition-colors duration-200 hover:bg-gray-100"
-            >
-              공지사항 1
-            </Link>
+            {notices.length > 0 ? (
+              notices.map((notice) => (
+                <Link
+                  to="/"
+                  className="p-4 text-xl font-bold transition-colors duration-200 hover:bg-gray-100"
+                  key={notice.noticeId}
+                >
+                  {notice.title}
+                </Link>
+              ))
+            ) : (
+              <div className="p-4 ">
+                <h3 className="text-xl font-semibold text-gray-500">
+                  공지사항이 없습니다
+                </h3>
+              </div>
+            )}
           </div>
         </div>
         <div className="pt-[36px]">
