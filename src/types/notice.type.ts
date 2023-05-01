@@ -13,5 +13,5 @@ export type NoticeForm = {
 export type NoticeState = {
   notices: Notice[];
   isLoading: boolean;
-  error: string | null;
+  error: string | undefined;
 };

@@ -5,7 +5,7 @@ import { v4 } from 'uuid';
 const initialState: StoreState = {
   stores: [],
   isLoading: false,
-  error: null,
+  error: undefined,
 };
 
 export const addStore = createAsyncThunk(
@@ -37,11 +37,11 @@ const storeSlice = createSlice({
       })
       .addCase(addStore.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.stores.push(action.payload);
+        state.stores = [...state.stores, action.payload];
       })
-      .addCase(addStore.rejected, (state) => {
+      .addCase(addStore.rejected, (state, action) => {
         state.isLoading = false;
-        state.error = 'error';
+        state.error = action.error.message;
       });
   },
 });

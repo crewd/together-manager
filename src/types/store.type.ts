@@ -9,7 +9,7 @@ export type Store = {
 export type StoreState = {
   stores: Store[];
   isLoading: boolean;
-  error: string | null;
+  error: string | undefined;
 };
 
 export type StoreForm = {
