@@ -2,9 +2,14 @@ import { faPenToSquare } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link, useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import { Notice } from '../types/notice.type';
+import { RootState } from '../store/store';
 
 const NoticeList = () => {
   const { storeId } = useParams();
+  const notices: Notice[] = useSelector(
+    (state: RootState) => state.noticeReducer.notices,
+  );
 
   return (
     <div className="container mx-auto max-w-[1024px]">
@@ -19,7 +24,7 @@ const NoticeList = () => {
         </Link>
       </div>
       <div className="bg-white shadow-md">
-        {/* {notices.length > 0 ? (
+        {notices.length > 0 ? (
           notices.map((notice) => (
             <Link
               to={`/store/${storeId}/notice/${notice.noticeId}`}
@@ -38,7 +43,7 @@ const NoticeList = () => {
               공지사항이 없습니다
             </h3>
           </div>
-        )} */}
+        )}
       </div>
     </div>
   );
