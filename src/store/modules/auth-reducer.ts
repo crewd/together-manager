@@ -5,7 +5,7 @@ import { getToken, removeToken, setToken } from '../../util/token-store';
 const initialState: AuthState = {
   token: getToken(),
   isLoading: false,
-  error: null,
+  error: undefined,
 };
 
 export const login = createAsyncThunk(
@@ -50,9 +50,9 @@ const authSlice = createSlice({
         state.token = action.payload;
         setToken(state.token);
       })
-      .addCase(login.rejected, (state) => {
+      .addCase(login.rejected, (state, action) => {
         state.isLoading = false;
-        state.error = 'error';
+        state.error = action.error.message;
       })
       .addCase(signUp.pending, (state) => {
         state.isLoading = true;
@@ -60,9 +60,9 @@ const authSlice = createSlice({
       .addCase(signUp.fulfilled, (state, action) => {
         state.isLoading = false;
       })
-      .addCase(signUp.rejected, (state) => {
+      .addCase(signUp.rejected, (state, action) => {
         state.isLoading = false;
-        state.error = 'error';
+        state.error = action.error.message;
       });
   },
 });
