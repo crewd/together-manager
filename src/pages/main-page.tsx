@@ -13,7 +13,7 @@ import { useSelector } from 'react-redux';
 function MainPage() {
   const [modalOpened, setModalOpened] = useState(false);
 
-  const dummyStore: Store[] = useSelector(
+  const stores: Store[] = useSelector(
     (state: RootState) => state.storeReducer.stores,
   );
 
@@ -58,18 +58,18 @@ function MainPage() {
         <div>
           <p className="text-3xl font-bold text-center">매장 목록</p>
         </div>
-        {dummyStore.length > 0 ? (
+        {stores.length > 0 ? (
           <div
             className={`m-auto grid max-w-[1024px] grid-cols-1 place-items-center justify-center py-[36px] md:grid-cols-2 md:gap-4 ${
-              dummyStore.length <= 2
+              stores.length <= 2
                 ? 'gap-0 lg:grid-cols-2'
                 : 'gap-6 lg:grid-cols-3'
             } `}
           >
-            {dummyStore.map((data: Store, index) => (
+            {stores.map((data: Store, index) => (
               <Link
                 to={`/store/${data.storeId}`}
-                className={`${dummyStore.length <= 1 && 'col-span-3'}`}
+                className={`${stores.length <= 1 && 'col-span-3'}`}
                 key={data.storeName + index}
               >
                 <ItemCard data={data} />
