@@ -8,13 +8,14 @@ import ModalPortal from '../components/modal-portal';
 import { RootState, useAppDispatch } from '../store/store';
 import { Link } from 'react-router-dom';
 import { logout } from '../store/modules/auth-reducer';
+import { useSelector } from 'react-redux';
 
 function MainPage() {
   const [modalOpened, setModalOpened] = useState(false);
 
-  // const dummyStore: Store[] = useSelector(
-  //   (state: RootState) => state.store.stores,
-  // );
+  const dummyStore: Store[] = useSelector(
+    (state: RootState) => state.storeReducer.stores,
+  );
 
   const dispatch = useAppDispatch();
 
@@ -55,9 +56,9 @@ function MainPage() {
       </header>
       <main className="m-auto flex w-full flex-col justify-center px-[16px] py-[36px]">
         <div>
-          <p className="text-center text-3xl font-bold">매장 목록</p>
+          <p className="text-3xl font-bold text-center">매장 목록</p>
         </div>
-        {/* {dummyStore.length > 0 ? (
+        {dummyStore.length > 0 ? (
           <div
             className={`m-auto grid max-w-[1024px] grid-cols-1 place-items-center justify-center py-[36px] md:grid-cols-2 md:gap-4 ${
               dummyStore.length <= 2
@@ -83,7 +84,7 @@ function MainPage() {
               </p>
             </div>
           </div>
-        )} */}
+        )}
 
         <div className="flex justify-center pt-[36px]">
           <button
