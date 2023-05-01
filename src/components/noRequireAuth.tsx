@@ -4,7 +4,7 @@ import { RootState } from '../store/store';
 
 function NoRequireAuth({ children }: React.PropsWithChildren<{}>) {
   const { token } = useSelector((state: RootState) => ({
-    token: state.auth.token,
+    token: state.authReducer.token,
   }));
   return token ? <Navigate to="/" /> : <>{children}</>;
 }

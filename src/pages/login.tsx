@@ -1,15 +1,16 @@
 import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
 import { LoginData } from '../types/auth.type';
-import { useDispatch } from 'react-redux';
 import ModalPortal from '../components/modal-portal';
 import Spinner from '../components/spinner';
 import { useSelector } from 'react-redux';
 import { RootState, useAppDispatch } from '../store/store';
-import { login } from '../store/modules/auth';
+import { login } from '../store/modules/auth-reducer';
 
 function Login() {
-  const isLoading = useSelector((state: RootState) => state.auth.isLoading);
+  const isLoading = useSelector(
+    (state: RootState) => state.authReducer.isLoading,
+  );
 
   const {
     register,
@@ -24,7 +25,7 @@ function Login() {
   };
 
   return (
-    <div className="flex h-screen w-full items-center justify-center bg-gray-200">
+    <div className="flex items-center justify-center w-full h-screen bg-gray-200">
       <form
         className="flex h-full w-full flex-col justify-center bg-white p-[24px] sm:h-auto sm:w-[360px] sm:rounded-xl sm:border sm:shadow-md"
         onSubmit={handleSubmit(onSubmit)}
@@ -94,7 +95,7 @@ function Login() {
       </form>
       {isLoading && (
         <ModalPortal>
-          <div className="fixed left-0 top-0 z-50 flex h-screen w-screen items-center justify-center bg-white/40">
+          <div className="fixed top-0 left-0 z-50 flex items-center justify-center w-screen h-screen bg-white/40">
             <Spinner />
           </div>
         </ModalPortal>

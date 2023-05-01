@@ -5,16 +5,12 @@ import { Store } from '../types/store.type';
 import AddStore from '../components/add-store';
 import { useEffect, useState } from 'react';
 import ModalPortal from '../components/modal-portal';
-import { useDispatch, useSelector } from 'react-redux';
 import { RootState, useAppDispatch } from '../store/store';
-import { ThunkDispatch } from 'redux-thunk';
-import Spinner from '../components/spinner';
 import { Link } from 'react-router-dom';
-import { logout } from '../store/modules/auth';
+import { logout } from '../store/modules/auth-reducer';
 
 function MainPage() {
   const [modalOpened, setModalOpened] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
 
   // const dummyStore: Store[] = useSelector(
   //   (state: RootState) => state.store.stores,
@@ -23,7 +19,6 @@ function MainPage() {
   const dispatch = useAppDispatch();
 
   const onlogout = () => {
-    // await setIsLoading(true);
     dispatch(logout());
   };
 
@@ -36,12 +31,12 @@ function MainPage() {
   };
 
   useEffect(() => {
-    if (modalOpened || isLoading) {
+    if (modalOpened) {
       document.body.style.overflow = 'hidden';
       return;
     }
     document.body.style.removeProperty('overflow');
-  }, [modalOpened, isLoading]);
+  }, [modalOpened]);
 
   return (
     <div>
@@ -102,13 +97,6 @@ function MainPage() {
       {modalOpened && (
         <ModalPortal>
           <AddStore onClose={onClose} />
-        </ModalPortal>
-      )}
-      {isLoading && (
-        <ModalPortal>
-          <div className="fixed left-0 top-0 z-50 flex h-screen w-screen items-center justify-center bg-white/50">
-            <Spinner />
-          </div>
         </ModalPortal>
       )}
     </div>

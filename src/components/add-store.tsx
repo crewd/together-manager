@@ -1,10 +1,10 @@
 import { ErrorMessage } from '@hookform/error-message';
 import { useCallback, useEffect, useState } from 'react';
 import DaumPostcode, { Address } from 'react-daum-postcode';
-import { SubmitHandler, useForm } from 'react-hook-form';
-import { Store, StoreForm } from '../types/store.type';
-import { useDispatch } from 'react-redux';
-import { ThunkDispatch } from 'redux-thunk';
+import { useForm } from 'react-hook-form';
+import { StoreForm } from '../types/store.type';
+import { useAppDispatch } from '../store/store';
+import { addStore } from '../store/modules/store-reducer';
 
 function AddStore({ onClose }: { onClose: () => void }) {
   const {
@@ -16,6 +16,8 @@ function AddStore({ onClose }: { onClose: () => void }) {
 
   const [addressOpened, setAddressOpened] = useState(false);
   const [address, setAddress] = useState('');
+
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     setValue('address', address);
@@ -30,15 +32,20 @@ function AddStore({ onClose }: { onClose: () => void }) {
     setAddressOpened(false);
   }, []);
 
+  const addStoreSubmit = (data: StoreForm) => {
+    dispatch(addStore(data));
+    onClose();
+  };
+
   return (
-    <div className="fixed left-0 top-0 flex h-screen w-screen items-center justify-center">
+    <div className="fixed top-0 left-0 flex items-center justify-center w-screen h-screen">
       <div
-        className="fixed left-0 top-0 flex h-screen w-screen items-center justify-center bg-gray-600/50"
+        className="fixed top-0 left-0 flex items-center justify-center w-screen h-screen bg-gray-600/50"
         onClick={onClose}
       />
       <form
         className="relative flex h-screen w-screen flex-col bg-white p-[24px] md:h-auto md:w-[400px] md:rounded-xl"
-        // onSubmit={handleSubmit()}
+        onSubmit={handleSubmit(addStoreSubmit)}
       >
         <p className="pb-[24px] text-center text-xl font-bold">매장 추가</p>
         <div className="flex flex-col">
@@ -165,9 +172,9 @@ function AddStore({ onClose }: { onClose: () => void }) {
           </button>
         </div>
         {addressOpened && (
-          <div className="absolute left-0 top-0 h-full w-full bg-white md:rounded-xl">
+          <div className="absolute top-0 left-0 w-full h-full bg-white md:rounded-xl">
             <DaumPostcode onComplete={getAddress} />
-            <div className="absolute bottom-16 flex w-full justify-center">
+            <div className="absolute flex justify-center w-full bottom-16">
               <button
                 className="h-[40px] w-[100px] rounded-md border border-gray-400 bg-white shadow-md hover:border-blue-500 hover:text-blue-500"
                 onClick={onOpenAddress}

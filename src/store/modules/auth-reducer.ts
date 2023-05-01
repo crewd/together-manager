@@ -1,12 +1,6 @@
 import { createAsyncThunk, createSlice, createAction } from '@reduxjs/toolkit';
-import { LoginData, SignUpData } from '../../types/auth.type';
+import { AuthState, LoginData, SignUpData } from '../../types/auth.type';
 import { getToken, removeToken, setToken } from '../../util/token-store';
-
-interface AuthState {
-  token: string | null;
-  isLoading: boolean;
-  error: string | null;
-}
 
 const initialState: AuthState = {
   token: getToken(),
