@@ -88,9 +88,7 @@ function AddStore({ onClose }: { onClose: () => void }) {
               required: '* 주소를 입력해 주세요',
             })}
             autoComplete="off"
-            onClick={onOpenAddress}
-            onKeyDown={onOpenAddress}
-            onChange={(e) => setAddress(e.target.value)}
+            onFocus={onOpenAddress}
           />
         </div>
         <div className="flex flex-col">
