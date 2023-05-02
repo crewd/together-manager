@@ -10,6 +10,7 @@ import DetailStore from './pages/detail-store';
 import NoticeList from './pages/notice-list';
 import DetailNotice from './pages/detail-notice';
 import CreateNoticePage from './pages/create-notice-page';
+import NotFound from './components/not-found';
 
 function App() {
   return (
@@ -51,6 +52,7 @@ function App() {
             element={<CreateNoticePage />}
           />
         </Route>
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
   );
