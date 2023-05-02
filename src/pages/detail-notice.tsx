@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux';
 import { ThunkDispatch } from 'redux-thunk';
 import { Notice } from '../types/notice.type';
 import { RootState } from '../store/store';
+import { useEffect } from 'react';
 
 function DetailNotice() {
   const { storeId, noticeId } = useParams();
@@ -18,6 +19,13 @@ function DetailNotice() {
       return navigate(`/store/${storeId}/notice`);
     }
   };
+
+  useEffect(() => {
+    if (notice) {
+      return;
+    }
+    navigate(`/store/${storeId}/notice`);
+  }, []);
 
   return (
     <div className="container mx-auto max-w-[1024px] bg-gray-50 pb-10">
