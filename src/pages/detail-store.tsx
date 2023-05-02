@@ -3,19 +3,26 @@ import FullCalendar from '@fullcalendar/react';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import moment from 'moment';
 import 'moment/locale/ko';
+import { useSelector } from 'react-redux';
+import { RootState } from '../store/store';
+import { Notice } from '../types/notice.type';
 
 function DetailStore() {
   const events = [];
 
   const { storeId } = useParams();
 
+  const notices: Notice[] = useSelector(
+    (state: RootState) => state.noticeReducer.notices,
+  );
+
   return (
     <div className="container mx-auto max-w-[1024px]">
       <div className="w-full">
         <div>
           <p className="pb-4 text-2xl font-bold">📣 공지사항</p>
-          <div className="flex flex-col rounded-md border bg-white shadow">
-            {/* {notices.length > 0 ? (
+          <div className="flex flex-col bg-white border rounded-md shadow">
+            {notices.length > 0 ? (
               notices.map((notice) => (
                 <Link
                   to="/"
@@ -31,12 +38,12 @@ function DetailStore() {
                   공지사항이 없습니다
                 </h3>
               </div>
-            )} */}
+            )}
           </div>
         </div>
         <div className="pt-[36px]">
           <p className="pb-4 text-2xl font-bold">📝 오늘의 인수인계</p>
-          <div className="flex flex-col rounded-md border bg-white shadow">
+          <div className="flex flex-col bg-white border rounded-md shadow">
             <Link
               to="/"
               className="p-4 text-xl font-bold text-gray-400 line-through"
