@@ -1,4 +1,4 @@
-import { Link, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import FullCalendar from '@fullcalendar/react';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import moment from 'moment';
@@ -7,11 +7,13 @@ import { useSelector } from 'react-redux';
 import { RootState } from '../store/store';
 import { Notice } from '../types/notice.type';
 import { Store } from '../types/store.type';
+import { useEffect } from 'react';
 
 function DetailStore() {
   const events = [];
 
   const { storeId } = useParams();
+  const navigate = useNavigate();
 
   const store: Store = useSelector(
     (state: RootState) => state.storeReducer.stores,
@@ -20,6 +22,12 @@ function DetailStore() {
   const notices: Notice[] = useSelector(
     (state: RootState) => state.noticeReducer.notices,
   ).filter((notice) => notice.storeId === storeId);
+
+  useEffect(() => {
+    if (!store) {
+      return navigate('/');
+    }
+  }, []);
 
   return (
     <div className="container mx-auto max-w-[1024px]">

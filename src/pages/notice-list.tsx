@@ -1,17 +1,29 @@
 import { faPenToSquare } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { Notice } from '../types/notice.type';
 import { RootState } from '../store/store';
+import { useEffect } from 'react';
+import { Store } from '../types/store.type';
 
 const NoticeList = () => {
   const { storeId } = useParams();
+  const navigate = useNavigate();
+
+  const store: Store = useSelector(
+    (state: RootState) => state.storeReducer.stores,
+  ).filter((store) => store.storeId === storeId)[0];
+
   const notices: Notice[] = useSelector(
     (state: RootState) => state.noticeReducer.notices,
   ).filter((notice) => notice.storeId === storeId);
 
-  console.log(notices);
+  useEffect(() => {
+    if (!store) {
+      return navigate('/');
+    }
+  }, []);
 
   return (
     <div className="container mx-auto max-w-[1024px]">
