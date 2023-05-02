@@ -11,6 +11,7 @@ import NoticeList from './pages/notice-list';
 import DetailNotice from './pages/detail-notice';
 import CreateNoticePage from './pages/create-notice-page';
 import NotFound from './components/not-found';
+import UpdateNoticePage from './pages/update-notice-page';
 
 function App() {
   return (
@@ -50,6 +51,10 @@ function App() {
           <Route
             path="/store/:storeId/notice/create"
             element={<CreateNoticePage />}
+          />
+          <Route
+            path="/store/:storeId/notice/:noticeId/update"
+            element={<UpdateNoticePage />}
           />
         </Route>
         <Route path="*" element={<NotFound />} />

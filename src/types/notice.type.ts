@@ -4,6 +4,7 @@ export type Notice = {
   content: string;
   noticeId: string;
   createdAt: string;
+  updatedAt?: string;
 };
 
 export type NoticeFormData = {

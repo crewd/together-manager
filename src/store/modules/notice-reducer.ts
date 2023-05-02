@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice, isPending } from '@reduxjs/toolkit';
 import { Notice, NoticeFormData, NoticeState } from '../../types/notice.type';
 import { v4 } from 'uuid';
 import moment from 'moment';
@@ -35,7 +35,20 @@ export const addNotice = createAsyncThunk(
 
 export const updateNotice = createAsyncThunk(
   'notice/update',
-  async (notice: Notice) => {},
+  async ({
+    noticeData,
+    noticeId,
+  }: {
+    noticeData: NoticeFormData;
+    noticeId: string;
+  }) => {
+    const updateNoticeData = {
+      ...noticeData,
+      noticeId,
+      updatedAt: moment().format('YYYY-MM-DD HH:mm'),
+    };
+    return updateNoticeData;
+  },
 );
 
 export const deleteNotice = createAsyncThunk(
@@ -54,6 +67,7 @@ const noticeSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
+      // 공지사항 추가
       .addCase(addNotice.pending, (state) => {
         state.isLoading = true;
       })
@@ -65,6 +79,32 @@ const noticeSlice = createSlice({
         state.isLoading = false;
         state.error = action.error.message;
       })
+
+      // 공지사항 수정
+      .addCase(updateNotice.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(updateNotice.fulfilled, (state, action) => {
+        const oldNotice: Notice = state.notices.filter(
+          (notice) => notice.noticeId === action.payload.noticeId,
+        )[0];
+        const notices = state.notices.filter(
+          (notice) => notice.noticeId !== action.payload.noticeId,
+        );
+        const updateNoticeData: Notice = {
+          storeId: oldNotice.storeId,
+          createdAt: oldNotice.createdAt,
+          ...action.payload,
+        };
+        state.notices = [...notices, updateNoticeData];
+        state.isLoading = false;
+      })
+      .addCase(updateNotice.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.error.message;
+      })
+
+      // 공지사항 삭제
       .addCase(deleteNotice.pending, (state) => {
         state.isLoading = true;
       })

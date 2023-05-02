@@ -32,9 +32,9 @@ function DetailNotice() {
 
   return (
     <div className="container mx-auto max-w-[1024px] bg-gray-50 pb-10">
-      <div className="p-6 bg-white rounded-md shadow-md">
+      <div className="rounded-md bg-white p-6 shadow-md">
         <h2 className="mb-4 text-2xl font-bold">{notice.title}</h2>
-        <div className="flex items-center mb-4 text-gray-400">
+        <div className="mb-4 flex items-center text-gray-400">
           {notice.createdAt}
         </div>
         <div
@@ -42,12 +42,12 @@ function DetailNotice() {
           dangerouslySetInnerHTML={{ __html: notice.content }}
         />
       </div>
-      <div className="flex justify-center w-full gap-4 mt-4">
-        <button className="px-6 py-2 transition-colors duration-200 bg-white border rounded-md shadow hover:bg-blue-500 hover:text-white">
+      <div className="mt-4 flex w-full justify-center gap-4">
+        <button className="rounded-md border bg-white px-6 py-2 shadow transition-colors duration-200 hover:bg-blue-500 hover:text-white">
           수정
         </button>
         <button
-          className="px-6 py-2 transition-colors duration-200 bg-white border rounded-md shadow hover:bg-red-500 hover:text-white"
+          className="rounded-md border bg-white px-6 py-2 shadow transition-colors duration-200 hover:bg-red-500 hover:text-white"
           onClick={removeNotice}
         >
           삭제
