@@ -6,11 +6,13 @@ export type Notice = {
   createdAt: string;
 };
 
-export type NoticeForm = {
+export type NoticeFormData = {
   storeId: string;
   title: string;
   content: string;
 };
+
+export type updateNoticeFormData = {};
 
 export type NoticeState = {
   notices: Notice[];

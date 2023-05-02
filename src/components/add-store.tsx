@@ -2,7 +2,7 @@ import { ErrorMessage } from '@hookform/error-message';
 import { useCallback, useEffect, useState } from 'react';
 import DaumPostcode, { Address } from 'react-daum-postcode';
 import { useForm } from 'react-hook-form';
-import { StoreForm } from '../types/store.type';
+import { StoreFormData } from '../types/store.type';
 import { useAppDispatch } from '../store/store';
 import { addStore } from '../store/modules/store-reducer';
 
@@ -12,7 +12,7 @@ function AddStore({ onClose }: { onClose: () => void }) {
     formState: { errors },
     handleSubmit,
     setValue,
-  } = useForm<StoreForm>();
+  } = useForm<StoreFormData>();
 
   const [addressOpened, setAddressOpened] = useState(false);
   const [address, setAddress] = useState('');
@@ -32,7 +32,7 @@ function AddStore({ onClose }: { onClose: () => void }) {
     setAddressOpened(false);
   }, []);
 
-  const addStoreSubmit = (data: StoreForm) => {
+  const addStoreSubmit = (data: StoreFormData) => {
     dispatch(addStore(data));
     onClose();
   };

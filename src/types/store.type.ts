@@ -12,7 +12,7 @@ export type StoreState = {
   error: string | undefined;
 };
 
-export type StoreForm = {
+export type StoreFormData = {
   storeName: string;
   address: string;
   detailAddress: string;

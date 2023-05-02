@@ -1,6 +1,6 @@
 import { useRef, useState } from 'react';
 import Editor from '../components/editor';
-import { NoticeForm } from '../types/notice.type';
+import { NoticeFormData } from '../types/notice.type';
 import ReactQuill from 'react-quill';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useAppDispatch } from '../store/store';
@@ -31,7 +31,7 @@ function CreateNoticePage() {
     ) {
       return alert('내용을 입력해 주세요');
     }
-    const noticeData: NoticeForm = {
+    const noticeData: NoticeFormData = {
       storeId: storeId!,
       title: title,
       content: editorRef.current?.getEditor().root.innerHTML,
@@ -52,9 +52,9 @@ function CreateNoticePage() {
         />
         <Editor editorRef={editorRef} />
       </div>
-      <div className="flex justify-end gap-4 mt-6">
+      <div className="mt-6 flex justify-end gap-4">
         <button
-          className="px-8 py-2 text-white transition-colors duration-200 bg-blue-500 border rounded-md shadow"
+          className="rounded-md border bg-blue-500 px-8 py-2 text-white shadow transition-colors duration-200"
           onClick={onSubmitNotice}
         >
           작성

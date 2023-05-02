@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { Store, StoreForm, StoreState } from '../../types/store.type';
+import { Store, StoreFormData, StoreState } from '../../types/store.type';
 import { v4 } from 'uuid';
 
 const initialState: StoreState = {
@@ -10,7 +10,7 @@ const initialState: StoreState = {
 
 export const addStore = createAsyncThunk(
   'store/add',
-  async (storeData: StoreForm) => {
+  async (storeData: StoreFormData) => {
     if (!storeData) {
       throw new Error('create_store_error');
     }

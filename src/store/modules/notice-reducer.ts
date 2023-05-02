@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { Notice, NoticeForm, NoticeState } from '../../types/notice.type';
+import { Notice, NoticeFormData, NoticeState } from '../../types/notice.type';
 import { v4 } from 'uuid';
 import moment from 'moment';
 
@@ -11,7 +11,7 @@ const initialState: NoticeState = {
 
 export const addNotice = createAsyncThunk(
   'notice/add',
-  async (noticeData: NoticeForm) => {
+  async (noticeData: NoticeFormData) => {
     if (!noticeData) {
       throw new Error('create_notice_error');
     }
@@ -25,6 +25,11 @@ export const addNotice = createAsyncThunk(
 
     return newNotice;
   },
+);
+
+export const updateNotice = createAsyncThunk(
+  'notice/update',
+  async (notice: Notice) => {},
 );
 
 export const deleteNotice = createAsyncThunk(
