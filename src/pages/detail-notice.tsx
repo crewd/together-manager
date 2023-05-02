@@ -1,10 +1,9 @@
 import { useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import { ThunkDispatch } from 'redux-thunk';
 import { Notice } from '../types/notice.type';
-import { RootState } from '../store/store';
+import { RootState, useAppDispatch } from '../store/store';
 import { useEffect } from 'react';
+import { deleteNotice } from '../store/modules/notice-reducer';
 
 function DetailNotice() {
   const { storeId, noticeId } = useParams();
@@ -14,8 +13,11 @@ function DetailNotice() {
     (state: RootState) => state.noticeReducer.notices,
   ).filter((notice) => notice.noticeId === noticeId)[0];
 
-  const removeNotice = (noticeId: string) => {
+  const dispatch = useAppDispatch();
+
+  const removeNotice = () => {
     if (noticeId && window.confirm('공지사항을 삭제하시겠습니까?')) {
+      dispatch(deleteNotice(notice.noticeId));
       return navigate(`/store/${storeId}/notice`);
     }
   };
@@ -45,7 +47,7 @@ function DetailNotice() {
         </button>
         <button
           className="px-6 py-2 transition-colors duration-200 bg-white border rounded-md shadow hover:bg-red-500 hover:text-white"
-          onClick={() => removeNotice(`notice.noticeId`)}
+          onClick={removeNotice}
         >
           삭제
         </button>

@@ -33,6 +33,7 @@ export const deleteNotice = createAsyncThunk(
     if (!noticeId) {
       throw new Error('Not_Found_Notice_Id');
     }
+    return noticeId;
   },
 );
 
@@ -46,10 +47,23 @@ const noticeSlice = createSlice({
         state.isLoading = true;
       })
       .addCase(addNotice.fulfilled, (state, action) => {
-        state.isLoading = false;
         state.notices = [...state.notices, action.payload];
+        state.isLoading = false;
       })
       .addCase(addNotice.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.error.message;
+      })
+      .addCase(deleteNotice.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(deleteNotice.fulfilled, (state, action) => {
+        state.notices = state.notices.filter(
+          (notice) => notice.noticeId !== action.payload,
+        );
+        state.isLoading = false;
+      })
+      .addCase(deleteNotice.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.error.message;
       });

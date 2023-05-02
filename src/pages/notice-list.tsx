@@ -11,6 +11,8 @@ const NoticeList = () => {
     (state: RootState) => state.noticeReducer.notices,
   ).filter((notice) => notice.storeId === storeId);
 
+  console.log(notices);
+
   return (
     <div className="container mx-auto max-w-[1024px]">
       <div className="flex items-center justify-between pb-6">

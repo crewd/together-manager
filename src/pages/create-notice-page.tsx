@@ -20,12 +20,6 @@ function CreateNoticePage() {
     setTitle(event.target.value);
   };
 
-  const onChageEditor = () => {
-    if (editorRef.current) {
-      console.log(editorRef.current.getEditor().root.innerHTML);
-    }
-  };
-
   const onSubmitNotice = async () => {
     if (!title) {
       return alert('제목을 입력해 주세요');
@@ -56,7 +50,7 @@ function CreateNoticePage() {
           className="w-full border border-b-0 border-[#ccc] px-3 py-3 outline-none"
           onChange={onChangeTitle}
         />
-        <Editor onChageEditor={onChageEditor} editorRef={editorRef} />
+        <Editor editorRef={editorRef} />
       </div>
       <div className="flex justify-end gap-4 mt-6">
         <button
