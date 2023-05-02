@@ -43,7 +43,12 @@ function DetailNotice() {
         />
       </div>
       <div className="mt-4 flex w-full justify-center gap-4">
-        <button className="rounded-md border bg-white px-6 py-2 shadow transition-colors duration-200 hover:bg-blue-500 hover:text-white">
+        <button
+          className="rounded-md border bg-white px-6 py-2 shadow transition-colors duration-200 hover:bg-blue-500 hover:text-white"
+          onClick={() =>
+            navigate(`/store/${storeId}/notice/${noticeId}/update`)
+          }
+        >
           수정
         </button>
         <button
