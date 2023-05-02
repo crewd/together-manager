@@ -27,6 +27,7 @@ function DetailNotice() {
       return;
     }
     navigate(`/store/${storeId}/notice`);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

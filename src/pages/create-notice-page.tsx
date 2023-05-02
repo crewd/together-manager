@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import Editor from '../components/editor';
 import { NoticeForm } from '../types/notice.type';
 import ReactQuill from 'react-quill';
