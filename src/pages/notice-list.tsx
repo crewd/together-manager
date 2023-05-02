@@ -9,7 +9,7 @@ const NoticeList = () => {
   const { storeId } = useParams();
   const notices: Notice[] = useSelector(
     (state: RootState) => state.noticeReducer.notices,
-  );
+  ).filter((notice) => notice.storeId === storeId);
 
   return (
     <div className="container mx-auto max-w-[1024px]">

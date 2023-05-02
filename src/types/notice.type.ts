@@ -1,4 +1,5 @@
 export type Notice = {
+  storeId: string;
   title: string;
   content: string;
   noticeId: string;
@@ -6,6 +7,7 @@ export type Notice = {
 };
 
 export type NoticeForm = {
+  storeId: string;
   title: string;
   content: string;
 };

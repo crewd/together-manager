@@ -16,6 +16,7 @@ export const addNotice = createAsyncThunk(
       throw new Error('create_notice_error');
     }
     const newNotice: Notice = {
+      storeId: noticeData.storeId,
       noticeId: v4(),
       title: noticeData.title,
       content: noticeData.content,
@@ -23,6 +24,15 @@ export const addNotice = createAsyncThunk(
     };
 
     return newNotice;
+  },
+);
+
+export const deleteNotice = createAsyncThunk(
+  'notice/delete',
+  async (noticeId: string) => {
+    if (!noticeId) {
+      throw new Error('Not_Found_Notice_Id');
+    }
   },
 );
 

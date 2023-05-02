@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Editor from '../components/editor';
 import { NoticeForm } from '../types/notice.type';
 import ReactQuill from 'react-quill';
@@ -38,6 +38,7 @@ function CreateNoticePage() {
       return alert('내용을 입력해 주세요');
     }
     const noticeData: NoticeForm = {
+      storeId: storeId!,
       title: title,
       content: editorRef.current?.getEditor().root.innerHTML,
     };

@@ -14,7 +14,7 @@ function DetailStore() {
 
   const notices: Notice[] = useSelector(
     (state: RootState) => state.noticeReducer.notices,
-  );
+  ).filter((notice) => notice.storeId === storeId);
 
   return (
     <div className="container mx-auto max-w-[1024px]">
@@ -25,7 +25,7 @@ function DetailStore() {
             {notices.length > 0 ? (
               notices.map((notice) => (
                 <Link
-                  to="/"
+                  to={`/store/${storeId}/notice/${notice.noticeId}`}
                   className="p-4 text-xl font-bold transition-colors duration-200 hover:bg-gray-100"
                   key={notice.noticeId}
                 >
