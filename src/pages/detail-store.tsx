@@ -6,11 +6,16 @@ import 'moment/locale/ko';
 import { useSelector } from 'react-redux';
 import { RootState } from '../store/store';
 import { Notice } from '../types/notice.type';
+import { Store } from '../types/store.type';
 
 function DetailStore() {
   const events = [];
 
   const { storeId } = useParams();
+
+  const store: Store = useSelector(
+    (state: RootState) => state.storeReducer.stores,
+  ).filter((store) => store.storeId === storeId)[0];
 
   const notices: Notice[] = useSelector(
     (state: RootState) => state.noticeReducer.notices,
@@ -57,18 +62,17 @@ function DetailStore() {
         </div>
         <div className="pt-9">
           <p className="pb-4 text-2xl font-bold">⏱ 오늘의 근무표</p>
-          {/* <FullCalendar
+          <FullCalendar
             plugins={[timeGridPlugin]}
             initialView="timeGridDay"
             locale={'ko'}
-            events={events}
             allDayText=""
-            slotMinTime={dummyStore.startTime}
-            slotMaxTime={dummyStore.endTime}
+            slotMinTime={store.startTime}
+            slotMaxTime={store.endTime}
             eventClassNames={'text-xl'}
             displayEventTime={false}
             headerToolbar={false}
-          /> */}
+          />
         </div>
       </div>
     </div>
