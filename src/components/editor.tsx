@@ -2,7 +2,13 @@ import { useEffect, useMemo } from 'react';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 
-function Editor({ editorRef }: { editorRef: React.RefObject<ReactQuill> }) {
+function Editor({
+  editorRef,
+  defaultValue,
+}: {
+  editorRef: React.RefObject<ReactQuill>;
+  defaultValue?: string;
+}) {
   useEffect(() => {}, []);
   const modules = useMemo(() => {
     return {
@@ -20,7 +26,11 @@ function Editor({ editorRef }: { editorRef: React.RefObject<ReactQuill> }) {
   }, []);
   return (
     <div>
-      <ReactQuill modules={modules} ref={editorRef} />
+      <ReactQuill
+        modules={modules}
+        ref={editorRef}
+        defaultValue={defaultValue}
+      />
     </div>
   );
 }
