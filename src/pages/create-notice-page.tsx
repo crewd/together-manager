@@ -21,6 +21,9 @@ function CreateNoticePage() {
   };
 
   const onSubmitNotice = async () => {
+    if (!storeId) {
+      return navigate('/');
+    }
     if (!title) {
       return alert('제목을 입력해 주세요');
     }
@@ -32,11 +35,10 @@ function CreateNoticePage() {
       return alert('내용을 입력해 주세요');
     }
     const noticeData: NoticeFormData = {
-      storeId: storeId!,
       title: title,
       content: editorRef.current?.getEditor().root.innerHTML,
     };
-    dispatch(addNotice(noticeData));
+    dispatch(addNotice({ noticeData, storeId }));
     navigate(`/store/${storeId}/notice`);
   };
 
@@ -52,9 +54,9 @@ function CreateNoticePage() {
         />
         <Editor editorRef={editorRef} />
       </div>
-      <div className="mt-6 flex justify-end gap-4">
+      <div className="flex justify-end gap-4 mt-6">
         <button
-          className="rounded-md border bg-blue-500 px-8 py-2 text-white shadow transition-colors duration-200"
+          className="px-8 py-2 text-white transition-colors duration-200 bg-blue-500 border rounded-md shadow"
           onClick={onSubmitNotice}
         >
           작성

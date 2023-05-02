@@ -7,12 +7,9 @@ export type Notice = {
 };
 
 export type NoticeFormData = {
-  storeId: string;
   title: string;
   content: string;
 };
-
-export type updateNoticeFormData = {};
 
 export type NoticeState = {
   notices: Notice[];

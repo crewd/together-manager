@@ -33,7 +33,7 @@ function DetailStore() {
       <div className="w-full">
         <div>
           <p className="pb-4 text-2xl font-bold">📣 공지사항</p>
-          <div className="flex flex-col rounded-md border bg-white shadow">
+          <div className="flex flex-col bg-white border rounded-md shadow">
             {notices.length > 0 ? (
               notices.map((notice) => (
                 <Link
@@ -55,7 +55,7 @@ function DetailStore() {
         </div>
         <div className="pt-[36px]">
           <p className="pb-4 text-2xl font-bold">📝 오늘의 인수인계</p>
-          <div className="flex flex-col rounded-md border bg-white shadow">
+          <div className="flex flex-col bg-white border rounded-md shadow">
             <Link
               to="/"
               className="p-4 text-xl font-bold text-gray-400 line-through"
@@ -69,7 +69,7 @@ function DetailStore() {
         </div>
         <div className="pt-9">
           <p className="pb-4 text-2xl font-bold">⏱ 오늘의 근무표</p>
-          <FullCalendar
+          {/* <FullCalendar
             plugins={[timeGridPlugin]}
             initialView="timeGridDay"
             locale={'ko'}
@@ -79,7 +79,7 @@ function DetailStore() {
             eventClassNames={'text-xl'}
             displayEventTime={false}
             headerToolbar={false}
-          />
+          /> */}
         </div>
       </div>
     </div>

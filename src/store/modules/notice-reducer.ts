@@ -11,12 +11,18 @@ const initialState: NoticeState = {
 
 export const addNotice = createAsyncThunk(
   'notice/add',
-  async (noticeData: NoticeFormData) => {
+  async ({
+    noticeData,
+    storeId,
+  }: {
+    noticeData: NoticeFormData;
+    storeId: string;
+  }) => {
     if (!noticeData) {
       throw new Error('create_notice_error');
     }
     const newNotice: Notice = {
-      storeId: noticeData.storeId,
+      storeId: storeId,
       noticeId: v4(),
       title: noticeData.title,
       content: noticeData.content,
