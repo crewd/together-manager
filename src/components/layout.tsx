@@ -10,12 +10,19 @@ import { Link, useParams } from 'react-router-dom';
 import RequireAuth from './requireAuth';
 import ModalPortal from './modal-portal';
 import Spinner from './spinner';
+import { Store } from '../types/store.type';
+import { useSelector } from 'react-redux';
+import { RootState } from '../store/store';
 
 function Layout({ children }: { children?: React.ReactNode }) {
   const [menu, setMenu] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
   const { storeId } = useParams();
+
+  const store: Store = useSelector(
+    (state: RootState) => state.storeReducer.stores,
+  ).filter((store) => store.storeId === storeId)[0];
 
   const logout = () => {
     setIsLoading(true);
@@ -51,7 +58,7 @@ function Layout({ children }: { children?: React.ReactNode }) {
               to={`store/${storeId}`}
               className="text-xl font-semibold leading-[64px]"
             >
-              {/* {dummyStore.storeName} */}
+              {store.storeName}
             </Link>
             <button
               className="flex items-center font-semibold leading-[64px]"
