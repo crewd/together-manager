@@ -92,12 +92,20 @@ function Layout({ children }: { children?: React.ReactNode }) {
                 매장관리
               </li>
               <li className="cursor-pointer rounded-md p-[8px] hover:bg-blue-400 hover:text-white">
-                <Link to={`store/${storeId}/notice`} className="block w-full">
+                <Link
+                  to={`store/${storeId}/notice`}
+                  className="block w-full"
+                  onClick={onClickMenu}
+                >
                   공지사항
                 </Link>
               </li>
               <li className="cursor-pointer rounded-md p-[8px] hover:bg-blue-400 hover:text-white">
-                <Link to={`store/${storeId}/takeover`} className="block w-full">
+                <Link
+                  to={`store/${storeId}/takeover`}
+                  className="block w-full"
+                  onClick={onClickMenu}
+                >
                   인수인계
                 </Link>
               </li>
