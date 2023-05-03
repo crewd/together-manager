@@ -32,7 +32,7 @@ function DetailStore() {
     <div className="container mx-auto max-w-[1024px]">
       <div className="w-full">
         <div>
-          <p className="pb-4 text-2xl font-bold">📣 공지사항</p>
+          <p className="pb-4 text-2xl font-bold ">📣 공지사항</p>
           <div className="flex flex-col rounded-md border bg-white shadow">
             {notices.length > 0 ? (
               notices.map((notice) => (
