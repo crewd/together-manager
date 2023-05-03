@@ -33,7 +33,7 @@ function DetailStore() {
       <div className="w-full">
         <div>
           <p className="pb-4 text-2xl font-bold">📣 공지사항</p>
-          <div className="flex flex-col bg-white border rounded-md shadow">
+          <div className="flex flex-col rounded-md border bg-white shadow">
             {notices.length > 0 ? (
               notices.map((notice) => (
                 <Link
@@ -41,7 +41,12 @@ function DetailStore() {
                   className="p-4 text-xl font-bold transition-colors duration-200 hover:bg-gray-100"
                   key={notice.noticeId}
                 >
-                  {notice.title}
+                  <div className="border-b last:border-0">
+                    <h3 className="font-semibold">{notice.title}</h3>
+                    <p className="mt-1 text-sm text-gray-500">
+                      {notice.createdAt}
+                    </p>
+                  </div>
                 </Link>
               ))
             ) : (
@@ -55,7 +60,7 @@ function DetailStore() {
         </div>
         <div className="pt-[36px]">
           <p className="pb-4 text-2xl font-bold">📝 오늘의 인수인계</p>
-          <div className="flex flex-col bg-white border rounded-md shadow">
+          <div className="flex flex-col rounded-md border bg-white shadow">
             <Link
               to="/"
               className="p-4 text-xl font-bold text-gray-400 line-through"
