@@ -97,6 +97,9 @@ function Layout({ children }: { children?: React.ReactNode }) {
                 </Link>
               </li>
               <li className="cursor-pointer rounded-md p-[8px] hover:bg-blue-400 hover:text-white">
+                인수인계
+              </li>
+              <li className="cursor-pointer rounded-md p-[8px] hover:bg-blue-400 hover:text-white">
                 직원관리
               </li>
               <li className="cursor-pointer rounded-md p-[8px] hover:bg-blue-400 hover:text-white">
