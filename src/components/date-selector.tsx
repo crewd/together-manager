@@ -9,7 +9,7 @@ function DateSelector() {
   return (
     <div className="w-[180px]">
       <DatePicker
-        className="w-[180px] text-xl font-bold focus:bg-white focus:outline-none"
+        className="w-[180px] cursor-pointer text-xl font-bold focus:bg-white focus:outline-none"
         locale={ko}
         dateFormat="yyyy년 MM월 dd일"
         selected={startDate}
