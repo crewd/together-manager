@@ -1,6 +1,6 @@
 import DateSelector from '../components/date-selector';
 
-function TakeOverPage() {
+function MemoPage() {
   return (
     <div className="container mx-auto max-w-[1024px]">
       <div className="flex items-center justify-between pb-6">
@@ -13,4 +13,4 @@ function TakeOverPage() {
   );
 }
 
-export default TakeOverPage;
+export default MemoPage;

@@ -12,7 +12,7 @@ import DetailNotice from './pages/detail-notice';
 import CreateNoticePage from './pages/create-notice-page';
 import NotFound from './components/not-found';
 import UpdateNoticePage from './pages/update-notice-page';
-import TakeOverPage from './pages/take-over-page';
+import MemoPage from './pages/memo-page';
 
 function App() {
   return (
@@ -57,7 +57,7 @@ function App() {
             path="/store/:storeId/notice/:noticeId/update"
             element={<UpdateNoticePage />}
           />
-          <Route path="/store/:storeId/takeover" element={<TakeOverPage />} />
+          <Route path="/store/:storeId/takeover" element={<MemoPage />} />
         </Route>
         <Route path="*" element={<NotFound />} />
       </Routes>
