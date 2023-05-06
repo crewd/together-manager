@@ -3,9 +3,13 @@ import 'react-datepicker/dist/react-datepicker.css';
 import { ko } from 'date-fns/esm/locale';
 import { useState } from 'react';
 
-function DateSelector() {
-  const [startDate, setStartDate] = useState<Date | null>(new Date());
-
+function DateSelector({
+  startDate,
+  setStartDate,
+}: {
+  startDate: Date | null;
+  setStartDate: React.Dispatch<React.SetStateAction<Date | null>>;
+}) {
   return (
     <div className="w-[180px]">
       <DatePicker
