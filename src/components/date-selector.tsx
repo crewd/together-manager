@@ -1,7 +1,6 @@
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { ko } from 'date-fns/esm/locale';
-import { useState } from 'react';
 
 function DateSelector({
   startDate,

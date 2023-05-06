@@ -3,7 +3,7 @@ import DateSelector from '../components/date-selector';
 
 function MemoPage() {
   const [startDate, setStartDate] = useState<Date | null>(new Date());
-  const [memo, setMemo] = useState<String | null>('');
+  const [memo, setMemo] = useState<String>('');
 
   const today = new Date();
 
@@ -28,7 +28,7 @@ function MemoPage() {
       </div>
       <div className="w-full rounded-md border bg-white p-4 shadow">
         <DateSelector startDate={startDate} setStartDate={setStartDate} />
-        <div className="flex max-w-[600px]  pt-6">
+        <div className="flex max-w-[768px]  pt-6">
           <input
             type="text"
             placeholder="인수인계는 당일에만 입력 가능합니다"
