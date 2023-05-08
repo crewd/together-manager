@@ -1,38 +1,49 @@
 import { useState } from 'react';
 import DateSelector from '../components/date-selector';
+import { Memo } from '../types/memo.type';
+import { useSelector } from 'react-redux';
+import { RootState, useAppDispatch } from '../store/store';
+import { addMemo } from '../store/modules/memo-reducer';
 
 function MemoPage() {
   const [startDate, setStartDate] = useState<Date | null>(new Date());
-  const [memo, setMemo] = useState<String>('');
+  const [content, setContent] = useState<string>('');
 
   const today = new Date();
 
+  const memos: Memo[] = useSelector(
+    (state: RootState) => state.memoReducer.memos,
+  );
+  const dispatch = useAppDispatch();
+
   const memoHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setMemo(event.target.value);
+    setContent(event.target.value);
   };
 
   const createMemo = () => {
     if (startDate?.toDateString() !== today.toDateString()) {
       return alert('인수인계는 오늘 당일에만 입력 가능 합니다');
     }
-    if (!memo) {
+    if (!content) {
       return alert('인수인계 내용을 입력해 주세요');
     }
-    console.log(memo);
+    dispatch(addMemo({ content, date: startDate }));
   };
+
+  console.log(memos);
 
   return (
     <div className="container mx-auto max-w-[1024px]">
       <div className="flex items-center justify-between pb-6">
         <h2 className="text-2xl font-bold">인수인계</h2>
       </div>
-      <div className="w-full rounded-md border bg-white p-4 shadow">
+      <div className="w-full p-4 bg-white border rounded-md shadow">
         <DateSelector startDate={startDate} setStartDate={setStartDate} />
         <div className="flex max-w-[768px]  pt-6">
           <input
             type="text"
             placeholder="인수인계는 당일에만 입력 가능합니다"
-            className="h-10 w-full rounded-md rounded-r-none border border-gray-300 px-3 outline-none"
+            className="w-full h-10 px-3 border border-gray-300 rounded-md rounded-r-none outline-none"
             onChange={memoHandler}
             disabled={
               startDate?.toDateString() === today.toDateString() ? false : true
