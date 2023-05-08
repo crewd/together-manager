@@ -1,16 +1,10 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import moment from 'moment';
 import { v4 } from 'uuid';
+import { Memo } from '../../types/memo.type';
 
 const initialState: {
-  memos: {
-    memoId: string;
-    content: string;
-    date: string;
-    author: string;
-    checked: boolean;
-    completer: string;
-  }[];
+  memos: Memo[];
   isLoading: boolean;
   error: string | undefined;
 } = {
@@ -28,7 +22,7 @@ export const addMemo = createAsyncThunk(
     if (date.toDateString() !== new Date().toDateString()) {
       throw new Error('mismatch date');
     }
-    const newMemo = {
+    const newMemo: Memo = {
       content: content,
       memoId: v4(),
       date: moment().format('YYYY-MM-DD HH:mm'),
