@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice, isPending } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { Notice, NoticeFormData, NoticeState } from '../../types/notice.type';
 import { v4 } from 'uuid';
 import moment from 'moment';
