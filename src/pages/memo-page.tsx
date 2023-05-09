@@ -33,9 +33,8 @@ function MemoPage() {
       return alert('인수인계 내용을 입력해 주세요');
     }
     dispatch(addMemo({ content, date: startDate, storeId: storeId! }));
+    setContent('');
   };
-
-  console.log(memos);
 
   return (
     <div className="container mx-auto max-w-[1024px]">
@@ -50,6 +49,7 @@ function MemoPage() {
             placeholder="인수인계는 당일에만 입력 가능합니다"
             className="h-10 w-[calc(100%-60px)] rounded-md rounded-r-none border border-gray-300 px-3 outline-none"
             onChange={memoHandler}
+            value={content}
             disabled={
               startDate?.toDateString() === today.toDateString() ? false : true
             }

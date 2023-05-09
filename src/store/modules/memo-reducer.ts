@@ -80,12 +80,11 @@ const memoSlice = createSlice({
         const defaultMemo: Memo = state.memos.filter(
           (memo) => memo.memoId === memoId,
         )[0];
-        const updateMemo: Memo = {
+        const updatedMemo: Memo = {
           ...defaultMemo,
           checked: !action.payload.checked,
         };
-        const memos = state.memos.filter((memo) => memo.memoId !== memoId);
-        state.memos = [...memos, updateMemo];
+        state.memos.splice(memoIndex, 1, updatedMemo);
         state.isLoading = false;
       })
       .addCase(updateMemo.rejected, (state, action) => {
