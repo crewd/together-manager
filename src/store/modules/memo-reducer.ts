@@ -15,7 +15,15 @@ const initialState: {
 
 export const addMemo = createAsyncThunk(
   'memo/add',
-  async ({ content, date }: { content: string; date: Date }) => {
+  async ({
+    content,
+    date,
+    storeId,
+  }: {
+    content: string;
+    date: Date;
+    storeId: string;
+  }) => {
     if (!content) {
       throw new Error('not found content');
     }
@@ -25,6 +33,7 @@ export const addMemo = createAsyncThunk(
     const newMemo: Memo = {
       content: content,
       memoId: v4(),
+      storeId: storeId,
       date: moment().format('YYYY-MM-DD HH:mm'),
       author: '작성자명',
       checked: false,

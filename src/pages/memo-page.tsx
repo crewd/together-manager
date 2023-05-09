@@ -11,11 +11,14 @@ function MemoPage() {
   const [startDate, setStartDate] = useState<Date | null>(new Date());
   const [content, setContent] = useState<string>('');
 
+  const { storeId } = useParams();
+
   const today = new Date();
 
   const memos: Memo[] = useSelector(
     (state: RootState) => state.memoReducer.memos,
-  );
+  ).filter((memo) => memo.storeId === storeId);
+
   const dispatch = useAppDispatch();
 
   const memoHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -29,7 +32,7 @@ function MemoPage() {
     if (!content) {
       return alert('인수인계 내용을 입력해 주세요');
     }
-    dispatch(addMemo({ content, date: startDate }));
+    dispatch(addMemo({ content, date: startDate, storeId: storeId! }));
   };
 
   return (
