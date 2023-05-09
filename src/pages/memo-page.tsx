@@ -69,6 +69,7 @@ function MemoPage() {
                 key={memo.memoId}
                 memoId={memo.memoId}
                 memoContent={memo.content}
+                checked={memo.checked}
                 author={memo.author}
               />
             ))}
