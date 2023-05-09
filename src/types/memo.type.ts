@@ -7,3 +7,9 @@ export type Memo = {
   checked: boolean;
   completer: string;
 };
+
+export type MemoState = {
+  memos: Memo[];
+  isLoading: boolean;
+  error: string | undefined;
+};

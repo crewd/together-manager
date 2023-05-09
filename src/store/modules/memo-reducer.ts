@@ -1,13 +1,10 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import moment from 'moment';
 import { v4 } from 'uuid';
-import { Memo } from '../../types/memo.type';
+import { Memo, MemoState } from '../../types/memo.type';
+import { create } from 'domain';
 
-const initialState: {
-  memos: Memo[];
-  isLoading: boolean;
-  error: string | undefined;
-} = {
+const initialState: MemoState = {
   memos: [],
   isLoading: false,
   error: undefined,
@@ -44,6 +41,13 @@ export const addMemo = createAsyncThunk(
   },
 );
 
+export const updateMemo = createAsyncThunk(
+  'memo/update',
+  async ({ id, checked }: { id: string; checked: boolean }) => {
+    return { id, checked };
+  },
+);
+
 const memoSlice = createSlice({
   name: 'memo',
   initialState,
@@ -59,6 +63,33 @@ const memoSlice = createSlice({
         state.isLoading = false;
       })
       .addCase(addMemo.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.error.message;
+      })
+      // 인수인계 업데이트
+      .addCase(updateMemo.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(updateMemo.fulfilled, (state, action) => {
+        const memoId = action.payload.id;
+        const memoIndex = state.memos.findIndex(
+          (memo) => memo.memoId === memoId,
+        );
+        if (memoIndex === -1) {
+          return;
+        }
+        const defaultMemo: Memo = state.memos.filter(
+          (memo) => memo.memoId === memoId,
+        )[0];
+        const updateMemo: Memo = {
+          ...defaultMemo,
+          checked: action.payload.checked,
+        };
+        const memos = state.memos.filter((memo) => memo.memoId !== memoId);
+        state.memos = [...memos, updateMemo];
+        state.isLoading = false;
+      })
+      .addCase(updateMemo.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.error.message;
       });
