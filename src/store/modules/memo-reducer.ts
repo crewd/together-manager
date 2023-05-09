@@ -43,7 +43,20 @@ export const addMemo = createAsyncThunk(
 export const updateMemo = createAsyncThunk(
   'memo/update',
   async ({ id, checked }: { id: string; checked: boolean }) => {
+    if (!id) {
+      throw new Error('not found memo');
+    }
     return { id, checked };
+  },
+);
+
+export const deleteMemo = createAsyncThunk(
+  'memo/delete',
+  async (id: string) => {
+    if (!id) {
+      throw new Error('not found memo');
+    }
+    return id;
   },
 );
 
@@ -89,6 +102,21 @@ const memoSlice = createSlice({
         state.isLoading = false;
       })
       .addCase(updateMemo.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.error.message;
+      })
+      // 인수인계 제거
+      .addCase(deleteMemo.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(deleteMemo.fulfilled, (state, action) => {
+        const memos = state.memos.filter(
+          (memo) => memo.memoId !== action.payload,
+        );
+        state.memos = memos;
+        state.isLoading = false;
+      })
+      .addCase(deleteMemo.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.error.message;
       });

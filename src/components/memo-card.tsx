@@ -1,9 +1,8 @@
 import { faSquare } from '@fortawesome/free-regular-svg-icons';
-import { faCheck } from '@fortawesome/free-solid-svg-icons';
+import { faCheck, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { useState } from 'react';
 import { useAppDispatch } from '../store/store';
-import { updateMemo } from '../store/modules/memo-reducer';
+import { deleteMemo, updateMemo } from '../store/modules/memo-reducer';
 
 function MemoCard(memo: {
   memoId: string;
@@ -17,13 +16,16 @@ function MemoCard(memo: {
     dispatch(updateMemo({ id: memo.memoId, checked: memo.checked }));
   };
 
+  const onDeleteMemo = () => {
+    if (window.confirm('인수인계를 삭제하시겠습니까?')) {
+      dispatch(deleteMemo(memo.memoId));
+    }
+  };
+
   console.log(memo.compliter);
   return (
-    <div
-      className="max-w-[768px] cursor-pointer pt-6 first:pt-0"
-      onClick={onClickMemo}
-    >
-      <div className="w-full p-2 border border-gray-300">
+    <div className="flex max-w-[768px] items-center border-b border-gray-300 pt-6 first:pt-0 last:border-0">
+      <div className="w-full p-2 cursor-pointer " onClick={onClickMemo}>
         <div className="flex items-center gap-4">
           {memo.checked ? (
             <FontAwesomeIcon
@@ -50,6 +52,11 @@ function MemoCard(memo: {
           )}
         </div>
       </div>
+      <FontAwesomeIcon
+        icon={faTrash}
+        className="w-5 h-5 ml-4 text-gray-500 cursor-pointer hover:text-red-500"
+        onClick={onDeleteMemo}
+      />
     </div>
   );
 }
