@@ -83,6 +83,7 @@ const memoSlice = createSlice({
         const updatedMemo: Memo = {
           ...defaultMemo,
           checked: !action.payload.checked,
+          completer: action.payload.checked ? '' : '완료자명',
         };
         state.memos.splice(memoIndex, 1, updatedMemo);
         state.isLoading = false;

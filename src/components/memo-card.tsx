@@ -16,6 +16,8 @@ function MemoCard(memo: {
   const onClickMemo = () => {
     dispatch(updateMemo({ id: memo.memoId, checked: memo.checked }));
   };
+
+  console.log(memo.compliter);
   return (
     <div
       className="max-w-[768px] cursor-pointer pt-6 first:pt-0"

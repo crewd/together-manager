@@ -73,6 +73,7 @@ function MemoPage() {
                 memoContent={memo.content}
                 checked={memo.checked}
                 author={memo.author}
+                compliter={memo.completer ? memo.completer : undefined}
               />
             ))}
         </div>

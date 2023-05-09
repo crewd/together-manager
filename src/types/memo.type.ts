@@ -5,7 +5,7 @@ export type Memo = {
   date: string;
   author: string;
   checked: boolean;
-  completer: string;
+  completer: string | undefined;
 };
 
 export type MemoState = {
