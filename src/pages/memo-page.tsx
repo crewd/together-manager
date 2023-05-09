@@ -4,6 +4,8 @@ import { Memo } from '../types/memo.type';
 import { useSelector } from 'react-redux';
 import { RootState, useAppDispatch } from '../store/store';
 import { addMemo } from '../store/modules/memo-reducer';
+import MemoCard from '../components/memo-card';
+import { useParams } from 'react-router-dom';
 
 function MemoPage() {
   const [startDate, setStartDate] = useState<Date | null>(new Date());
@@ -37,18 +39,18 @@ function MemoPage() {
       </div>
       <div className="w-full p-4 bg-white border rounded-md shadow">
         <DateSelector startDate={startDate} setStartDate={setStartDate} />
-        <div className="flex max-w-[768px]  pt-6">
+        <div className="flex max-w-[768px] pt-6">
           <input
             type="text"
             placeholder="인수인계는 당일에만 입력 가능합니다"
-            className="w-full h-10 px-3 border border-gray-300 rounded-md rounded-r-none outline-none"
+            className="h-10 w-[calc(100%-60px)] rounded-md rounded-r-none border border-gray-300 px-3 outline-none"
             onChange={memoHandler}
             disabled={
               startDate?.toDateString() === today.toDateString() ? false : true
             }
           />
           <button
-            className="h-10 w-[65px] rounded-md rounded-l-none bg-blue-500 text-white"
+            className="h-10 w-[60px] rounded-md rounded-l-none bg-blue-500 text-white"
             onClick={createMemo}
             disabled={
               startDate?.toDateString() === today.toDateString() ? false : true
@@ -56,6 +58,17 @@ function MemoPage() {
           >
             작성
           </button>
+        </div>
+        <div className="w-full pt-6">
+          {memos.length > 0 &&
+            memos.map((memo) => (
+              <MemoCard
+                key={memo.memoId}
+                memoId={memo.memoId}
+                memoContent={memo.content}
+                author={memo.author}
+              />
+            ))}
         </div>
       </div>
     </div>
