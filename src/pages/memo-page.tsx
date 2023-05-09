@@ -35,6 +35,8 @@ function MemoPage() {
     dispatch(addMemo({ content, date: startDate, storeId: storeId! }));
   };
 
+  console.log(memos);
+
   return (
     <div className="container mx-auto max-w-[1024px]">
       <div className="flex items-center justify-between pb-6">

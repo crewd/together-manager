@@ -2,7 +2,6 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import moment from 'moment';
 import { v4 } from 'uuid';
 import { Memo, MemoState } from '../../types/memo.type';
-import { create } from 'domain';
 
 const initialState: MemoState = {
   memos: [],
@@ -83,7 +82,7 @@ const memoSlice = createSlice({
         )[0];
         const updateMemo: Memo = {
           ...defaultMemo,
-          checked: action.payload.checked,
+          checked: !action.payload.checked,
         };
         const memos = state.memos.filter((memo) => memo.memoId !== memoId);
         state.memos = [...memos, updateMemo];

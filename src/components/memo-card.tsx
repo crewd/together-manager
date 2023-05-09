@@ -2,6 +2,8 @@ import { faSquare } from '@fortawesome/free-regular-svg-icons';
 import { faCheck } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useState } from 'react';
+import { useAppDispatch } from '../store/store';
+import { updateMemo } from '../store/modules/memo-reducer';
 
 function MemoCard(memo: {
   memoId: string;
@@ -10,15 +12,18 @@ function MemoCard(memo: {
   checked: boolean;
   compliter?: string;
 }) {
-  const [isChecked, setIsChecked] = useState<boolean>(memo.checked);
+  const dispatch = useAppDispatch();
+  const onClickMemo = () => {
+    dispatch(updateMemo({ id: memo.memoId, checked: memo.checked }));
+  };
   return (
     <div
       className="max-w-[768px] cursor-pointer pt-6 first:pt-0"
-      onClick={() => setIsChecked(!isChecked)}
+      onClick={onClickMemo}
     >
       <div className="w-full p-2 border border-gray-300">
         <div className="flex items-center gap-4">
-          {isChecked ? (
+          {memo.checked ? (
             <FontAwesomeIcon
               icon={faCheck}
               className="w-6 h-6 text-green-500"
@@ -29,7 +34,11 @@ function MemoCard(memo: {
               className="w-6 h-6 text-gray-500"
             />
           )}
-          <p className={`${isChecked && 'text-gray-400 line-through'} text-lg`}>
+          <p
+            className={`${
+              memo.checked && 'text-gray-400 line-through'
+            } text-lg`}
+          >
             {memo.memoContent}
           </p>
         </div>
