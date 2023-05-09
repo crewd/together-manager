@@ -102,7 +102,7 @@ function Layout({ children }: { children?: React.ReactNode }) {
               </li>
               <li className="cursor-pointer rounded-md p-[8px] hover:bg-blue-400 hover:text-white">
                 <Link
-                  to={`store/${storeId}/takeover`}
+                  to={`store/${storeId}/memo`}
                   className="block w-full"
                   onClick={onClickMenu}
                 >
@@ -123,14 +123,14 @@ function Layout({ children }: { children?: React.ReactNode }) {
         </main>
         {menu && (
           <div
-            className="fixed left-0 top-0 z-40 h-screen w-screen bg-gray-600/50 lg:hidden"
+            className="fixed top-0 left-0 z-40 w-screen h-screen bg-gray-600/50 lg:hidden"
             onClick={onClickMenu}
           />
         )}
       </div>
       {isLoading && (
         <ModalPortal>
-          <div className="fixed left-0 top-0 z-50 flex h-screen w-screen items-center justify-center bg-white/40">
+          <div className="fixed top-0 left-0 z-50 flex items-center justify-center w-screen h-screen bg-white/40">
             <Spinner />
           </div>
         </ModalPortal>
