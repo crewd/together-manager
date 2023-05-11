@@ -8,6 +8,8 @@ import { RootState } from '../store/store';
 import { Notice } from '../types/notice.type';
 import { Store } from '../types/store.type';
 import { useEffect } from 'react';
+import { Memo } from '../types/memo.type';
+import MemoCard from '../components/memo-card';
 
 function DetailStore() {
   const { storeId } = useParams();
@@ -21,6 +23,10 @@ function DetailStore() {
     (state: RootState) => state.noticeReducer.notices,
   ).filter((notice) => notice.storeId === storeId);
 
+  const memos: Memo[] = useSelector(
+    (state: RootState) => state.memoReducer.memos,
+  ).filter((memo) => memo.storeId === storeId);
+
   useEffect(() => {
     if (!store) {
       return navigate('/');
@@ -33,7 +39,7 @@ function DetailStore() {
       <div className="w-full">
         <div>
           <p className="pb-4 text-2xl font-bold ">📣 공지사항</p>
-          <div className="flex flex-col rounded-md border bg-white shadow">
+          <div className="flex flex-col bg-white border rounded-md shadow">
             {notices.length > 0 ? (
               notices.map((notice) => (
                 <Link
@@ -59,17 +65,30 @@ function DetailStore() {
           </div>
         </div>
         <div className="pt-[36px]">
-          <p className="pb-4 text-2xl font-bold">📝 오늘의 인수인계</p>
-          <div className="flex flex-col rounded-md border bg-white shadow">
-            <Link
-              to="/"
-              className="p-4 text-xl font-bold text-gray-400 line-through"
-            >
-              인수인계 1
-            </Link>
-            <Link to="/" className="p-4 text-xl font-bold hover:bg-gray-100">
-              인수인계 2
-            </Link>
+          <Link
+            to={`/store/${storeId}/memo`}
+            className="block w-[200px] pb-4 text-2xl font-bold"
+          >
+            📝 오늘의 인수인계
+          </Link>
+          <div className="flex flex-col px-3 bg-white border rounded-md shadow">
+            {memos.length > 0 ? (
+              memos.map((memo) => (
+                <MemoCard
+                  memoId={memo.memoId}
+                  memoContent={memo.content}
+                  author={memo.author}
+                  checked={memo.checked}
+                  compliter={memo.completer}
+                />
+              ))
+            ) : (
+              <div className="p-4 ">
+                <h3 className="text-xl font-semibold text-gray-500">
+                  인수인계가 없습니다
+                </h3>
+              </div>
+            )}
           </div>
         </div>
         <div className="pt-9">

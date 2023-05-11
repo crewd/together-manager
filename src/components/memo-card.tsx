@@ -9,7 +9,7 @@ function MemoCard(memo: {
   memoContent: string;
   author: string;
   checked: boolean;
-  compliter?: string;
+  compliter: string | undefined;
 }) {
   const dispatch = useAppDispatch();
   const onClickMemo = () => {
@@ -22,7 +22,6 @@ function MemoCard(memo: {
     }
   };
 
-  console.log(memo.compliter);
   return (
     <div className="flex max-w-[768px] items-center border-b border-gray-300 pt-6 first:pt-0 last:border-0">
       <div className="w-full p-2 cursor-pointer " onClick={onClickMemo}>

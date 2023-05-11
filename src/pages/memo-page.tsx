@@ -39,7 +39,7 @@ function MemoPage() {
   return (
     <div className="container mx-auto max-w-[1024px]">
       <div className="flex items-center justify-between pb-6">
-        <h2 className="text-2xl font-bold">인수인계</h2>
+        <h2 className="text-2xl font-bold">📝 인수인계</h2>
       </div>
       <div className="w-full p-4 bg-white border rounded-md shadow">
         <DateSelector startDate={startDate} setStartDate={setStartDate} />
@@ -73,7 +73,7 @@ function MemoPage() {
                 memoContent={memo.content}
                 checked={memo.checked}
                 author={memo.author}
-                compliter={memo.completer ? memo.completer : undefined}
+                compliter={memo.completer}
               />
             ))}
         </div>
