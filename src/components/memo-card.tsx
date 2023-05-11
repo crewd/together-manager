@@ -32,7 +32,7 @@ function MemoCard(memo: {
               className="w-6 h-6 text-green-500"
             />
           ) : (
-            <FontAwesomeIcon icon={faSquare} className="w-6 h-6 " />
+            <FontAwesomeIcon icon={faSquare} className="w-6 h-6" />
           )}
           <p
             className={`${

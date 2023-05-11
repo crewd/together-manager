@@ -71,7 +71,7 @@ function DetailStore() {
           >
             📝 오늘의 인수인계
           </Link>
-          <div className="flex flex-col px-3 bg-white border rounded-md shadow">
+          <div className="flex flex-col bg-white border rounded-md shadow">
             {memos.length > 0 ? (
               memos.map((memo) => (
                 <MemoCard
