@@ -44,7 +44,7 @@ function CreateNoticePage() {
 
   return (
     <div className="container mx-auto max-w-[1024px]">
-      <h2 className="text-2xl font-bold">공지사항</h2>
+      <h2 className="text-2xl font-bold">📣 공지사항</h2>
       <div className="mt-6 bg-white shadow-md">
         <input
           type="text"

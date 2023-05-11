@@ -89,11 +89,17 @@ function Layout({ children }: { children?: React.ReactNode }) {
             </div>
             <ul className="flex flex-col gap-[12px] pt-5 lg:pt-0">
               <li className="cursor-pointer rounded-md p-[8px] hover:bg-blue-400 hover:text-white">
-                업무관리
+                <Link
+                  to={`/store/${storeId}/work-management`}
+                  className="block w-full"
+                  onClick={onClickMenu}
+                >
+                  업무관리
+                </Link>
               </li>
               <li className="cursor-pointer rounded-md p-[8px] hover:bg-blue-400 hover:text-white">
                 <Link
-                  to={`store/${storeId}/notice`}
+                  to={`/store/${storeId}/notice`}
                   className="block w-full"
                   onClick={onClickMenu}
                 >
@@ -102,7 +108,7 @@ function Layout({ children }: { children?: React.ReactNode }) {
               </li>
               <li className="cursor-pointer rounded-md p-[8px] hover:bg-blue-400 hover:text-white">
                 <Link
-                  to={`store/${storeId}/memo`}
+                  to={`/store/${storeId}/memo`}
                   className="block w-full"
                   onClick={onClickMenu}
                 >

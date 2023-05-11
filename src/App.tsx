@@ -13,6 +13,7 @@ import CreateNoticePage from './pages/create-notice-page';
 import NotFound from './components/not-found';
 import UpdateNoticePage from './pages/update-notice-page';
 import MemoPage from './pages/memo-page';
+import WorkManagement from './pages/work-management';
 
 function App() {
   return (
@@ -58,6 +59,10 @@ function App() {
             element={<UpdateNoticePage />}
           />
           <Route path="/store/:storeId/memo" element={<MemoPage />} />
+          <Route
+            path="/store/:storeId/work-management"
+            element={<WorkManagement />}
+          />
         </Route>
         <Route path="*" element={<NotFound />} />
       </Routes>

@@ -49,7 +49,7 @@ function UpdateNoticePage() {
 
   return (
     <div className="container mx-auto max-w-[1024px]">
-      <h2 className="text-2xl font-bold">공지사항</h2>
+      <h2 className="text-2xl font-bold">📣 공지사항</h2>
       <div className="mt-6 bg-white shadow-md">
         <input
           type="text"
@@ -60,15 +60,15 @@ function UpdateNoticePage() {
         />
         <Editor editorRef={editorRef} defaultValue={notice.content} />
       </div>
-      <div className="mt-6 flex justify-end gap-4">
+      <div className="flex justify-end gap-4 mt-6">
         <button
-          className="rounded-md border bg-white px-6 py-2 shadow transition-colors duration-200 hover:bg-red-500 hover:text-white"
+          className="px-6 py-2 transition-colors duration-200 bg-white border rounded-md shadow hover:bg-red-500 hover:text-white"
           onClick={() => navigate(`/store/${storeId}/notice/${noticeId}`)}
         >
           취소
         </button>
         <button
-          className="rounded-md border bg-blue-500 px-6 py-2 text-white shadow transition-colors duration-200"
+          className="px-6 py-2 text-white transition-colors duration-200 bg-blue-500 border rounded-md shadow"
           onClick={updateNoticeSubmit}
         >
           수정
