@@ -59,10 +59,7 @@ function App() {
             element={<UpdateNoticePage />}
           />
           <Route path="/store/:storeId/memo" element={<MemoPage />} />
-          <Route
-            path="/store/:storeId/work-management"
-            element={<WorkManagement />}
-          />
+          <Route path="/store/:storeId/work" element={<WorkManagement />} />
         </Route>
         <Route path="*" element={<NotFound />} />
       </Routes>
