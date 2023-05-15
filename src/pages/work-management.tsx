@@ -2,17 +2,26 @@ import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 function WorkManagement() {
+  const addCategory = () => {
+    const askCategory = prompt('카테고리 이름을 입력해 주세요');
+    console.log(askCategory);
+  };
   return (
     <div className="container mx-auto max-w-[1024px]">
       <div className="flex items-center justify-between pb-4">
         <h2 className="text-2xl font-bold">💼 업무관리</h2>
-        <button className="px-3 py-2 bg-white border rounded-md shadow hover:bg-blue-500 hover:text-white">
+        <button
+          className="px-3 py-2 bg-white border rounded-md shadow hover:bg-blue-500 hover:text-white"
+          onClick={addCategory}
+        >
           <FontAwesomeIcon className="mr-2" icon={faPlus} />
-          직종추가
+          카테고리 추가
         </button>
       </div>
       <div className="w-full p-4 bg-white border rounded-md shadow">
-        <p className="text-lg font-bold text-gray-500">업무를 추가해 주세요</p>
+        <p className="text-lg font-bold text-gray-500">
+          카테고리를 추가하여 업무관리를 해보세요
+        </p>
       </div>
     </div>
   );

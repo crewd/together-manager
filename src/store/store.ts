@@ -4,6 +4,7 @@ import authReducer from './modules/auth-reducer';
 import storeReducer from './modules/store-reducer';
 import noticeReducer from './modules/notice-reducer';
 import memoReducer from './modules/memo-reducer';
+import categoryReducer from './modules/category-reducer';
 
 const store = configureStore({
   reducer: {
@@ -11,6 +12,7 @@ const store = configureStore({
     storeReducer: storeReducer,
     noticeReducer: noticeReducer,
     memoReducer: memoReducer,
+    categoryReducer: categoryReducer,
   },
 });
 export type RootState = ReturnType<typeof store.getState>;
