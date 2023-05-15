@@ -1,10 +1,25 @@
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { useSelector } from 'react-redux';
+import { RootState, useAppDispatch } from '../store/store';
+import { Category } from '../types/category.type';
+import { useParams } from 'react-router-dom';
+import { addCategory } from '../store/modules/category-reducer';
 
 function WorkManagement() {
-  const addCategory = () => {
+  const { storeId } = useParams();
+  const categories: Category[] = useSelector(
+    (state: RootState) => state.categoryReducer.categories,
+  );
+
+  const dispatch = useAppDispatch();
+
+  const createCategory = () => {
     const askCategory = prompt('카테고리 이름을 입력해 주세요');
-    console.log(askCategory);
+    if (!askCategory) {
+      return;
+    }
+    dispatch(addCategory({ storeId: storeId!, name: askCategory }));
   };
   return (
     <div className="container mx-auto max-w-[1024px]">
@@ -12,16 +27,20 @@ function WorkManagement() {
         <h2 className="text-2xl font-bold">💼 업무관리</h2>
         <button
           className="px-3 py-2 bg-white border rounded-md shadow hover:bg-blue-500 hover:text-white"
-          onClick={addCategory}
+          onClick={createCategory}
         >
           <FontAwesomeIcon className="mr-2" icon={faPlus} />
           카테고리 추가
         </button>
       </div>
       <div className="w-full p-4 bg-white border rounded-md shadow">
-        <p className="text-lg font-bold text-gray-500">
-          카테고리를 추가하여 업무관리를 해보세요
-        </p>
+        {categories.length > 0 ? (
+          categories.map((category) => <p key={category.id}>{category.name}</p>)
+        ) : (
+          <p className="text-lg font-bold text-gray-500">
+            카테고리를 추가하여 업무관리를 해보세요
+          </p>
+        )}
       </div>
     </div>
   );
