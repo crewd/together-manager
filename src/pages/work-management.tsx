@@ -1,9 +1,9 @@
-import { faPlus } from '@fortawesome/free-solid-svg-icons';
+import { faAngleRight, faPlus } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useSelector } from 'react-redux';
 import { RootState, useAppDispatch } from '../store/store';
 import { Category } from '../types/category.type';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { addCategory } from '../store/modules/category-reducer';
 
 function WorkManagement() {
@@ -33,9 +33,17 @@ function WorkManagement() {
           카테고리 추가
         </button>
       </div>
-      <div className="w-full p-4 bg-white border rounded-md shadow">
+      <div className="flex flex-col w-full p-4 bg-white border rounded-md shadow">
         {categories.length > 0 ? (
-          categories.map((category) => <p key={category.id}>{category.name}</p>)
+          categories.map((category) => (
+            <Link
+              key={category.id}
+              to={`/store/${category.storeId}/work/${category.id}`}
+              className="py-2 text-lg font-bold w-fit"
+            >
+              <FontAwesomeIcon icon={faAngleRight} /> {category.name}
+            </Link>
+          ))
         ) : (
           <p className="text-lg font-bold text-gray-500">
             카테고리를 추가하여 업무관리를 해보세요
