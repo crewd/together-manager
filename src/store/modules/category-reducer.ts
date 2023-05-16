@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { Category, CategoryState } from '../../types/category.type';
+import { CategoryType, CategoryState } from '../../types/category.type';
 import { v4 } from 'uuid';
 
 const initialState: CategoryState = {
@@ -14,7 +14,7 @@ export const addCategory = createAsyncThunk(
     if (!storeId || !name) {
       throw new Error('not found data');
     }
-    const newCategory: Category = {
+    const newCategory: CategoryType = {
       id: v4(),
       storeId,
       name,

@@ -14,7 +14,6 @@ import NotFound from './components/not-found';
 import UpdateNoticePage from './pages/update-notice-page';
 import MemoPage from './pages/memo-page';
 import WorkManagement from './pages/work-management';
-import Category from './pages/category';
 
 function App() {
   return (
@@ -61,10 +60,6 @@ function App() {
           />
           <Route path="/store/:storeId/memo" element={<MemoPage />} />
           <Route path="/store/:storeId/work" element={<WorkManagement />} />
-          <Route
-            path="/store/:storeId/work/:categoryId"
-            element={<Category />}
-          />
         </Route>
         <Route path="*" element={<NotFound />} />
       </Routes>

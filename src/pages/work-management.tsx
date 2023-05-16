@@ -2,13 +2,14 @@ import { faAngleRight, faPlus } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useSelector } from 'react-redux';
 import { RootState, useAppDispatch } from '../store/store';
-import { Category } from '../types/category.type';
+import { CategoryType } from '../types/category.type';
 import { Link, useParams } from 'react-router-dom';
 import { addCategory } from '../store/modules/category-reducer';
+import Category from '../components/category';
 
 function WorkManagement() {
   const { storeId } = useParams();
-  const categories: Category[] = useSelector(
+  const categories: CategoryType[] = useSelector(
     (state: RootState) => state.categoryReducer.categories,
   );
 
@@ -36,13 +37,7 @@ function WorkManagement() {
       <div className="flex flex-col w-full p-4 bg-white border rounded-md shadow">
         {categories.length > 0 ? (
           categories.map((category) => (
-            <Link
-              key={category.id}
-              to={`/store/${category.storeId}/work/${category.id}`}
-              className="py-2 text-lg font-bold w-fit"
-            >
-              <FontAwesomeIcon icon={faAngleRight} /> {category.name}
-            </Link>
+            <Category key={category.id} name={category.name} id={category.id} />
           ))
         ) : (
           <p className="text-lg font-bold text-gray-500">

@@ -1,11 +1,11 @@
-export type Category = {
+export type CategoryType = {
   id: string;
   storeId: string;
   name: string;
 };
 
 export type CategoryState = {
-  categories: Category[];
+  categories: CategoryType[];
   isLoading: boolean;
   error: string | undefined;
 };
