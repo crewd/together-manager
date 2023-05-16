@@ -18,7 +18,6 @@ function Category({ name, id }: { name: string; id: string }) {
         />{' '}
         {name}
       </div>
-
       {isOpened && (
         <div className="ml-[20px] w-[calc(100%-40px)] p-2 font-normal">
           <div className="flex justify-center w-full">

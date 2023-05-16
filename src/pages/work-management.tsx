@@ -1,9 +1,9 @@
-import { faAngleRight, faPlus } from '@fortawesome/free-solid-svg-icons';
+import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useSelector } from 'react-redux';
 import { RootState, useAppDispatch } from '../store/store';
 import { CategoryType } from '../types/category.type';
-import { Link, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { addCategory } from '../store/modules/category-reducer';
 import Category from '../components/category';
 
