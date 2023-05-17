@@ -5,7 +5,7 @@ import { faClock } from '@fortawesome/free-regular-svg-icons';
 function ItemCard({ data }: { data: Store }) {
   return (
     <div
-      className={`flex h-[180px] w-[320px] cursor-pointer flex-col justify-center rounded-xl border p-[16px] shadow-sm hover:shadow-md`}
+      className={`flex h-[160px] w-[300px] cursor-pointer flex-col justify-center rounded-xl border p-[16px] shadow-sm hover:shadow-md`}
     >
       <div>
         <p className="py-[10px] text-2xl font-bold">{data.storeName}</p>

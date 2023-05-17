@@ -40,7 +40,7 @@ function WorkManagement() {
             <Category key={category.id} name={category.name} id={category.id} />
           ))
         ) : (
-          <p className="text-lg font-bold text-gray-500">
+          <p className="p-3 text-lg font-bold text-gray-500">
             카테고리를 추가하여 업무관리를 해보세요
           </p>
         )}

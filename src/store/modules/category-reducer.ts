@@ -27,7 +27,7 @@ export const addCategory = createAsyncThunk(
 export const updateCategory = createAsyncThunk(
   'category/update',
   async ({ id, name }: { id: string; name: string }) => {
-    if (!id || name) {
+    if (!id || !name) {
       throw new Error('not found data');
     }
     return { id, name };
@@ -74,6 +74,8 @@ const categorySlice = createSlice({
           name: action.payload.name,
         };
         state.categories.splice(categoryIndex, 1, updatedCategory);
+        console.log(state.categories);
+        state.isLoading = false;
       })
       .addCase(updateCategory.rejected, (state, action) => {
         state.error = action.error.message;
