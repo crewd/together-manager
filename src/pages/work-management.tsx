@@ -34,7 +34,7 @@ function WorkManagement() {
           카테고리 추가
         </button>
       </div>
-      <div className="flex flex-col w-full p-4 bg-white border rounded-md shadow">
+      <div className="flex flex-col w-full bg-white border rounded-md shadow">
         {categories.length > 0 ? (
           categories.map((category) => (
             <Category key={category.id} name={category.name} id={category.id} />

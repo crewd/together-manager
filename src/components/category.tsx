@@ -7,7 +7,7 @@ function Category({ name, id }: { name: string; id: string }) {
   return (
     <div>
       <div
-        className="py-2 text-lg font-bold cursor-pointer w-fit"
+        className="px-4 py-2 text-lg font-bold border-b cursor-pointer"
         onClick={() => setIsOpended(!isOpened)}
       >
         <FontAwesomeIcon
@@ -19,9 +19,9 @@ function Category({ name, id }: { name: string; id: string }) {
         {name}
       </div>
       {isOpened && (
-        <div className="ml-[20px] w-[calc(100%-40px)] p-2 font-normal">
+        <div className="w-full p-2 font-normal shadow-inner bg-gray-50">
           <div className="flex justify-center w-full">
-            <button className="w-[80px] rounded border px-2 py-1 shadow-sm">
+            <button className="w-[80px] rounded border bg-white px-2 py-1 shadow-sm">
               <FontAwesomeIcon icon={faPlus} /> 추가
             </button>
           </div>
