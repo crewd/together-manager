@@ -34,6 +34,16 @@ export const updateCategory = createAsyncThunk(
   },
 );
 
+export const deleteCategory = createAsyncThunk(
+  'category/delete',
+  async (id: string) => {
+    if (!id) {
+      throw new Error('not found category id');
+    }
+    return id;
+  },
+);
+
 const categorySlice = createSlice({
   name: 'category',
   initialState,
@@ -80,6 +90,22 @@ const categorySlice = createSlice({
       .addCase(updateCategory.rejected, (state, action) => {
         state.error = action.error.message;
         state.isLoading = false;
+      })
+
+      // 카테고리 제거
+      .addCase(deleteCategory.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(deleteCategory.fulfilled, (state, action) => {
+        const categories = state.categories.filter(
+          (category) => category.id !== action.payload,
+        );
+        state.categories = categories;
+        state.isLoading = false;
+      })
+      .addCase(deleteCategory.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.error.message;
       });
   },
 });

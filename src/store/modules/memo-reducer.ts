@@ -54,7 +54,7 @@ export const deleteMemo = createAsyncThunk(
   'memo/delete',
   async (id: string) => {
     if (!id) {
-      throw new Error('not found memo');
+      throw new Error('not found memo id');
     }
     return id;
   },

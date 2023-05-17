@@ -7,7 +7,10 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useEffect, useRef, useState } from 'react';
 import { useAppDispatch } from '../store/store';
-import { updateCategory } from '../store/modules/category-reducer';
+import {
+  deleteCategory,
+  updateCategory,
+} from '../store/modules/category-reducer';
 
 function Category({ name, id }: { name: string; id: string }) {
   const [isOpened, setIsOpended] = useState(false);
@@ -26,7 +29,7 @@ function Category({ name, id }: { name: string; id: string }) {
     if (!inputRef.current) {
       return;
     }
-    dispatch(updateCategory({ id: id, name: inputRef.current.value }));
+    dispatch(updateCategory({ id, name: inputRef.current.value }));
     setNameInput(false);
   };
 
@@ -37,6 +40,13 @@ function Category({ name, id }: { name: string; id: string }) {
     if (event.key === 'Enter') {
       dispatch(updateCategory({ id, name: inputRef.current.value }));
       setNameInput(false);
+    }
+  };
+
+  const onDeleteCategory = (event: React.MouseEvent) => {
+    event.stopPropagation();
+    if (window.confirm('카테고리를 삭제하시겠습니까?')) {
+      dispatch(deleteCategory(id));
     }
   };
 
@@ -79,7 +89,7 @@ function Category({ name, id }: { name: string; id: string }) {
         </div>
         <div className="flex items-center gap-4 text-gray-500">
           <FontAwesomeIcon icon={faPen} onClick={changeName} />
-          <FontAwesomeIcon icon={faTrash} />
+          <FontAwesomeIcon icon={faTrash} onClick={onDeleteCategory} />
         </div>
       </div>
       {isOpened && (

@@ -78,7 +78,7 @@ function MainPage() {
           </div>
         ) : (
           <div className="flex justify-center py-[36px]">
-            <div className="flex h-[180px] w-[320px] items-center justify-center rounded-xl border border-dashed border-gray-700">
+            <div className="flex h-[160px] w-[300px] items-center justify-center rounded-xl border border-dashed border-gray-700">
               <p className="text-2xl text-center text-gray-500">
                 매장을 추가해 주세요
               </p>
