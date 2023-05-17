@@ -24,6 +24,16 @@ export const addCategory = createAsyncThunk(
   },
 );
 
+export const updateCategory = createAsyncThunk(
+  'category/update',
+  async ({ id, name }: { id: string; name: string }) => {
+    if (!id || name) {
+      throw new Error('not found data');
+    }
+    return { id, name };
+  },
+);
+
 const categorySlice = createSlice({
   name: 'category',
   initialState,
@@ -39,6 +49,33 @@ const categorySlice = createSlice({
         state.isLoading = true;
       })
       .addCase(addCategory.rejected, (state, action) => {
+        state.error = action.error.message;
+        state.isLoading = false;
+      })
+
+      //카테고리 수정
+      .addCase(updateCategory.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(updateCategory.fulfilled, (state, action) => {
+        const categoryId = action.payload.id;
+        const categoryIndex = state.categories.findIndex(
+          (category) => category.id === categoryId,
+        );
+
+        if (categoryIndex === -1) {
+          return;
+        }
+        const defaultCategory: CategoryType = state.categories.filter(
+          (category) => category.id === categoryId,
+        )[0];
+        const updatedCategory: CategoryType = {
+          ...defaultCategory,
+          name: action.payload.name,
+        };
+        state.categories.splice(categoryIndex, 1, updatedCategory);
+      })
+      .addCase(updateCategory.rejected, (state, action) => {
         state.error = action.error.message;
         state.isLoading = false;
       });
