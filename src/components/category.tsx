@@ -17,7 +17,7 @@ import ReactQuill from 'react-quill';
 import WorkDetail from './work-detail';
 
 function Category({ name, id }: { name: string; id: string }) {
-  const [isOpened, setIsOpended] = useState(false);
+  const [isOpened, setIsOpened] = useState(false);
   const [nameInput, setNameInput] = useState(false);
   const [editorOpen, setEditorOpen] = useState(false);
 
@@ -67,7 +67,7 @@ function Category({ name, id }: { name: string; id: string }) {
     <div>
       <div
         className="flex cursor-pointer justify-between border-b px-4 py-2 text-lg font-bold"
-        onClick={() => setIsOpended(!isOpened)}
+        onClick={() => setIsOpened(!isOpened)}
       >
         <div className="flex items-center gap-2">
           <FontAwesomeIcon
@@ -100,13 +100,10 @@ function Category({ name, id }: { name: string; id: string }) {
         </div>
       </div>
       {isOpened && (
-        <div className="w-full bg-gray-50 p-3 font-normal shadow-inner">
-          <div className="flex flex-col justify-center">
-            <div className="m-auto">
-              <WorkDetail title="제목" content="<p>안뇽</p>" />
-            </div>
+        <div className="w-full bg-gray-50 p-4 font-normal shadow-inner">
+          <div className="flex flex-col flex-wrap justify-center">
             {editorOpen ? (
-              <div className="flex w-full max-w-[768px] flex-col justify-center">
+              <div className="flex w-full flex-col justify-center">
                 <input
                   type="text"
                   placeholder="제목"
@@ -115,25 +112,32 @@ function Category({ name, id }: { name: string; id: string }) {
                 <Editor editorRef={editorRef} />
                 <div className="flex w-full justify-end gap-3 pt-3">
                   <button
-                    className="w-[80px] rounded border bg-white px-2 py-1 shadow-sm hover:bg-red-500 hover:text-white"
+                    className="w-[90px] rounded border bg-white px-2 py-2 shadow-sm hover:bg-red-500 hover:text-white"
                     onClick={() => setEditorOpen(false)}
                   >
                     취소
                   </button>
-                  <button className="w-[80px] rounded border bg-white px-2 py-1 shadow-sm hover:bg-blue-500 hover:text-white">
+                  <button className="w-[90px] rounded border bg-white px-2 py-2 shadow-sm hover:bg-blue-500 hover:text-white">
                     작성
                   </button>
                 </div>
               </div>
             ) : (
-              <div className="flex w-full justify-center pt-3">
-                <button
-                  className="w-[80px] rounded border bg-white px-2 py-1 shadow-sm"
-                  onClick={() => setEditorOpen(!editorOpen)}
-                >
-                  <FontAwesomeIcon icon={editorOpen ? faX : faPlus} />
-                  {editorOpen ? ' 취소' : ' 추가'}
-                </button>
+              <div className="flex flex-col justify-center">
+                <div className="m-auto grid grid-cols-3 gap-6 pb-3">
+                  <WorkDetail title="제목" content="<p>안뇽</p>" />
+                  <WorkDetail title="제목" content="<p>안뇽</p>" />
+                  <WorkDetail title="제목" content="<p>안뇽</p>" />
+                </div>
+                <div className="flex w-full justify-center pt-3">
+                  <button
+                    className="flex w-[90px] items-center justify-center gap-1 rounded border bg-white px-2 py-2 shadow-sm hover:bg-blue-500 hover:text-white"
+                    onClick={() => setEditorOpen(!editorOpen)}
+                  >
+                    <FontAwesomeIcon icon={faPlus} />
+                    추가
+                  </button>
+                </div>
               </div>
             )}
           </div>
