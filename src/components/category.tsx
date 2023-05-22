@@ -14,6 +14,7 @@ import {
 } from '../store/modules/category-reducer';
 import Editor from './editor';
 import ReactQuill from 'react-quill';
+import WorkDetail from './work-detail';
 
 function Category({ name, id }: { name: string; id: string }) {
   const [isOpened, setIsOpended] = useState(false);
@@ -100,13 +101,16 @@ function Category({ name, id }: { name: string; id: string }) {
       </div>
       {isOpened && (
         <div className="w-full bg-gray-50 p-3 font-normal shadow-inner">
-          <div className="flex justify-center">
+          <div className="flex flex-col justify-center">
+            <div className="m-auto">
+              <WorkDetail title="제목" content="<p>안뇽</p>" />
+            </div>
             {editorOpen ? (
               <div className="flex w-full max-w-[768px] flex-col justify-center">
                 <input
                   type="text"
                   placeholder="제목"
-                  className="w-full border border-b-0 border-gray-300 bg-white p-3 outline-none"
+                  className="w-full border border-b-0 border-gray-300 bg-white p-2 outline-none"
                 />
                 <Editor editorRef={editorRef} />
                 <div className="flex w-full justify-end gap-3 pt-3">
