@@ -30,6 +30,7 @@ function Editor({
         modules={modules}
         ref={editorRef}
         defaultValue={defaultValue}
+        placeholder="내용을 입력해 주세요"
       />
     </div>
   );

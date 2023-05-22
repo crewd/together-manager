@@ -3,6 +3,7 @@ import {
   faPen,
   faPlus,
   faTrash,
+  faX,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useEffect, useRef, useState } from 'react';
@@ -11,11 +12,16 @@ import {
   deleteCategory,
   updateCategory,
 } from '../store/modules/category-reducer';
+import Editor from './editor';
+import ReactQuill from 'react-quill';
 
 function Category({ name, id }: { name: string; id: string }) {
   const [isOpened, setIsOpended] = useState(false);
   const [nameInput, setNameInput] = useState(false);
+  const [editorOpen, setEditorOpen] = useState(false);
+
   const inputRef = useRef<HTMLInputElement>(null);
+  const editorRef = useRef<ReactQuill>(null);
 
   const changeName = (event: React.MouseEvent) => {
     event.stopPropagation();
@@ -59,7 +65,7 @@ function Category({ name, id }: { name: string; id: string }) {
   return (
     <div>
       <div
-        className="flex justify-between px-4 py-2 text-lg font-bold border-b cursor-pointer"
+        className="flex cursor-pointer justify-between border-b px-4 py-2 text-lg font-bold"
         onClick={() => setIsOpended(!isOpened)}
       >
         <div className="flex items-center gap-2">
@@ -77,7 +83,7 @@ function Category({ name, id }: { name: string; id: string }) {
                 onKeyDown={changeCategoryKeyPress}
               />
               <button
-                className="px-3 font-normal border border-l-0 rounded rounded-l-none"
+                className="rounded rounded-l-none border border-l-0 px-3 font-normal"
                 onClick={changeCategory}
               >
                 변경
@@ -93,11 +99,39 @@ function Category({ name, id }: { name: string; id: string }) {
         </div>
       </div>
       {isOpened && (
-        <div className="w-full p-3 font-normal shadow-inner bg-gray-50">
-          <div className="flex justify-center w-full">
-            <button className="w-[80px] rounded border bg-white px-2 py-1 shadow-sm">
-              <FontAwesomeIcon icon={faPlus} /> 추가
-            </button>
+        <div className="w-full bg-gray-50 p-3 font-normal shadow-inner">
+          <div className="flex justify-center">
+            {editorOpen ? (
+              <div className="flex w-full max-w-[768px] flex-col justify-center">
+                <input
+                  type="text"
+                  placeholder="제목"
+                  className="w-full border border-b-0 border-gray-300 bg-white p-3 outline-none"
+                />
+                <Editor editorRef={editorRef} />
+                <div className="flex w-full justify-end gap-3 pt-3">
+                  <button
+                    className="w-[80px] rounded border bg-white px-2 py-1 shadow-sm hover:bg-red-500 hover:text-white"
+                    onClick={() => setEditorOpen(false)}
+                  >
+                    취소
+                  </button>
+                  <button className="w-[80px] rounded border bg-white px-2 py-1 shadow-sm hover:bg-blue-500 hover:text-white">
+                    작성
+                  </button>
+                </div>
+              </div>
+            ) : (
+              <div className="flex w-full justify-center pt-3">
+                <button
+                  className="w-[80px] rounded border bg-white px-2 py-1 shadow-sm"
+                  onClick={() => setEditorOpen(!editorOpen)}
+                >
+                  <FontAwesomeIcon icon={editorOpen ? faX : faPlus} />
+                  {editorOpen ? ' 취소' : ' 추가'}
+                </button>
+              </div>
+            )}
           </div>
         </div>
       )}
