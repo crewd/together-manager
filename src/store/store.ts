@@ -5,6 +5,7 @@ import storeReducer from './modules/store-reducer';
 import noticeReducer from './modules/notice-reducer';
 import memoReducer from './modules/memo-reducer';
 import categoryReducer from './modules/category-reducer';
+import workDetailReducer from './modules/workDetail-reducer';
 
 const store = configureStore({
   reducer: {
@@ -13,6 +14,7 @@ const store = configureStore({
     noticeReducer: noticeReducer,
     memoReducer: memoReducer,
     categoryReducer: categoryReducer,
+    workDetailReducer: workDetailReducer,
   },
 });
 export type RootState = ReturnType<typeof store.getState>;
