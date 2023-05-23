@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { WorkDetailState } from '../../types/work-detail.type';
 
-const initialState = {
+const initialState: WorkDetailState = {
   workDetails: [],
   isLoading: false,
   error: undefined,
