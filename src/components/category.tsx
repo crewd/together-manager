@@ -3,11 +3,10 @@ import {
   faPen,
   faPlus,
   faTrash,
-  faX,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useEffect, useRef, useState } from 'react';
-import { useAppDispatch } from '../store/store';
+import { RootState, useAppDispatch } from '../store/store';
 import {
   deleteCategory,
   updateCategory,
@@ -15,21 +14,29 @@ import {
 import Editor from './editor';
 import ReactQuill from 'react-quill';
 import WorkDetail from './work-detail';
+import { useSelector } from 'react-redux';
+import { addWorkDetail } from '../store/modules/workDetail-reducer';
 
 function Category({ name, id }: { name: string; id: string }) {
   const [isOpened, setIsOpened] = useState(false);
   const [nameInput, setNameInput] = useState(false);
   const [editorOpen, setEditorOpen] = useState(false);
 
+  const [title, setTitle] = useState<string>();
+
   const inputRef = useRef<HTMLInputElement>(null);
   const editorRef = useRef<ReactQuill>(null);
+
+  const workDetails = useSelector(
+    (state: RootState) => state.workDetailReducer.workDetails,
+  );
+
+  const dispatch = useAppDispatch();
 
   const changeName = (event: React.MouseEvent) => {
     event.stopPropagation();
     setNameInput(!nameInput);
   };
-
-  const dispatch = useAppDispatch();
 
   const changeCategory = (event: React.MouseEvent) => {
     event.stopPropagation();
@@ -57,6 +64,35 @@ function Category({ name, id }: { name: string; id: string }) {
     }
   };
 
+  const onChangeTitle = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setTitle(event.target.value);
+  };
+
+  const createWorkDetail = () => {
+    if (!title) {
+      return alert('제목을 입력해 주세요');
+    }
+
+    if (!editorRef.current) {
+      return;
+    }
+
+    if (
+      !editorRef.current?.getEditor().getText() ||
+      editorRef.current?.getEditor().root.innerHTML === '<p><br></p>'
+    ) {
+      return alert('내용을 입력해 주세요');
+    }
+    dispatch(
+      addWorkDetail({
+        categoryId: id,
+        title,
+        content: editorRef.current.getEditor().root.innerHTML,
+      }),
+    );
+    setEditorOpen(false);
+  };
+
   useEffect(() => {
     if (nameInput && inputRef.current) {
       inputRef.current.focus();
@@ -66,7 +102,7 @@ function Category({ name, id }: { name: string; id: string }) {
   return (
     <div>
       <div
-        className="flex cursor-pointer justify-between border-b px-4 py-2 text-lg font-bold"
+        className="flex justify-between px-4 py-2 text-lg font-bold border-b cursor-pointer"
         onClick={() => setIsOpened(!isOpened)}
       >
         <div className="flex items-center gap-2">
@@ -84,7 +120,7 @@ function Category({ name, id }: { name: string; id: string }) {
                 onKeyDown={changeCategoryKeyPress}
               />
               <button
-                className="rounded rounded-l-none border border-l-0 px-3 font-normal"
+                className="px-3 font-normal border border-l-0 rounded rounded-l-none"
                 onClick={changeCategory}
               >
                 변경
@@ -100,36 +136,45 @@ function Category({ name, id }: { name: string; id: string }) {
         </div>
       </div>
       {isOpened && (
-        <div className="w-full bg-gray-50 p-4 font-normal shadow-inner">
+        <div className="w-full p-4 font-normal shadow-inner bg-gray-50">
           <div className="flex flex-col flex-wrap justify-center">
             {editorOpen ? (
-              <div className="flex w-full flex-col justify-center">
+              <div className="flex flex-col justify-center w-full">
                 <input
                   type="text"
                   placeholder="제목"
-                  className="w-full border border-b-0 border-gray-300 bg-white p-2 outline-none"
+                  className="w-full p-2 bg-white border border-b-0 border-gray-300 outline-none"
+                  onChange={onChangeTitle}
                 />
                 <Editor editorRef={editorRef} />
-                <div className="flex w-full justify-end gap-3 pt-3">
+                <div className="flex justify-end w-full gap-3 pt-3">
                   <button
                     className="w-[90px] rounded border bg-white px-2 py-2 shadow-sm hover:bg-red-500 hover:text-white"
                     onClick={() => setEditorOpen(false)}
                   >
                     취소
                   </button>
-                  <button className="w-[90px] rounded border bg-white px-2 py-2 shadow-sm hover:bg-blue-500 hover:text-white">
+                  <button
+                    className="w-[90px] rounded border bg-white px-2 py-2 shadow-sm hover:bg-blue-500 hover:text-white"
+                    onClick={createWorkDetail}
+                  >
                     작성
                   </button>
                 </div>
               </div>
             ) : (
               <div className="flex flex-col justify-center">
-                <div className="m-auto grid grid-cols-3 gap-6 pb-3">
-                  <WorkDetail title="제목" content="<p>안뇽</p>" />
-                  <WorkDetail title="제목" content="<p>안뇽</p>" />
-                  <WorkDetail title="제목" content="<p>안뇽</p>" />
+                <div className="grid grid-cols-3 gap-6 pb-3 m-auto">
+                  {workDetails.length > 0 &&
+                    workDetails.map((data) => (
+                      <WorkDetail
+                        key={data.id}
+                        title={data.title}
+                        content={data.content}
+                      />
+                    ))}
                 </div>
-                <div className="flex w-full justify-center pt-3">
+                <div className="flex justify-center w-full pt-3">
                   <button
                     className="flex w-[90px] items-center justify-center gap-1 rounded border bg-white px-2 py-2 shadow-sm hover:bg-blue-500 hover:text-white"
                     onClick={() => setEditorOpen(!editorOpen)}
