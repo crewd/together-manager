@@ -11,21 +11,19 @@ import {
   deleteCategory,
   updateCategory,
 } from '../store/modules/category-reducer';
-import Editor from './editor';
-import ReactQuill from 'react-quill';
 import WorkDetail from './work-detail';
 import { useSelector } from 'react-redux';
-import { addWorkDetail } from '../store/modules/workDetail-reducer';
+import { useNavigate, useParams } from 'react-router-dom';
 
 function Category({ name, id }: { name: string; id: string }) {
   const [isOpened, setIsOpened] = useState(false);
   const [nameInput, setNameInput] = useState(false);
   const [editorOpen, setEditorOpen] = useState(false);
 
-  const [title, setTitle] = useState<string>();
+  const { storeId } = useParams();
+  const navigate = useNavigate();
 
   const inputRef = useRef<HTMLInputElement>(null);
-  const editorRef = useRef<ReactQuill>(null);
 
   const workDetails = useSelector(
     (state: RootState) => state.workDetailReducer.workDetails,
@@ -62,35 +60,6 @@ function Category({ name, id }: { name: string; id: string }) {
     if (window.confirm('카테고리를 삭제하시겠습니까?')) {
       dispatch(deleteCategory(id));
     }
-  };
-
-  const onChangeTitle = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setTitle(event.target.value);
-  };
-
-  const createWorkDetail = () => {
-    if (!title) {
-      return alert('제목을 입력해 주세요');
-    }
-
-    if (!editorRef.current) {
-      return;
-    }
-
-    if (
-      !editorRef.current?.getEditor().getText() ||
-      editorRef.current?.getEditor().root.innerHTML === '<p><br></p>'
-    ) {
-      return alert('내용을 입력해 주세요');
-    }
-    dispatch(
-      addWorkDetail({
-        categoryId: id,
-        title,
-        content: editorRef.current.getEditor().root.innerHTML,
-      }),
-    );
-    setEditorOpen(false);
   };
 
   useEffect(() => {
@@ -138,65 +107,39 @@ function Category({ name, id }: { name: string; id: string }) {
       {isOpened && (
         <div className="w-full p-4 font-normal shadow-inner bg-gray-50">
           <div className="flex flex-col flex-wrap justify-center">
-            {editorOpen ? (
-              <div className="flex flex-col justify-center w-full">
-                <input
-                  type="text"
-                  placeholder="제목"
-                  className="w-full p-2 bg-white border border-b-0 border-gray-300 outline-none"
-                  onChange={onChangeTitle}
-                />
-                <Editor editorRef={editorRef} />
-                <div className="flex justify-end w-full gap-3 pt-3">
-                  <button
-                    className="w-[90px] rounded border bg-white px-2 py-2 shadow-sm hover:bg-red-500 hover:text-white"
-                    onClick={() => setEditorOpen(false)}
-                  >
-                    취소
-                  </button>
-                  <button
-                    className="w-[90px] rounded border bg-white px-2 py-2 shadow-sm hover:bg-blue-500 hover:text-white"
-                    onClick={createWorkDetail}
-                  >
-                    작성
-                  </button>
-                </div>
+            <div className="flex flex-col justify-center">
+              <div
+                className={`m-auto grid grid-cols-1 gap-6 pb-3 md:grid-cols-2 ${
+                  workDetails.length <= 2 ? 'xl:grid-cols-2' : 'xl:grid-cols-3'
+                }`}
+              >
+                {workDetails.length > 0 ? (
+                  workDetails.map((data) => (
+                    <WorkDetail
+                      key={data.id}
+                      title={data.title}
+                      content={data.content}
+                      span={workDetails.length}
+                    />
+                  ))
+                ) : (
+                  <p className="col-span-2 p-2 text-lg font-bold text-gray-500">
+                    업무 상세 내용을 추가해 보세요
+                  </p>
+                )}
               </div>
-            ) : (
-              <div className="flex flex-col justify-center">
-                <div
-                  className={`m-auto grid grid-cols-1 gap-6 pb-3 md:grid-cols-2 ${
-                    workDetails.length <= 2
-                      ? 'xl:grid-cols-2'
-                      : 'xl:grid-cols-3'
-                  }`}
+              <div className="flex justify-center w-full pt-3">
+                <button
+                  className="flex w-[90px] items-center justify-center gap-1 rounded border bg-white px-2 py-2 shadow-sm hover:bg-blue-500 hover:text-white"
+                  onClick={() =>
+                    navigate(`/store/${storeId}/work/${id}/create`)
+                  }
                 >
-                  {workDetails.length > 0 ? (
-                    workDetails.map((data) => (
-                      <WorkDetail
-                        key={data.id}
-                        title={data.title}
-                        content={data.content}
-                        span={workDetails.length}
-                      />
-                    ))
-                  ) : (
-                    <p className="col-span-2 p-2 text-lg font-bold text-gray-500">
-                      카테고리를 추가하여 업무관리를 해보세요
-                    </p>
-                  )}
-                </div>
-                <div className="flex justify-center w-full pt-3">
-                  <button
-                    className="flex w-[90px] items-center justify-center gap-1 rounded border bg-white px-2 py-2 shadow-sm hover:bg-blue-500 hover:text-white"
-                    onClick={() => setEditorOpen(!editorOpen)}
-                  >
-                    <FontAwesomeIcon icon={faPlus} />
-                    추가
-                  </button>
-                </div>
+                  <FontAwesomeIcon icon={faPlus} />
+                  추가
+                </button>
               </div>
-            )}
+            </div>
           </div>
         </div>
       )}
