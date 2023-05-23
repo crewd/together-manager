@@ -29,7 +29,7 @@ function Category({ name, id }: { name: string; id: string }) {
 
   const workDetails = useSelector(
     (state: RootState) => state.workDetailReducer.workDetails,
-  );
+  ).filter((data) => data.categoryId === id);
 
   const dispatch = useAppDispatch();
 
@@ -164,15 +164,27 @@ function Category({ name, id }: { name: string; id: string }) {
               </div>
             ) : (
               <div className="flex flex-col justify-center">
-                <div className="grid grid-cols-3 gap-6 pb-3 m-auto">
-                  {workDetails.length > 0 &&
+                <div
+                  className={`m-auto grid grid-cols-1 gap-6 pb-3 md:grid-cols-2 ${
+                    workDetails.length <= 2
+                      ? 'xl:grid-cols-2'
+                      : 'xl:grid-cols-3'
+                  }`}
+                >
+                  {workDetails.length > 0 ? (
                     workDetails.map((data) => (
                       <WorkDetail
                         key={data.id}
                         title={data.title}
                         content={data.content}
+                        span={workDetails.length}
                       />
-                    ))}
+                    ))
+                  ) : (
+                    <p className="col-span-2 p-2 text-lg font-bold text-gray-500">
+                      카테고리를 추가하여 업무관리를 해보세요
+                    </p>
+                  )}
                 </div>
                 <div className="flex justify-center w-full pt-3">
                   <button
