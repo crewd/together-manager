@@ -18,7 +18,6 @@ import { useNavigate, useParams } from 'react-router-dom';
 function Category({ name, id }: { name: string; id: string }) {
   const [isOpened, setIsOpened] = useState(false);
   const [nameInput, setNameInput] = useState(false);
-  const [editorOpen, setEditorOpen] = useState(false);
 
   const { storeId } = useParams();
   const navigate = useNavigate();
