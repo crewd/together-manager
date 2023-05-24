@@ -1,7 +1,4 @@
 import { Link, useNavigate, useParams } from 'react-router-dom';
-import FullCalendar from '@fullcalendar/react';
-import timeGridPlugin from '@fullcalendar/timegrid';
-import moment from 'moment';
 import 'moment/locale/ko';
 import { useSelector } from 'react-redux';
 import { RootState } from '../store/store';
@@ -39,7 +36,7 @@ function DetailStore() {
       <div className="w-full">
         <div>
           <p className="pb-4 text-2xl font-bold ">📣 공지사항</p>
-          <div className="flex flex-col bg-white border rounded-md shadow">
+          <div className="flex flex-col rounded-md border bg-white shadow">
             {notices.length > 0 ? (
               notices.map((notice) => (
                 <Link
@@ -71,7 +68,7 @@ function DetailStore() {
           >
             📝 오늘의 인수인계
           </Link>
-          <div className="flex flex-col bg-white border rounded-md shadow">
+          <div className="flex flex-col rounded-md border bg-white shadow">
             {memos.length > 0 ? (
               memos.map((memo) => (
                 <MemoCard
