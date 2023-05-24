@@ -51,6 +51,16 @@ export const editWorkDetail = createAsyncThunk(
   },
 );
 
+export const deleteWorkDetail = createAsyncThunk(
+  'workDetail/delete',
+  async (id: string) => {
+    if (!id) {
+      throw new Error('not found date');
+    }
+    return id;
+  },
+);
+
 const workDetailSlice = createSlice({
   name: 'workDetail',
   initialState,
@@ -95,6 +105,22 @@ const workDetailSlice = createSlice({
         state.isLoading = false;
       })
       .addCase(editWorkDetail.rejected, (state, action) => {
+        state.error = action.error.message;
+        state.isLoading = false;
+      })
+
+      // 업무 상세 제거
+      .addCase(deleteWorkDetail.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(deleteWorkDetail.fulfilled, (state, action) => {
+        const workDetails = state.workDetails.filter(
+          (workDetail) => workDetail.id !== action.payload,
+        );
+        state.workDetails = workDetails;
+        state.isLoading = false;
+      })
+      .addCase(deleteWorkDetail.rejected, (state, action) => {
         state.error = action.error.message;
         state.isLoading = false;
       });
