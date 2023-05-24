@@ -98,7 +98,7 @@ const workDetailSlice = createSlice({
 
         const editedWorkDetail: WorkDetail = {
           ...defaultWorkDetail,
-          title: action.payload.id,
+          title: action.payload.title,
           content: action.payload.content,
         };
         state.workDetails.splice(workDetailIndex, 1, editedWorkDetail);

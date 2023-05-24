@@ -70,7 +70,7 @@ function Category({ name, id }: { name: string; id: string }) {
   return (
     <div>
       <div
-        className="flex justify-between px-4 py-2 text-lg font-bold border-b cursor-pointer"
+        className="flex cursor-pointer justify-between border-b px-4 py-2 text-lg font-bold"
         onClick={() => setIsOpened(!isOpened)}
       >
         <div className="flex items-center gap-2">
@@ -88,7 +88,7 @@ function Category({ name, id }: { name: string; id: string }) {
                 onKeyDown={changeCategoryKeyPress}
               />
               <button
-                className="px-3 font-normal border border-l-0 rounded rounded-l-none"
+                className="rounded rounded-l-none border border-l-0 px-3 font-normal"
                 onClick={changeCategory}
               >
                 변경
@@ -104,7 +104,7 @@ function Category({ name, id }: { name: string; id: string }) {
         </div>
       </div>
       {isOpened && (
-        <div className="w-full p-4 font-normal shadow-inner bg-gray-50">
+        <div className="w-full bg-gray-50 p-4 font-normal shadow-inner">
           <div className="flex flex-col flex-wrap justify-center">
             <div className="flex flex-col justify-center">
               <div
@@ -119,6 +119,8 @@ function Category({ name, id }: { name: string; id: string }) {
                       title={data.title}
                       content={data.content}
                       span={workDetails.length}
+                      storeId={storeId!}
+                      workId={data.id}
                     />
                   ))
                 ) : (
@@ -127,7 +129,7 @@ function Category({ name, id }: { name: string; id: string }) {
                   </p>
                 )}
               </div>
-              <div className="flex justify-center w-full pt-3">
+              <div className="flex w-full justify-center pt-3">
                 <button
                   className="flex w-[90px] items-center justify-center gap-1 rounded border bg-white px-2 py-2 shadow-sm hover:bg-blue-500 hover:text-white"
                   onClick={() =>

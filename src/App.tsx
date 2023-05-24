@@ -15,6 +15,7 @@ import UpdateNoticePage from './pages/update-notice-page';
 import MemoPage from './pages/memo-page';
 import WorkManagement from './pages/work-management';
 import CreateWorkDetail from './pages/create-workDetail';
+import EditWorkDetail from './pages/edit-workDetail';
 
 function App() {
   return (
@@ -64,6 +65,10 @@ function App() {
           <Route
             path="/store/:storeId/work/:categoryId/create"
             element={<CreateWorkDetail />}
+          />
+          <Route
+            path="/store/:storeId/work/:workId/edit"
+            element={<EditWorkDetail />}
           />
         </Route>
         <Route path="*" element={<NotFound />} />
