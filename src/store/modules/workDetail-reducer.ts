@@ -20,7 +20,7 @@ export const addWorkDetail = createAsyncThunk(
     content: string;
   }) => {
     if (!categoryId || !title || !content) {
-      throw new Error('not found date');
+      throw new Error('not found data');
     }
     const newWorkDetail: WorkDetail = {
       id: v4(),
@@ -30,6 +30,24 @@ export const addWorkDetail = createAsyncThunk(
     };
 
     return newWorkDetail;
+  },
+);
+
+export const editWorkDetail = createAsyncThunk(
+  'workDetail/edit',
+  async ({
+    id,
+    title,
+    content,
+  }: {
+    id: string;
+    title: string;
+    content: string;
+  }) => {
+    if (!id || !title || !content) {
+      throw new Error('not found date');
+    }
+    return { id, title, content };
   },
 );
 
@@ -50,6 +68,35 @@ const workDetailSlice = createSlice({
       .addCase(addWorkDetail.rejected, (state, action) => {
         state.error = action.error.message;
         state.isLoading = true;
+      })
+
+      // 업무 상세 수정
+      .addCase(editWorkDetail.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(editWorkDetail.fulfilled, (state, action) => {
+        const workDetailId = action.payload.id;
+        const workDetailIndex = state.workDetails.findIndex(
+          (workDetail) => workDetail.id === workDetailId,
+        );
+        if (workDetailIndex === -1) {
+          throw new Error('mismatch id');
+        }
+        const defaultWorkDetail = state.workDetails.filter(
+          (workdDetail) => workdDetail.id === workDetailId,
+        )[0];
+
+        const editedWorkDetail: WorkDetail = {
+          ...defaultWorkDetail,
+          title: action.payload.id,
+          content: action.payload.content,
+        };
+        state.workDetails.splice(workDetailIndex, 1, editedWorkDetail);
+        state.isLoading = false;
+      })
+      .addCase(editWorkDetail.rejected, (state, action) => {
+        state.error = action.error.message;
+        state.isLoading = false;
       });
   },
 });

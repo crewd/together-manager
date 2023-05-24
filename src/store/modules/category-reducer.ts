@@ -84,7 +84,6 @@ const categorySlice = createSlice({
           name: action.payload.name,
         };
         state.categories.splice(categoryIndex, 1, updatedCategory);
-        console.log(state.categories);
         state.isLoading = false;
       })
       .addCase(updateCategory.rejected, (state, action) => {
